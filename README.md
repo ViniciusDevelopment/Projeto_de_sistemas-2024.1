@@ -2,6 +2,7 @@
 
 ## Projeto de Sistemas 2024.1 | Universidade Federal do Tocantins - Palmas, 2024
 
+
 ## Introdução
 
 O projeto desenvolvido na disciplina Projeto de sistemas do semestre 2024.1 é dividido em etapas. Primeiramente, os integrantes descrevem os casos expandidos de uso e user stories dos requisitos funcionais do sistema. Foi combinado a utilização da plataforma GitHub para gerenciar e controlar as versões do projeto, além do método Kanban para gestão ágil, por meio da ferramenta Trello. Todo o trabalho será desenvolvido no formato markdown.
