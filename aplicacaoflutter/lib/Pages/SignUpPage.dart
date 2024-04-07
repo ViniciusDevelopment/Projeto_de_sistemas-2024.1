@@ -270,12 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                      // Handle login logic here
-                    }
-                  },
+                  onPressed: _cadastrarUsuario,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     shape: RoundedRectangleBorder(
