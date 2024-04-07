@@ -287,7 +287,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   child: const Text(
-                    'Login',
+                    'Cadastrar',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
