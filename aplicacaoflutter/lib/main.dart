@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Pages/SignUpPage.dart';
+import 'Pages/UserInfoPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -98,10 +99,16 @@ class _LoginPageState extends State<LoginPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
+
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const UserInfoPage()),
+                  );
+
+                   /* if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                       // Handle login logic here
-                    }
+                    }*/
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
