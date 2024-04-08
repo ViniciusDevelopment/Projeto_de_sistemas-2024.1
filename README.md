@@ -556,7 +556,6 @@ Os principais entregáveis deste projeto incluem:
 ![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoPrestador.png)
 
 
-*Segunda etapa da tela*
 
 
 
