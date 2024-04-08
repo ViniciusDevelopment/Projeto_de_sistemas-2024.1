@@ -1,4 +1,5 @@
 
+
 # Relatório Especificação de Requisitos ServiçoCerto
 
 ## Projeto de Sistemas 2024.1 | Universidade Federal do Tocantins - Palmas, 2024
@@ -181,7 +182,10 @@ Os principais entregáveis deste projeto incluem:
 ### Prototipação de telas
 **Tela de cadastro com marcação da opção 'Sou um prestador de serviços'**
 
-(ADICIONAR PROTOTIPO)
+## Protótipo:
+
+![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaInicial.png)
+![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaCadastro.png)
 
 
 <br />
@@ -267,8 +271,9 @@ Os principais entregáveis deste projeto incluem:
 
 ### Prototipação de telas
 
-(ADICIONAR PROTOTIPO DE TELA)
+## Protótipo:
 
+![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaCadastro.png)
 
 <br />
 ---
@@ -351,7 +356,9 @@ Os principais entregáveis deste projeto incluem:
 ### Prototipação de telas
 **Tela de login**
 
-(ADICIONAR PROTOTIPO)
+## Protótipo:
+
+![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaLogin.png)
 
 <br />
 
@@ -414,7 +421,10 @@ Os principais entregáveis deste projeto incluem:
 <br/>
 
 ### Prototipação de telas
-(ADICIONAR PROTOTIPO)
+## Protótipo:
+
+![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaPerfilPrestador.png)
+![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PerfilCliente.png)
 
 
 ## *RF07 -  Atualizar informações do perfil*
@@ -452,7 +462,7 @@ Os principais entregáveis deste projeto incluem:
 #### Opções do usuário
 | Opção         | Descrição                 | Atalho |
 | ------------- | ------------------------- | ------ |
-| Pesquisar Serviço | Uma busca com base nos dados de entrada do ator é efetuada |  Não possui      |
+| Atualizar Perfil | Os atores do aplicativo vão poder ser capazes de atualizar os seus dados cadastrais |  Não possui      |
 <br />
 
 #### Relatório de usuário
@@ -473,7 +483,8 @@ Os principais entregáveis deste projeto incluem:
 
 <br/>
 
-### Prototipação de telas
+![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoCliente.png)
+![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoPrestador.png)
 
 
 
@@ -540,10 +551,11 @@ Os principais entregáveis deste projeto incluem:
 
 ### Prototipação de telas
 *Tela com o botão de deletar perfil*
-(ADICIONAR PROTOTIPO)
+
+![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoCliente.png)
+![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoPrestador.png)
 
 
-*Segunda etapa da tela*
 
 
 
