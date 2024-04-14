@@ -1,4 +1,4 @@
-import 'package:aplicacaoflutter/main.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 
 class DeleteAccountButton extends StatefulWidget {
