@@ -1,6 +1,5 @@
-import 'package:aplicacaoflutter/Pages/UserInfoPage.dart';
+import '../Pages/UserInfoPage.dart';
 import 'package:flutter/material.dart';
-
 
 class EditPage extends StatefulWidget {
   @override
@@ -65,7 +64,8 @@ class _EditPageState extends State<EditPage> {
                   labelText: 'Endereço',
                 ),
               ),
-              SizedBox(height: 24), // Ajuste o valor de acordo com o espaço desejado
+              SizedBox(
+                  height: 24), // Ajuste o valor de acordo com o espaço desejado
 
               SizedBox(
                 width: double.infinity,
@@ -98,7 +98,8 @@ class _EditPageState extends State<EditPage> {
                 ),
               ),
 
-              SizedBox(height: 12), // Ajuste o valor de acordo com o espaço desejado
+              SizedBox(
+                  height: 12), // Ajuste o valor de acordo com o espaço desejado
 
               SizedBox(
                 width: double.infinity,
