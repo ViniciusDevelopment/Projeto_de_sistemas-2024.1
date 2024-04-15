@@ -14,24 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 
-
-    /*CircleAvatar(
-      radius: 20,
-      backgroundColor: Colors.white,
-      child: IconButton(
-        icon: const Icon(
-          Icons.person,
-          color: Colors.black,
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const UserInfoPage()),
-          );
-        },
-        
-      ),
-    );*/
   
 
 class _HomePageState extends State<HomePage> {
