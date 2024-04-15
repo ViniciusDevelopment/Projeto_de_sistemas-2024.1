@@ -1,5 +1,5 @@
-import 'package:aplicacaoflutter/Pages/DeleteAccountButton.dart';
-import 'package:aplicacaoflutter/Pages/EditButton.dart';
+import '../Pages/DeleteAccountButton.dart';
+import '../Pages/EditButton.dart';
 import 'package:flutter/material.dart';
 
 class UserInfoPage extends StatefulWidget {
@@ -113,19 +113,16 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 ],
               ),
             ),
-            Row(
-              
-              children: [Padding(
+            Row(children: [
+              Padding(
                 padding: EdgeInsets.all(40),
-                child:EditButton(),
-                ),
-
-                Padding(
+                child: EditButton(),
+              ),
+              Padding(
                 padding: EdgeInsets.all(20),
                 child: DeleteAccountButton(),
-                ),
-              ]
-            ),
+              ),
+            ]),
           ],
         ),
       ),
