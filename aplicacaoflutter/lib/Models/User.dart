@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class UserModel {
   final String name;
   final String email;
