@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:servicocerto/Controller/UserController.dart';
 import 'package:servicocerto/Models/User.dart';
-import 'package:servicocerto/pages/loginPage.dart';
 import '../Controller/authCheck.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
