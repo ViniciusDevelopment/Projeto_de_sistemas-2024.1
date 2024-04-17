@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
+import 'package:servicocerto/Pages/SearchPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
 import 'package:servicocerto/pages/UserInfoPage.dart';
 
@@ -115,7 +116,22 @@ class HomePageContent extends StatelessWidget {
           color: Theme.of(context).colorScheme.background,
           child: const Text(
             'Bem Vindo',
-            style: TextStyle(color: Colors.blue, fontSize: 16),
+            style: TextStyle(color: Colors.blue, fontSize: 24),
+          ),
+        ),
+        Container(
+          color: Theme.of(context).colorScheme.background,
+          child: TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search),
+              hintText: 'Pesquisar...',
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PesquisapageWidget()),
+              );
+            },
           ),
         ),
         Container(
@@ -146,7 +162,7 @@ class HomePageContent extends StatelessWidget {
                       child: ListTile(
                         leading: const Icon(Icons.person),
                         title: GetUserName(documentId: docIDs[index]),
-                        tileColor: const Color.fromARGB(255, 242, 145, 180),
+                        tileColor: Color.fromARGB(255, 252, 252, 252),
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 10),
                         shape: RoundedRectangleBorder(
