@@ -50,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _title() {
-    return const Text('Register');
+    return const Text('Cadastrar Usuário');
   }
 
   Widget _entryField(String title, TextEditingController controller) {

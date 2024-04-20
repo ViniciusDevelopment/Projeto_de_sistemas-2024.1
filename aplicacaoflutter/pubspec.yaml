@@ -40,6 +40,8 @@ dependencies:
   cloud_firestore: ^4.16.1
   firebase_analytics: ^10.10.1
   get: ^4.6.1
+  shared_preferences:
+  flutter_svg:
 
 
 dev_dependencies:
