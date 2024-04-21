@@ -73,21 +73,14 @@ Esses dois atores desempenham papéis distintos no sistema ServiçoCerto, reflet
 
 ### Cronograma
 
-  
-
 |Período|Ações|
-
 | --------------- | ----------------------------------------------------------------------------------- |
-
 |Iteração 1| Inicio do desenvolvimento da documentação, prototipação e desenvolvimento do código (CRUD).|
-
 |Iteração 2| Desenvolvimento de mais requisitos e funcionalidades do aplicativo.|
-
 |Iteração 3| Desenvolvimento de mais requisitos e funcionalidades do aplicativo.|
-
 |Iteração 4| Desenvolvimento de mais requisitos e funcionalidades do aplicativo.|
-
 |Iteração 5| Finalização do desenvolvimento do aplicativo e realização do deploy|
+
 
   
 
@@ -217,870 +210,458 @@ Os principais entregáveis deste projeto incluem:
 
 ## **RF01 - Cadastrar prestador de serviço**
 
-  
+<br/>
 
 <br/>
 
-  
 
-<br/>
-
-  
-  
-
-| Item | Descrição |
-
+| Item            | Descrição                                                                           |
 | --------------- | ----------------------------------------------------------------------------------- |
-
-| Caso de uso | RF03 - Cadastrar prestador de serviço; |
-
-| Resumo | Cadastrar um prestador de serviço ao sistema; |
-
-| Ator principal | Prestador de serviço; |
-
-| Ator secundário | - |
-
-| Pré-condição | - |
-
-| Pós-condição | |
-
-  
+| Caso de uso     | RF03 - Cadastrar prestador de serviço;                                                       |
+| Resumo          | Cadastrar um prestador de serviço ao sistema; |
+| Ator principal  | Prestador de serviço;                                                    |
+| Ator secundário | -                                                                                   |
+| Pré-condição    | -                          |
+| Pós-condição    |                                          |
 
 <br/>
-
-  
 
 #### Fluxo principal
 
-  
-
-| Passos | Descrição |
-
+| Passos  | Descrição                                           |
 | ------- | --------------------------------------------------- |
-
-| Passo 1 | O prestador digita seus dados cadastrais nos campos adequados. |
-
+| Passo 1 | O prestador digita seus dados cadastrais nos campos adequados.            |
 | Passo 2 | Após preencher seus dados o prestador deve marcar a opção 'sou um prestador de serviços'. |
-
 | Passo 3 | Ao clicar no botão 'cadastrar' no final do formulário, o prestador de serviços é cadastrado. |
 
-  
-
 <br/>
-
-  
 
 #### Campos do formulário
 
-  
-
-| Campo | Obrigatório? | Editável? | Formato |
-
+| Campo            | Obrigatório? | Editável? | Formato      |
 | ---------------- | ------------ | --------- | ------------ |
-
-| Nome | Sim | Sim | Texto |
-
-| Email | Sim | Sim | Email |
-
-| Senha | Sim | Sim | Password |
-
-| Confirmar senha | Sim | Não | Password |
-
-  
+| Nome  | Sim          | Sim       | Texto        |
+| Email             | Sim          | Sim       | Email         |
+| Senha            | Sim          | Sim       | Password        |
+| Confirmar senha  | Sim          | Não       | Password        |
 
 <br/>
-
-  
 
 #### Opções dos usúarios
 
-  
-
-| Opção | Descrição | Atalho |
-
+| Opção            | Descrição | Atalho |
 | ---------------- | ------------ | --------- |
-
-| Cadastrar | Cadastra um novo prestador de serviço | Não possui |
-
-| Realizar login | Redireciona o prestador para a tela de login | Não possui |
-
-  
+| Cadastrar | Cadastra um novo prestador de serviço          | Não possui       |
+| Realizar login             | Redireciona o prestador para a tela de login          | Não possui       |
 
 <br/>
-
-  
 
 #### Relatório de usuário
 
-  
-
-| Campo | Descrição | Formato |
-
+| Campo                      | Descrição                                                             | Formato |
 | -------------------------- | --------------------------------------------------------------------- | ------- |
-
-| Cadastro realizado com sucesso | Informa que o cadastro foi efetuado com sucesso | Texto |
-
-| Erro ao realizar o cadastro | Informa que ocorreu um erro durante o cadastro | Texto |
-
-| Senha e confirmar senha não conferem | Informa a senha e a confirmação da senha estão diferentes | Texto |
-
-  
+| Cadastro realizado com sucesso | Informa que o cadastro foi efetuado com sucesso  | Texto   |
+| Erro ao realizar o cadastro | Informa que ocorreu um erro durante o cadastro  | Texto   |
+| Senha e confirmar senha não conferem | Informa a senha e a confirmação da senha estão diferentes  | Texto   |
 
 <br/>
-
-  
 
 ### US01 - Cadastrar prestador de serviço
 
-  
-
 **Prestador de serviços**
 
-  
-
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
 | Enquanto **um prestador de serviços** eu preciso ser capaz de **criar uma conta** para que **eu possa oferecer meus serviços** | O **prestador de serviços** deve poder se cadastrar no sistema.|
 
-  
-
-<br  />
-
-  
+<br />
 
 ### Prototipação de telas
-
 **Tela de cadastro com marcação da opção 'Sou um prestador de serviços'**
-
-  
 
 ## Protótipo:
 
-  
-
 ![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaInicial.png)
-
 ![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaCadastro.png)
 
-  
-  
 
-<br  />
-
+<br />
 ---
-
-  
 
 ## **RF02 - Cadastrar usuário**
 
-  
+<br/>
 
 <br/>
 
-  
-
-<br/>
-
-  
-
-| Item | Descrição |
-
+| Item            | Descrição                                                                           |
 | --------------- | ----------------------------------------------------------------------------------- |
-
-| Caso de uso | RF04 - Cadastrar usuário; |
-
-| Resumo | Cadastrar um usuário no sistema; |
-
-| Ator principal | Usuário; |
-
-| Ator secundário | - |
-
-| Pré-condição | - |
-
-| Pós-condição | |
-
-  
+| Caso de uso     | RF04 - Cadastrar usuário;                                                       |
+| Resumo          | Cadastrar um usuário no sistema; |
+| Ator principal  | Usuário;                                                    |
+| Ator secundário | -                                                                                   |
+| Pré-condição    | -                          |
+| Pós-condição    |                                                                                    |
 
 <br/>
-
-  
 
 #### Fluxo principal
 
-  
-
-| Passos | Descrição |
-
+| Passos  | Descrição                                           |
 | ------- | --------------------------------------------------- |
-
-| Passo 1 | O usuário digita seus dados cadastrais nos campos adequados. |
-
+| Passo 1 | O usuário digita seus dados cadastrais nos campos adequados.            |
 | Passo 2 | Ao clicar no botão 'cadastrar' no final do formulário, o usuário é cadastrado. |
 
-  
-
 <br/>
-
-  
 
 #### Opções dos usúarios
 
-  
-
-| Opção | Descrição | Atalho |
-
+| Opção            | Descrição | Atalho |
 | ---------------- | ------------ | --------- |
-
-| Cadastrar | Cadastra um novo usuário | Não possui |
-
-| Realizar login | Redireciona o usuário para a tela de login | Não possui |
-
-  
+| Cadastrar | Cadastra um novo usuário          | Não possui       |
+| Realizar login             | Redireciona o usuário para a tela de login          | Não possui       |
 
 <br/>
-
-  
 
 #### Relatório de usuário
 
-  
-
-| Campo | Descrição | Formato |
-
+| Campo                      | Descrição                                                             | Formato |
 | -------------------------- | --------------------------------------------------------------------- | ------- |
-
-| Cadastro realizado com sucesso | Informa que o cadastro foi efetuado com sucesso | Texto |
-
-| Erro ao realizar o cadastro | Informa que ocorreu um erro durante o cadastro | Texto |
-
-| Senha e confirmar senha não conferem | Informa a senha e a confirmação da senha estão diferentes | Texto |
-
+| Cadastro realizado com sucesso | Informa que o cadastro foi efetuado com sucesso  | Texto   |
+| Erro ao realizar o cadastro | Informa que ocorreu um erro durante o cadastro  | Texto   |
+| Senha e confirmar senha não conferem | Informa a senha e a confirmação da senha estão diferentes  | Texto   |
 <br/>
 
-  
-  
-  
-  
-  
-  
+
+
+
+
 
 <br/>
-
-  
 
 #### Campos do formulário
 
-  
-
-| Campo | Obrigatório? | Editável? | Formato |
-
+| Campo            | Obrigatório? | Editável? | Formato      |
 | ---------------- | ------------ | --------- | ------------ |
-
-| Nome | Sim | Sim | Texto |
-
-| Email | Sim | Sim | Email |
-
-| Senha | Sim | Sim | Password |
-
-| Confirmar senha | Sim | Não | Password |
-
-  
+| Nome  | Sim          | Sim       | Texto        |
+| Email             | Sim          | Sim       | Email         |
+| Senha            | Sim          | Sim       | Password        |
+| Confirmar senha  | Sim          | Não       | Password        |
 
 <br/>
 
-  
-  
 
 <br/>
 
-  
-  
 
 <br/>
-
-  
 
 ### US02 - Cadastrar usuário
 
-  
-
 **Prestador de serviços**
 
-  
-
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
 | Enquanto **usuário** eu preciso ser capaz de **criar uma conta** para que **eu possa contratar os serviços** | Informações corretas no formulário de cadastro|
 
-  
-
-<br  />
-
-  
+<br />
 
 ### Prototipação de telas
 
-  
-
 ## Protótipo:
-
-  
 
 ![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaCadastro.png)
 
-  
-
-<br  />
-
+<br />
 ---
 
-  
-  
-  
+
 
 ## **RF03 - Realizar Login**
 
-  
+<br/>
 
 <br/>
 
-  
-
-<br/>
-
-  
-
-| Item | Descrição |
-
+| Item            | Descrição                                                                           |
 | --------------- | ----------------------------------------------------------------------------------- |
-
-| Caso de uso | RF05 - Realizar Login; |
-
-| Resumo | Realizar o login dos atores; |
-
-| Ator principal | Usuario/Prestador de serviço; |
-
-| Ator secundário | - |
-
-| Pré-condição | O(s) ator(es) devem ter um cadastro no sistema. |
-
-| Pós-condição | Os dados do(s) ator(er) devem estar corretos |
-
-  
+| Caso de uso     | RF05 - Realizar Login;                                                       |
+| Resumo          | Realizar o login dos atores; |
+| Ator principal  | Usuario/Prestador de serviço;                                                    |
+| Ator secundário | -                                                                             |
+| Pré-condição    | O(s) ator(es) devem ter um cadastro no sistema.                         |
+| Pós-condição    | Os dados do(s) ator(er) devem estar corretos                                                                                      |
 
 <br/>
-
-  
 
 #### Fluxo principal
 
-  
-
-| Passos | Descrição |
-
+| Passos  | Descrição                                           |
 | ------- | --------------------------------------------------- |
-
-| Passo 1 | O(s) Ator(es) informam seus dados |
-
+| Passo 1 | O(s) Ator(es) informam seus dados           |
 | Passo 2 | A verificação das credenciais é efetuada |
-
 | Passo 3 | A sessão é iniciada em caso de login correto. |
 
-  
-
 <br/>
-
-  
 
 #### Fluxo alternativo
 
-  
-
-| Passos | Descrição |
-
+| Passos  | Descrição                                           |
 | ------- | --------------------------------------------------- |
-
-| Passo 1 | O(s) Ator(es) informam seus dados |
-
+| Passo 1 | O(s) Ator(es) informam seus dados            |
 | Passo 2 | A verificação das credenciais é efetuada |
-
 | Passo 3 | A sessão não é iniciada e o usuário é redirecionado para a tela de login. |
 
-  
-
 <br/>
-
-  
 
 #### Campos do formulário
 
-  
-
-| Campo | Obrigatório? | Editável? | Formato |
-
+| Campo            | Obrigatório? | Editável? | Formato      |
 | ---------------- | ------------ | --------- | ------------ |
-
-| Email | Sim | Sim | Email |
-
-| Senha | Sim | Sim | Password |
-
-  
+| Email             | Sim          | Sim       | Email         |
+| Senha            | Sim          | Sim       | Password        |
 
 <br/>
-
-  
 
 #### Opções dos usúarios
 
-  
-
-| Opção | Descrição | Atalho |
-
+| Opção            | Descrição | Atalho |
 | ---------------- | ------------ | --------- |
+| Login | Valida as credenciais do ator          | Não possui       |
+| Cadastre-se             | Redireciona o usuario para a tela de cadastro          | Não possui       |
 
-| Login | Valida as credenciais do ator | Não possui |
-
-| Cadastre-se | Redireciona o usuario para a tela de cadastro | Não possui |
-
-  
-
-<br  />
-
-  
+<br />
 
 #### Relatório de usuário
 
-  
-
-| Campo | Descrição | Formato |
-
+| Campo                      | Descrição                                                             | Formato |
 | -------------------------- | --------------------------------------------------------------------- | ------- |
+| Email e/ou senha incorretos | Informa que as credenciais são inválidas  | Texto   |
 
-| Email e/ou senha incorretos | Informa que as credenciais são inválidas | Texto |
-
-  
-
-<br  />
-
-  
+<br />
 
 ### US03 - Realizar Login
 
-  
-
 **Prestador de serviço/Usuário**
 
-  
-
-| User Story | Critério de aceitação |
-
+|  User Story                                        | Critério de aceitação                                 |
 | ------------------------------------------------- | ----------------------------------------------------- |
-
 | Enquanto **um ator do aplicativo** eu preciso ser capaz de **realizar login**, para que **eu possa ter acesso as funcionalidades do sistema** | Certifique-se de que o usuário é capaz de **acessar o aplicativo**. |
-
-  
 
 <br/>
 
-  
-
 ### Prototipação de telas
-
 **Tela de login**
 
-  
-
 ## Protótipo:
-
-  
 
 ![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaLogin.png)
 
-  
-
-<br  />
-
-  
+<br />
 
 ---
-
-  
 
 ## **RF04 - Ver informações do perfil**
 
-  
+<br />
 
-<br  />
 
-  
-  
-  
 
-<br  />
+<br />
 
-  
-  
 
-|Item | Descrição |
+|Item             | Descrição                                                           |
+| --------------- | -----------------------------------------------------------------   |
+| Caso de uso     | Ver informações do perfil                                                |
+| Resumo          | É esperado que o usuário e prestador de serviço consiga visualizar as informações do seu perfil|
+| Ator principal  |usuários                                 |
+| Ator secundário | -                                                          |
+| Pré-condição    | É necessário que o prestador de serviço e usuário tenha efetuado o login.            |
+| Pós-condição    | Todos os campos do formulário de cadastro de serviço devem ser preenchidos corretamente.  |
 
-| --------------- | ----------------------------------------------------------------- |
-
-| Caso de uso | Ver informações do perfil |
-
-| Resumo | É esperado que o usuário e prestador de serviço consiga visualizar as informações do seu perfil|
-
-| Ator principal |usuários |
-
-| Ator secundário | - |
-
-| Pré-condição | É necessário que o prestador de serviço e usuário tenha efetuado o login. |
-
-| Pós-condição | Todos os campos do formulário de cadastro de serviço devem ser preenchidos corretamente. |
-
-  
-
-<br  />
-
-  
+<br />
 
 #### Fluxo principal
 
-  
+| Passos  | Descrição                                                                   |
+| ------- | -----------------------------------------                                   |
+| Passo 1 | Digita as suas credenciais na tela de login                                        |
+| Passo 2 | Clicar no botão "Efetuar login"                                            |
+| Passo 3 | Apertar o botão "Ver perfil"                                                 |
 
-| Passos | Descrição |
+<br />
 
-| ------- | ----------------------------------------- |
 
-| Passo 1 | Digita as suas credenciais na tela de login |
-
-| Passo 2 | Clicar no botão "Efetuar login" |
-
-| Passo 3 | Apertar o botão "Ver perfil" |
-
-  
-
-<br  />
-
-  
-  
-
-<br  />
-
-  
+<br />
 
 #### Opções do usuário
 
-  
-  
 
-| Opção | Descrição | Atalho |
-
+| Opção         | Descrição                 | Atalho |
 | ------------- | ------------------------- | ------ |
+| Ver perfil | Ver informações do seu perfil       |
+| Fechar | Retorna Para a tela home | Não possui       |
+<br />
 
-| Ver perfil | Ver informações do seu perfil |
 
-| Fechar | Retorna Para a tela home | Não possui |
+<br />
 
-<br  />
-
-  
-  
-
-<br  />
-
-  
-  
 
 ### US04 - Ver informações do perfil.
 
-  
-
 **Usuário/Prestador de serviços**
 
-  
-
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
 | Enquanto prestador de serviço e usuário desejo ver as informações do meu perfil. | O prestador de serviços e usuário deve ser capaz de visualizar suas informações. |
-
-  
 
 <br/>
 
-  
-
 ### Prototipação de telas
-
 ## Protótipo:
 
-  
-
 ![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PaginaPerfilPrestador.png)
-
 ![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PerfilCliente.png)
 
-  
-  
 
-## *RF05 - Atualizar informações do perfil*
+## *RF05 -  Atualizar informações do perfil*
 
-  
+<br />
 
-<br  />
+<br />
 
-  
-
-<br  />
-
-  
-
-|Item | Descrição |
-
+|Item             | Descrição                                                         |
 | --------------- | ----------------------------------------------------------------- |
-
-| Caso de uso | Atualizar informações do perfil. |
-
-| Resumo | É esperado que o usuário tenha a possibilidade de atualizar as informações adicionadas quando foi feito o cadastro do perfil|
-
-| Ator principal | Atores |
-
-| Ator secundário | Não possui |
-
-| Pré-condição | É necessário que para realizar a atualização o usuário ja tenha cadastro |
-
-| Pós-condição | Os dados informados devem ser válidos |
-
-<br  />
-
-  
+| Caso de uso     | Atualizar informações do perfil.                                                   |
+| Resumo          | É esperado que o usuário tenha a possibilidade de atualizar as informações adicionadas quando foi feito o cadastro do perfil|
+| Ator principal  | Atores |
+| Ator secundário | Não possui                                                        | 
+| Pré-condição    |  É necessário que para realizar a atualização o usuário ja tenha cadastro         |
+| Pós-condição    | Os dados informados devem ser válidos |
+<br />
 
 #### Fluxo principal
-
-| Passos | Descrição |
-
+| Passos  | Descrição                                 |
 | ------- | ----------------------------------------- |
-
-| Passo 1 | Realizar cadastro |
-
-| Passo 2 | Realizar login |
-
-| Passo 3 | Atualizar dados da conta |
-
-| Passo 4 | Submeter o formulário atualizado |
-
-<br  />
-
-  
+| Passo 1 | Realizar cadastro               |
+| Passo 2 | Realizar login                |
+| Passo 3 | Atualizar dados da conta              |
+| Passo 4 | Submeter o formulário atualizado                                    |
+<br />
 
 #### Campos do formulário
-
-| Campo | Obrigatório? | Editável? | Formato |
-
+| Campo            | Obrigatório? | Editável? | Formato      |
 | ---------------- | ------------ | --------- | ------------ |
+| Dados da conta           | Sim          | Sim       | Texto        |
 
-| Dados da conta | Sim | Sim | Texto |
-
-  
-
-<br  />
-
-  
+<br />
 
 #### Opções do usuário
-
-| Opção | Descrição | Atalho |
-
+| Opção         | Descrição                 | Atalho |
 | ------------- | ------------------------- | ------ |
-
-| Atualizar Perfil | Os atores do aplicativo vão poder ser capazes de atualizar os seus dados cadastrais | Não possui |
-
-<br  />
-
-  
+| Atualizar Perfil | Os atores do aplicativo vão poder ser capazes de atualizar os seus dados cadastrais |  Não possui      |
+<br />
 
 #### Relatório de usuário
 
-  
-
-| Campo | Descrição | Formato |
-
+| Campo                      | Descrição                                                             | Formato |
 | -------------------------- | --------------------------------------------------------------------- | ------- |
+| Informações atualizadas com sucesso! | As informações da conta foram atualizadas com sucesso.   | Texto   |
+<br />
 
-| Informações atualizadas com sucesso! | As informações da conta foram atualizadas com sucesso. | Texto |
-
-<br  />
-
-  
-  
 
 ### US05 - Usuário deseja atualizar as informações do seu perfil.
 
-  
-
 *Atores*
 
-  
-
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
-| Enquanto "um ator" do sistema preciso conseguir mudar os dados da minha conta. | Digitar dados válidos nos campos determinados |
-
-  
+| Enquanto "um ator" do sistema preciso conseguir mudar os dados da minha conta. | Digitar dados válidos nos campos determinados  |
 
 <br/>
 
-  
-
 ![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoCliente.png)
-
 ![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoPrestador.png)
 
-  
-  
-  
+
 
 ---
-
-  
 
 ## *RF06 - Deletar perfil*
 
-  
+<br/>
+
 
 <br/>
 
-  
-  
-
-<br/>
-
-  
-
-|Item | Descrição |
-
+|Item             | Descrição                                                         |
 | --------------- | ----------------------------------------------------------------- |
-
-| Caso de uso | Deletar perfil. |
-
-| Resumo | É esperado que o ator tenha a possibilidade de deletar seu próprio perfil |
-
-| Ator principal | Usuário/Prestador de serviço|
-
-| Ator secundário | Não possui |
-
-| Pré-condição | É necessário que o ator tenha feito o cadastro e efetuado o login. |
-
-| Pós-condição | - |
-
-  
+| Caso de uso     | Deletar perfil.                                             |
+| Resumo          | É esperado que o ator tenha a possibilidade de deletar seu próprio perfil                                                                     |
+| Ator principal  | Usuário/Prestador de serviço|
+| Ator secundário | Não possui                                                        | 
+| Pré-condição    | É necessário que o ator tenha feito o cadastro e efetuado o login.        |
+| Pós-condição    | - |
 
 <br/>
-
-  
 
 #### Fluxo principal
-
-| Passos | Descrição |
-
+| Passos  | Descrição                                 |
 | ------- | ----------------------------------------- |
-
-| Passo 1 | Realizar o cadastro |
-
+| Passo 1 | Realizar o cadastro      |
 | Passo 2 | Realizar o login |
-
 | Passo 3 | Na aba "Meu perfil" deve apertar a opção "exluir"|
-
-|Passo 4| Confirmar exclusão do perfil|
-
-  
+|Passo 4|  Confirmar exclusão do perfil|
 
 <br/>
-
-  
 
 #### Campos do formulário
-
-| Campo | Obrigatório? | Editável? | Formato |
-
+| Campo            | Obrigatório? | Editável? | Formato      |
 | ---------------- | ------------ | --------- | ------------ |
-
-| Excluir |Sim |Não | Texto |
-
-  
+| Excluir        |Sim          |Não      | Texto        |
 
 <br/>
-
-  
 
 #### Opções do usuário
-
-| Opção | Descrição | Atalho |
-
-| ------------- | ------------------------- | ------ |
-
-| Excluir perfil | Excluir o perfil criado pelo usuário | |
-
-  
+| Opção             | Descrição                 | Atalho |
+| -------------     | ------------------------- | ------ |
+| Excluir perfil | Excluir o perfil criado pelo usuário |        |
 
 <br/>
-
-  
 
 #### Relatório de usuário
 
-  
-
-| Campo | Descrição | Formato |
-
+| Campo      | Descrição   | Formato |
 | ---------- | ----------- |---------|
-
-| Erro ao excluir perfil | Ocorreu um erro ao confirmar a exclusão do perfil | Texto |
-
-  
+| Erro ao excluir perfil | Ocorreu um erro ao confirmar a exclusão do perfil |  Texto  |
 
 <br/>
-
-  
 
 ### US06 - Deletar perfil
 
-  
-
 *Atores*
 
-  
-
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
 | Enquanto *um ator* preciso ser capaz de excluir meu perfil | O ator deve digitar a mensagem sugerida corretamente para realizar a exclusão
-
 <br/>
 
-  
-
 ### Prototipação de telas
-
 *Tela com o botão de deletar perfil*
 
-  
-
 ![tela1](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoCliente.png)
-
 ![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/InformacaoPrestador.png)
+
+
+
+
 
 ---
 
-## Iteração 2  (8 Abril - 22/Abril)
+
+======
+
+## Iteração 2  (8/Abril - 22/Abril)
 
 **Objetivo:** O objetivo dessa iteração 2 é esculpir a aplicação para que ela se torne o mais útil, prática e facil para os nossos usuários finais, dessa maneira, buscamos desenvolver requisitos funcionais de extrema importância tanto para os clientes quanto para os prestadores de serviço.
        Ao alcançar esses objetivos, espera-se que a segunda iteração do projeto contribua significativamente para a melhoria da experiência do usuário e para a expansão das funcionalidades essenciais do aplicativo, aproximando-se cada vez mais da versão final desejada.
@@ -1100,11 +681,10 @@ Os principais entregáveis deste projeto incluem:
 ## *RF07 - Desenvolver tela inicial do cliente*
 **US07:**
 
-| User Story | Critério de aceitação |
+| User Story                                                         | Critério de Aceitação                                                                                    |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| Eu, enquanto *um cliente* preciso ser capaz de visualizar a home do meu aplicativo | O cliente deve ter realizado o cadastro e login                                                          |
 
-| --------- | --------------------- |
-
-| Enquanto *um cliente* preciso ser capaz de visualizar a home do meu aplicativo| O cliente deve ter realizado o cadastro e login
 
 **Protótipo da tela:**
 
@@ -1114,10 +694,8 @@ Os principais entregáveis deste projeto incluem:
 ## *RF08 - Barra inferior do app*
 **US08:**
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
-| Enquanto *um usuário* desejo navegar entre as abas do app| O cliente deve ter realizado o cadastro e login
+| Eu, enquanto *um usuário* desejo navegar entre as abas do app| O cliente deve ter realizado o cadastro e login
 
 **Protótipo da tela:**
 ![barra inferior do app](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/barra%20inferior%20do%20app.png)
@@ -1128,10 +706,8 @@ Os principais entregáveis deste projeto incluem:
 **US09:**
 
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
-| Enquanto *um cliente* desejo pesquisar por diaristas| O cliente deve ter realizado o cadastro e login
+| Eu, enquanto *um cliente* desejo pesquisar por diaristas| O cliente deve ter realizado o cadastro e login
 
 **Protótipo da tela:**
 
@@ -1141,10 +717,8 @@ Os principais entregáveis deste projeto incluem:
 ## *RF10 - Visualizar insformações de outros usuarios:*
 **US10:**
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
-
-| Enquanto *um usuario* desejo ver as informações de outros perfis| O cliente deve ter realizado o cadastro e login e pesquisado pelo perfil que ele deseja visualizar
+| Eu, enquanto *um usuario* desejo ver as informações de outros perfis| O cliente deve ter realizado o cadastro e login e pesquisado pelo perfil que ele deseja visualizar
 
 **Protótipo da tela:**
 ![tela de visualização dos outros perfis](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/Tela%20meu%20perfil%20de%20prestadora%20de%20servi%C3%A7o.png)
@@ -1153,7 +727,6 @@ Os principais entregáveis deste projeto incluem:
 **US11:**
 
 | User Story | Critério de aceitação |
-
 | --------- | --------------------- |
 
 | Enquanto *um prestador de serviço* desejo ofertar o meu trabalho para clientes| O prestador deve ter realizado seu cadastro e login
