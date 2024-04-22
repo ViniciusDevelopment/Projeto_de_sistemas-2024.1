@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:servicocerto/Pages/outroUserPage.dart';
 
 class PesquisapageWidget extends StatefulWidget {
   const PesquisapageWidget({Key? key}) : super(key: key);
@@ -41,8 +42,8 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          automaticallyImplyLeading: false,
-          title: Text(
+          automaticallyImplyLeading: true,
+          title: const Text(
             'Procure diaristas',
             style: TextStyle(
               fontFamily: 'Outfit',
@@ -52,7 +53,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
             ),
           ),
           actions: [],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 2,
         ),
         body: SafeArea(
@@ -92,17 +93,54 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                     itemCount: _simpleSearchResults.length,
                     itemBuilder: (context, index) {
                       final item = _simpleSearchResults[index];
-                      return ListTile(
-                        title: Text(item.Name),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(item.Email),
-                            Text(item.Endereco),
-                            Text(item.Telefone),
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 3,
+                                offset: Offset(0, 2)),
                           ],
                         ),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            outroUserPage(email: item.Email)))
+                                .then((value) {
+                              // Aqui você pode executar qualquer código após a navegação
+                              print('Página do usuário foi aberta');
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(
+                                255, 255, 255, 255), // Cor de fundo do botão
+                            // Cor do texto do botão
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: ListTile(
+                            title: Text(item.Name),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(item.Email),
+                                Text(item.Endereco),
+                                Text(item.Telefone),
+                              ],
+                            ),
+                          ),
+                        ),
                       );
+                      //
                     },
                   ),
                 ),
