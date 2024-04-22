@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
+import 'package:servicocerto/Pages/CadastrarservicoPage.dart';
 import 'package:servicocerto/Pages/SearchPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
-import 'package:servicocerto/pages/UserInfoPage.dart';
+import 'package:servicocerto/Pages/UserInfoPage.dart';
 
 import 'calendarPage.dart'; // Importe a classe CalendarPage
 
@@ -21,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> signOut() async {
     await Authentication().signOut();
   }
+
 
   int _selectedIndex = 1; // Defina o índice inicial como 1 (tela inicial)
 
@@ -44,6 +47,13 @@ class _HomePageState extends State<HomePage> {
     return ElevatedButton(onPressed: signOut, child: const Text('Sign Out'));
   }
 
+   void _cadastrarServico() {
+    // Navegar para a página de cadastro de serviço quando o botão for pressionado
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ServiceRegistrationPage()),
+    );
+  }
   Widget _userMenuButton(BuildContext context) {
     return CircleAvatar(
       radius: 20,
@@ -55,6 +65,12 @@ class _HomePageState extends State<HomePage> {
         ),
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
           PopupMenuItem(child: _signOutButton()),
+          PopupMenuItem(
+            child: ElevatedButton(
+              onPressed: _cadastrarServico,
+              child: const Text('Cadastrar serviço'),
+            ),
+          ),
         ],
       ),
     );

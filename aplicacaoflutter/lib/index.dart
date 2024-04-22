@@ -1,6 +1,6 @@
 import 'Controller/authCheck.dart';
-import 'pages/homePage.dart';
-import 'pages/loginPage.dart';
+import 'Pages/homePage.dart';
+import 'Pages/loginPage.dart';
 import 'package:flutter/material.dart';
 
 class IndexPage extends StatefulWidget {

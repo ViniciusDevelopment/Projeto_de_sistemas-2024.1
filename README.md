@@ -1,40 +1,76 @@
 
+  
+  
 
 # Relatório Especificação de Requisitos ServiçoCerto
 
+  
+
 ## Projeto de Sistemas 2024.1 | Universidade Federal do Tocantins - Palmas, 2024
+
+  
 
 ## Introdução
 
+  
+
 O projeto desenvolvido na disciplina Projeto de sistemas do semestre 2024.1 é dividido em etapas. Primeiramente, os integrantes descrevem os casos expandidos de uso e user stories dos requisitos funcionais do sistema. Foi combinado a utilização da plataforma GitHub para gerenciar e controlar as versões do projeto, além do método Kanban para gestão ágil, por meio da ferramenta Trello. Todo o trabalho será desenvolvido no formato markdown.
+
+  
 
 ## Escopo do projeto
 
+  
+
 ### Descrição do projeto
+
 Desenvolver uma plataforma de prestação de serviços que conecta prestadores de serviços a usuários, permitindo que os prestadores ofereçam seus serviços e os usuários solicitem os mesmos. A plataforma deve permitir que os prestadores de serviços criem perfis com informações pessoais, habilidades e preços, além de possibilitar a criação de perfis de usuários com informações de contato e preferências. Os usuários devem ser capazes de buscar e filtrar prestadores com base em critérios como localização e classificações, enviar solicitações de serviços e visualizar históricos de transações. Além disso, o sistema deve suportar a avaliação e revisão de prestadores e oferecer funcionalidades de pagamento seguro.
+
+  
 
 ### Objetivos
 
+  
+
 * Conectar prestadores de serviços a usuários, facilitando a oferta e solicitação de serviços.
+
 * Permitir que prestadores de serviços criem perfis detalhados com informações pessoais, habilidades e preços.
+
 * Possibilitar aos usuários a criação de perfis com informações de contato e preferências.
+
 * Oferecer recursos de busca e filtragem de prestadores com base em critérios como localização e classificações.
+
 * Permitir que os usuários enviem solicitações de serviços de forma eficiente.
+
 * Manter registros de transações para que os usuários possam acessar seu histórico.
+
 * Facilitar a avaliação e revisão de prestadores de serviços.
+
 * Garantir um sistema de pagamento seguro para todas as transações.
+
 * Organizar o desenvolvimento do projeto em iterações definidas.
 
+  
+
 ### Requisitos Funcionais
+
 Os **Requisitos Funcionais** são uma lista dos recursos e funcionalidades específicas que o sistema, produto ou serviço deve oferecer. Isso pode incluir funcionalidades como login de usuário, solicitação de serviços, geração de relatórios, etc.
 
+  
+  
 
 ### Atores
+
 **Usuário:** Este ator possui um nível de acesso básico dentro da aplicação. Suas principais ações incluem visualizar os serviços disponíveis e solicitar a prestação desses serviços.
+
+  
 
 **Prestador de Serviço:** Este ator tem todas as funcionalidades de um usuário, com a adição de privilégios adicionais. Além de poder visualizar e solicitar serviços, o prestador de serviço tem a capacidade de adicionar e gerenciar os serviços que oferece. Isso inclui a criação, edição e exclusão de serviços, bem como a definição de preços e informações detalhadas sobre os serviços prestados.
 
+  
+
 Esses dois atores desempenham papéis distintos no sistema ServiçoCerto, refletindo as diferentes necessidades e responsabilidades de cada grupo de usuários.
+
 ### Cronograma
 
 |Período|Ações|
@@ -45,73 +81,134 @@ Esses dois atores desempenham papéis distintos no sistema ServiçoCerto, reflet
 |Iteração 4| Desenvolvimento de mais requisitos e funcionalidades do aplicativo.|
 |Iteração 5| Finalização do desenvolvimento do aplicativo e realização do deploy|
 
+
+  
+
 ### Metodologia de Desenvolvimento
+
 O Kanban será usado para organizar e gerenciar o fluxo de trabalho da equipe. Criamos um quadro Kanban que representa o progresso do projeto, com colunas como "A fazer", "Em progresso" e "Concluído". As tarefas do Backlog serão adicionadas ao quadro e movidas conforme o progresso.
+
 No final de cada iteração, a equipe realizará uma retrospectiva para avaliar o processo e identificar áreas de melhoria. Os aprendizados serão aplicados nas próximas iterações.
+
 Após a conclusão de cada iteração, haverá uma revisão interna e externa para garantir a qualidade do código e da funcionalidade implementada. Os feedbacks serão incorporados para refinamento contínuo.
+
+  
 
 ### Tecnologias e Ferramentas
 
+  
+
 Neste projeto, serão utilizadas várias tecnologias e ferramentas para o desenvolvimento, divididas entre o back-end, front-end e o sistema de gerenciamento de banco de dados (SGBD).
 
+  
+
 **Back-End:**<br/>
+
 * Linguagem de Programação FASTApi: O back-end será desenvolvido utilizando um framework de phython chamado de FASTApi
 
+  
+
 **Front-End:**<br/>
+
 * Flutter: Uma tecnologia de desenvolvimento de interface de usuário multiplataforma da Google, utilizado para criar aplicativos móveis com uma única base de código.
 
+  
+
 **Banco de Dados:**<br/>
+
 * PostgreSQL: Será usado como o Sistema de Gerenciamento de Banco de Dados (SGBD) principal. O PostgreSQL é um sistema de banco de dados relacional robusto e altamente escalável. Além disso, a núvem AWS está sendo utilizada para tornar o banco de dados compartilhado entre os contribuidores do projeto.
 
+  
+
 ### Critérios de Aceitação
+
 Os critérios de aceitação para este projeto incluem:
 
+  
+
 * Todas as funcionalidades especificadas nos requisitos funcionais estão implementadas e funcionando corretamente.
+
 * A plataforma passou por testes de qualidade e os bugs foram corrigidos.
+
 * A documentação está completa e bem organizada.
+
 * A equipe apresentou o projeto de forma clara e demonstrou todas as funcionalidades.
 
+  
+  
 
 ### Entregáveis
+
 Os principais entregáveis deste projeto incluem:
 
+  
+
 *  **Documentação de Requisitos:** Especificação detalhada dos requisitos funcionais e não funcionais do sistema.<br/>
+
 *  **Documentação de Design:** Descrição da arquitetura de software e design da plataforma.<br/>
+
 *  **Código Fonte:** O código-fonte do sistema hospedado no GitHub.<br/>
+
 *  **Relatórios de Progresso:** Relatórios de progresso semanais ou quinzenais para acompanhamento.<br/>
+
 *  **Apresentação Final:** Uma apresentação que destaca as funcionalidades e realizações do projeto.<br/>
 
+  
+
 ### Equipe de Projeto
- [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment/)<br/>
- <br/>[Dante Ungarelli](https://github.com/danteungarelli)<br/>
- <br/>[Daniel Nolêto](https://github.com/Daniel-Noleto/)<br/>
+
+[Vinícius Maciel Pires](https://github.com/ViniciusDevelopment/)<br/>
+
+<br/>[Dante Ungarelli](https://github.com/danteungarelli)<br/>
+
+<br/>[Daniel Nolêto](https://github.com/Daniel-Noleto/)<br/>
+
 <br/>[Saulo Ferraz](https://github.com/SauloFerrazTC)<br/>
+
 <br/>[João Victor Walcacer](https://github.com/joaovictorwg)<br/>
 
+  
+  
 
 ###
+
 ## Épicos
 
-### Épico 1: Gerenciamento de Usuário -> RF04, RF05, RF06, RF07, RF08
+  
 
-## Iteração 1
+### Épico 1: Gerenciamento de Usuário -> RF01, RF02, RF03, RF04, RF05, RF06
 
-- [X] RF01 -Documentação do projeto. [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
-- [X] RF02 - Prototipação do projeto. [João Victor](https://github.com/joaovictorwg) Revisado por [João Victor](https://github.com/joaovictorwg)
-- [X] RF03 -  Cadastrar prestador de serviço. [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment) Revisado por  [Dante Ungarelli](https://github.com/danteungarelli )
-- [X] RF04 - Cadastrar usuário. [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment/) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
-- [X] RF05 -  Realizar Login.  [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment/) Revisado por [Dante Ungarelli](https://github.com/danteungarelli/)
-- [X] RF06 -  Ver informações do pefil. [Daniel Nolêto](https://github.com/Daniel-Noleto) Revisado por [Saulo](https://github.com/SauloFerrazTC)
-- [X] RF07 -  Atualizar informações do perfil. [Daniel Nolêto](https://github.com/Daniel-Noleto) Revisado por [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment)
-- [X] RF08 - Deletar perfil. [Saulo](https://github.com/SauloFerrazTC) Revisado por [João Victor](https://github.com/joaovictorwg)
+### Épico 2: Funcionalidades para os usuários -> RF07, RF08, RF09, RF10, RF11
+  
 
+## Iteração 1- (25/Março-- 7/ Abril)
+
+
+
+- [X] RF01 - Cadastrar prestador de serviço. [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment) Revisado por [Dante Ungarelli](https://github.com/danteungarelli )
+
+- [X] RF02 - Cadastrar usuário. [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment/) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
+
+- [X] RF03 - Realizar Login. [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment/) Revisado por [Dante Ungarelli](https://github.com/danteungarelli/)
+
+- [X] RF04 - Ver informações do pefil. [Daniel Nolêto](https://github.com/Daniel-Noleto) Revisado por [Saulo](https://github.com/SauloFerrazTC)
+
+- [X] RF05 - Atualizar informações do perfil. [Daniel Nolêto](https://github.com/Daniel-Noleto) Revisado por [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment)
+
+- [X] RF06 - Deletar perfil. [Saulo](https://github.com/SauloFerrazTC) Revisado por [João Victor](https://github.com/joaovictorwg)
+
+  
+  
 
 <br/>
 
-
+  
+  
+  
 
 ---
-## **RF03 - Cadastrar prestador de serviço**
+
+## **RF01 - Cadastrar prestador de serviço**
 
 <br/>
 
@@ -169,7 +266,7 @@ Os principais entregáveis deste projeto incluem:
 
 <br/>
 
-### US03 - Cadastrar prestador de serviço
+### US01 - Cadastrar prestador de serviço
 
 **Prestador de serviços**
 
@@ -191,7 +288,7 @@ Os principais entregáveis deste projeto incluem:
 <br />
 ---
 
-## **RF04 - Cadastrar usuário**
+## **RF02 - Cadastrar usuário**
 
 <br/>
 
@@ -259,7 +356,7 @@ Os principais entregáveis deste projeto incluem:
 
 <br/>
 
-### US04 - Cadastrar usuário
+### US02 - Cadastrar usuário
 
 **Prestador de serviços**
 
@@ -280,7 +377,7 @@ Os principais entregáveis deste projeto incluem:
 
 
 
-## **RF05 - Realizar Login**
+## **RF03 - Realizar Login**
 
 <br/>
 
@@ -343,7 +440,7 @@ Os principais entregáveis deste projeto incluem:
 
 <br />
 
-### US05 - Realizar Login
+### US03 - Realizar Login
 
 **Prestador de serviço/Usuário**
 
@@ -364,7 +461,7 @@ Os principais entregáveis deste projeto incluem:
 
 ---
 
-## **RF06 - Ver informações do perfil**
+## **RF04 - Ver informações do perfil**
 
 <br />
 
@@ -410,7 +507,7 @@ Os principais entregáveis deste projeto incluem:
 <br />
 
 
-### US06 - Ver informações do perfil.
+### US04 - Ver informações do perfil.
 
 **Usuário/Prestador de serviços**
 
@@ -427,7 +524,7 @@ Os principais entregáveis deste projeto incluem:
 ![tela2](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/PerfilCliente.png)
 
 
-## *RF07 -  Atualizar informações do perfil*
+## *RF05 -  Atualizar informações do perfil*
 
 <br />
 
@@ -473,7 +570,7 @@ Os principais entregáveis deste projeto incluem:
 <br />
 
 
-### US07 - Usuário deseja atualizar as informações do seu perfil.
+### US05 - Usuário deseja atualizar as informações do seu perfil.
 
 *Atores*
 
@@ -490,7 +587,7 @@ Os principais entregáveis deste projeto incluem:
 
 ---
 
-## *RF08 - Deletar perfil*
+## *RF06 - Deletar perfil*
 
 <br/>
 
@@ -540,7 +637,7 @@ Os principais entregáveis deste projeto incluem:
 
 <br/>
 
-### US08 - Deletar perfil
+### US06 - Deletar perfil
 
 *Atores*
 
@@ -563,3 +660,77 @@ Os principais entregáveis deste projeto incluem:
 
 
 ======
+
+## Iteração 2  (8/Abril - 22/Abril)
+
+**Objetivo:** O objetivo dessa iteração 2 é esculpir a aplicação para que ela se torne o mais útil, prática e facil para os nossos usuários finais, dessa maneira, buscamos desenvolver requisitos funcionais de extrema importância tanto para os clientes quanto para os prestadores de serviço.
+       Ao alcançar esses objetivos, espera-se que a segunda iteração do projeto contribua significativamente para a melhoria da experiência do usuário e para a expansão das funcionalidades essenciais do aplicativo, aproximando-se cada vez mais da versão final desejada.
+
+- [X] RF07 - Desenvolver tela inicial do cliente. [Daniel Nolêto](https://github.com/Daniel-Noleto) Revisado por [Dante Ungarelli](https://github.com/danteungarelli )
+
+- [X] RF08 - Desenvolver barra inferior do app. [Saulo Ferraz](https://github.com/SauloFerrazTC/) Revisado por [Daniel Nolêto](https://github.com/Daniel-Noleto)
+
+- [X] RF09 - Desenvolver barra de pesquisa funcional. [Dante Ungarelli](https://github.com/danteungarelli/) Revisado por [João Victor Walcacer](https://github.com/joaovictorwg/)
+
+- [X] RF10 - Ver informações do pefil de outros usuários. [João Victor Walcacer](https://github.com/joaovictorwg) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
+
+- [X] RF11 - Cadastrar serviço por parte do prestador de serviço. [Vinicius Maciel](https://github.com/ViniciusDevelopment) Revisado por [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment)
+<br/>
+---
+
+## *RF07 - Desenvolver tela inicial do cliente*
+**US07:**
+
+| User Story                                                         | Critério de Aceitação                                                                                    |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| Eu, enquanto *um cliente* preciso ser capaz de visualizar a home do meu aplicativo | O cliente deve ter realizado o cadastro e login                                                          |
+
+
+**Protótipo da tela:**
+
+
+![tela home do usuario](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/Tela%20home%20do%20usuario.png)
+
+## *RF08 - Barra inferior do app*
+**US08:**
+| User Story | Critério de aceitação |
+| --------- | --------------------- |
+| Eu, enquanto *um usuário* desejo navegar entre as abas do app| O cliente deve ter realizado o cadastro e login
+
+**Protótipo da tela:**
+![barra inferior do app](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/barra%20inferior%20do%20app.png)
+
+
+
+## *RF09 - Barra de pesquisa funcional*
+**US09:**
+
+| User Story | Critério de aceitação |
+| --------- | --------------------- |
+| Eu, enquanto *um cliente* desejo pesquisar por diaristas| O cliente deve ter realizado o cadastro e login
+
+**Protótipo da tela:**
+
+![barra de pesquisa do app](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/barra%20de%20pesquisa.png)
+![tela de resultados da pesquisa](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/P%C3%A1gina%20de%20Resultados.png)
+
+## *RF10 - Visualizar insformações de outros usuarios:*
+**US10:**
+| User Story | Critério de aceitação |
+| --------- | --------------------- |
+| Eu, enquanto *um usuario* desejo ver as informações de outros perfis| O cliente deve ter realizado o cadastro e login e pesquisado pelo perfil que ele deseja visualizar
+
+**Protótipo da tela:**
+![tela de visualização dos outros perfis](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/Tela%20meu%20perfil%20de%20prestadora%20de%20servi%C3%A7o.png)
+
+## *RF11 - Cadastrar serviço:*
+**US11:**
+
+| User Story | Critério de aceitação |
+| --------- | --------------------- |
+
+| Enquanto *um prestador de serviço* desejo ofertar o meu trabalho para clientes| O prestador deve ter realizado seu cadastro e login
+
+**Protótipo da tela:**
+
+![tela de outros perfis](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/Tela%20meu%20perfil%20de%20prestadora%20de%20servi%C3%A7o.png)

@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text('Firebase Authentication');
+    return const Text('Login');
   }
 
   Widget _entryField(
@@ -83,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _entryField('email', _controllerEmail),
-              _entryField('password', _controllerPassword),
+              _entryField('Email', _controllerEmail),
+              _entryField('Senha', _controllerPassword),
               _errorMessage(),
               _submitButton(),
               _loginButton()
