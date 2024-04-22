@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "180835836773",
+    "firebase_url": "https://servicocerto-2dbd7-default-rtdb.firebaseio.com",
+    "project_id": "servicocerto-2dbd7",
+    "storage_bucket": "servicocerto-2dbd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180835836773:android:03bc8879bc911fda7b378c",
+        "android_client_info": {
+          "package_name": "com.example.projeto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4oLsut4OPuIHVxnlMrwvHqTcGqqHpgIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180835836773:android:af0548bc7df578307b378c",
+        "android_client_info": {
+          "package_name": "com.example.servicocerto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4oLsut4OPuIHVxnlMrwvHqTcGqqHpgIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180835836773:android:5ddaa5b6bf3181ca7b378c",
+        "android_client_info": {
+          "package_name": "com.example.teste"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4oLsut4OPuIHVxnlMrwvHqTcGqqHpgIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
