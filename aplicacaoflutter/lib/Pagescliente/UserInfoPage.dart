@@ -1,5 +1,5 @@
-import '../Pages/DeleteAccountButton.dart';
-import '../Pages/EditButton.dart';
+import 'DeleteAccountButton.dart';
+import 'EditButton.dart';
 import 'package:flutter/material.dart';
 
 class UserInfoPage extends StatefulWidget {

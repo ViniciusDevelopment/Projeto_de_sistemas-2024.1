@@ -36,7 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
           telefone: _controllerTelefone.text,
           password: _controllerPassword.text,
           endereco: _controllerEndereco.text,
-          tipoUser: _controllerTipoUser.text));
+          tipoUser: _selectedTipoUser ?? ''));
       /*Navigator.push(
         // ignore: use_build_context_synchronously
         context,

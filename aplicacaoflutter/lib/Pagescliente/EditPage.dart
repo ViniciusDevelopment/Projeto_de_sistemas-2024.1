@@ -1,4 +1,4 @@
-import '../Pages/UserInfoPage.dart';
+import 'UserInfoPage.dart';
 import 'package:flutter/material.dart';
 
 class EditPage extends StatefulWidget {

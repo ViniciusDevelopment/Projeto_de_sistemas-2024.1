@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Pages/EditPage.dart';
+import 'EditPage.dart';
 
 class EditButton extends StatefulWidget {
   @override

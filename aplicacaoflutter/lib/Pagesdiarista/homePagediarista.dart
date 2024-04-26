@@ -3,32 +3,30 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
-import 'package:servicocerto/Pages/CadastrarservicoPage.dart';
-import 'package:servicocerto/Pages/SearchPage.dart';
+import 'package:servicocerto/PagesCliente/CadastrarservicoPage.dart';
+import 'package:servicocerto/PagesCliente/SearchPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
-import 'package:servicocerto/Pages/UserInfoPage.dart';
+import 'package:servicocerto/PagesCliente/UserInfoPage.dart';
+// Importe a classe CalendarPage
 
-import 'calendarPage.dart'; // Importe a classe CalendarPage
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePagediarista extends StatefulWidget {
+  const HomePagediarista({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePagediarista> createState() => _HomePagediaristaState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePagediaristaState extends State<HomePagediarista> {
   final User? user = Authentication().currentUser;
 
   Future<void> signOut() async {
     await Authentication().signOut();
   }
 
-
   int _selectedIndex = 1; // Defina o índice inicial como 1 (tela inicial)
 
   final List<Widget> _screens = [
-    CalendarPage(), // Tela do Calendário
+    // Tela do Calendário
     HomePageContent(),
     UserInfoPage(),
   ];
@@ -47,13 +45,14 @@ class _HomePageState extends State<HomePage> {
     return ElevatedButton(onPressed: signOut, child: const Text('Sign Out'));
   }
 
-   void _cadastrarServico() {
+  void _cadastrarServico() {
     // Navegar para a página de cadastro de serviço quando o botão for pressionado
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ServiceRegistrationPage()),
     );
   }
+
   Widget _userMenuButton(BuildContext context) {
     return CircleAvatar(
       radius: 20,
@@ -105,7 +104,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Início',
+            label: 'Início Página Diarista',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -131,7 +130,7 @@ class HomePageContent extends StatelessWidget {
           alignment: Alignment.center,
           color: Theme.of(context).colorScheme.background,
           child: const Text(
-            'Bem Vindo',
+            'Bem Vindo Diarista',
             style: TextStyle(color: Colors.blue, fontSize: 24),
           ),
         ),
@@ -146,49 +145,6 @@ class HomePageContent extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => PesquisapageWidget()),
-              );
-            },
-          ),
-        ),
-        Container(
-          color: Theme.of(context).colorScheme.background,
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-          alignment: Alignment.centerLeft,
-          child: const Text(
-            'Recomendações:',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Expanded(
-          child: FutureBuilder(
-            future: FirebaseFirestore.instance.collection('Users').get(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              final List<String> docIDs =
-                  snapshot.data!.docs.map((doc) => doc.id).toList();
-              return ListView.builder(
-                itemCount: docIDs.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      child: ListTile(
-                        leading: const Icon(Icons.person),
-                        title: GetUserName(documentId: docIDs[index]),
-                        tileColor: Color.fromARGB(255, 252, 252, 252),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: const BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                  );
-                },
               );
             },
           ),
