@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:servicocerto/Pages/outroUserPage.dart';
+import 'package:servicocerto/Pagescliente/outroUserPage.dart';
 
 class PesquisapageWidget extends StatefulWidget {
   const PesquisapageWidget({Key? key}) : super(key: key);
