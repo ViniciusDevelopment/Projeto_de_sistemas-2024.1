@@ -9,18 +9,20 @@ class UserController extends GetxController {
   final _db = FirebaseFirestore.instance;
 
   createUser(UserModel user) async {
-    try {
-      await _db.collection("Users").add(user.toJson());
-      // Atualize a interface aqui para exibir o tipo de usuário corretamente
+    final userRef = _db
+        .collection("Users")
+        .doc(user.email); // Use o e-mail como ID do documento
+
+    await userRef.set(user.toJson()).then((_) {
       Get.snackbar("Sucesso", "Sua conta foi criada",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.blue.withOpacity(0.1),
           colorText: Colors.blue);
-    } catch (error) {
+    }).catchError((error) {
       Get.snackbar("Error", "Algo deu errado. Tente novamente",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.redAccent.withOpacity(0.1),
           colorText: Colors.red);
-    }
+    });
   }
 }

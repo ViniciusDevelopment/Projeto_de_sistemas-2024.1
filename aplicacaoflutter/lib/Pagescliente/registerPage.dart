@@ -14,7 +14,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   String? errorMessage = '';
-  String _selectedTipoUser = '';
+  String? _selectedTipoUser;
   final List<String> _userTypes = ['Cliente', 'Prestador'];
 
   final TextEditingController _controllerEmail = TextEditingController();
@@ -23,9 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _controllerTelefone = TextEditingController();
   final TextEditingController _controllerEndereco = TextEditingController();
   final TextEditingController _controllerName = TextEditingController();
-  final TextEditingController _controllerTipoUser = TextEditingController();
 
-  // Método para criar usuário com e-mail e senha
   Future<void> createUserWithEmailAndPassword() async {
     try {
       await Authentication().createUserWithEmailAndPassword(
@@ -37,12 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
           telefone: _controllerTelefone.text,
           password: _controllerPassword.text,
           endereco: _controllerEndereco.text,
-          tipoUser: _selectedTipoUser));
-      /*Navigator.push(
-        // ignore: use_build_context_synchronously
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );*/
+          tipoUser: _selectedTipoUser ?? ''));
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -50,12 +43,10 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  // Método para criar o widget do título
   Widget _title() {
     return const Text('Cadastrar Usuário');
   }
 
-  // Método para criar um campo de entrada de texto
   Widget _entryField(String title, TextEditingController controller) {
     return TextField(
       controller: controller,
@@ -65,10 +56,9 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  // Método para criar o dropdown do tipo de usuário
   Widget _tipoUserDropdown() {
     return DropdownButtonFormField<String>(
-      value: _selectedTipoUser.isNotEmpty ? _selectedTipoUser : null,
+      value: _selectedTipoUser,
       items: _userTypes.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
@@ -77,8 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
       }).toList(),
       onChanged: (String? value) {
         setState(() {
-          _selectedTipoUser = value ?? '';
-          _controllerTipoUser.text = value ?? '';
+          _selectedTipoUser = value;
         });
       },
       decoration: const InputDecoration(
@@ -88,12 +77,10 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  // Método para exibir a mensagem de erro
   Widget _errorMessage() {
     return Text(errorMessage == '' ? '' : "Error: $errorMessage");
   }
 
-  // Método para criar o botão de envio
   Widget _submitButton() {
     return ElevatedButton(
       onPressed: createUserWithEmailAndPassword,
@@ -111,20 +98,23 @@ class _RegisterPageState extends State<RegisterPage> {
         height: double.infinity,
         width: double.infinity,
         padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _entryField('Email', _controllerEmail),
-            _entryField('Password', _controllerPassword),
-            _entryField('CPF', _controllerCPF),
-            _entryField('Nome Completo', _controllerName),
-            _entryField('Telefone', _controllerTelefone),
-            _entryField('Endereço', _controllerEndereco),
-            _tipoUserDropdown(),
-            _errorMessage(),
-            _submitButton(),
-          ],
+        child: SingleChildScrollView(
+          // Adicione SingleChildScrollView para evitar overflow
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _entryField('Email', _controllerEmail),
+              _entryField('Password', _controllerPassword),
+              _entryField('CPF', _controllerCPF),
+              _entryField('Nome Completo', _controllerName),
+              _entryField('Telefone', _controllerTelefone),
+              _entryField('Endereço', _controllerEndereco),
+              _tipoUserDropdown(),
+              _errorMessage(),
+              _submitButton(),
+            ],
+          ),
         ),
       ),
     );

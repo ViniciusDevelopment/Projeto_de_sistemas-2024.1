@@ -5,8 +5,11 @@ import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCliente/CadastrarservicoPage.dart';
 import 'package:servicocerto/PagesCliente/SearchPage.dart';
+import 'package:servicocerto/Pagescliente/calendarPage.dart';
+import 'package:servicocerto/Pagesdiarista/UserInfoDiaristaPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
 import 'package:servicocerto/PagesCliente/UserInfoPage.dart';
+
 // Importe a classe CalendarPage
 
 class HomePagediarista extends StatefulWidget {
@@ -27,8 +30,9 @@ class _HomePagediaristaState extends State<HomePagediarista> {
 
   final List<Widget> _screens = [
     // Tela do Calendário
+    CalendarPage(),
     HomePageContent(),
-    UserInfoPage(),
+    DiaristaProfilePage(),
   ];
 
   void _onItemTapped(int index) {
