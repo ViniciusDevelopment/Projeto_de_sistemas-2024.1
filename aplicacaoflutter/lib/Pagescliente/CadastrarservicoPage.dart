@@ -3,7 +3,12 @@ import 'package:get/get.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Models/Service.dart';
 
-class ServiceRegistrationPage extends StatelessWidget {
+class ServiceRegistrationPage extends StatefulWidget {
+  @override
+  _ServiceRegistrationPageState createState() => _ServiceRegistrationPageState();
+}
+
+class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
   final TextEditingController _descricaoController = TextEditingController();
 
   void _cadastrarServico() {
@@ -12,6 +17,9 @@ class ServiceRegistrationPage extends StatelessWidget {
     if (descricao.isNotEmpty) {
       ServiceModel service = ServiceModel(descricao: descricao);
       ServiceController.instance.createService(service);
+
+      Navigator.pop(context);
+      
     } else {
       Get.snackbar(
         "Erro",

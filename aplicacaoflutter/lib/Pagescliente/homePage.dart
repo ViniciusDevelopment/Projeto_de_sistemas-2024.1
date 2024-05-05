@@ -11,7 +11,8 @@ import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 import 'calendarPage.dart'; // Importe a classe CalendarPage
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final Map<String, dynamic> userData;
+  const HomePage({Key? key, required this.userData}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -26,11 +27,17 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 1; // Defina o índice inicial como 1 (tela inicial)
 
-  final List<Widget> _screens = [
-    CalendarPage(), // Tela do Calendário
-    HomePageContent(),
-    UserInfoPage(),
-  ];
+  late List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      CalendarPage(), // Tela do Calendário
+      HomePageContent(userData: widget.userData),
+      UserInfoPage(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -43,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _signOutButton() {
-    return ElevatedButton(onPressed: signOut, child: const Text('Sign Out'));
+    return ElevatedButton(onPressed: signOut, child: const Text('Sair'));
   }
 
   void _cadastrarServico() {
@@ -64,13 +71,13 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
         ),
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-          PopupMenuItem(child: _signOutButton()),
           PopupMenuItem(
             child: ElevatedButton(
               onPressed: _cadastrarServico,
               child: const Text('Cadastrar serviço'),
             ),
           ),
+          PopupMenuItem(child: _signOutButton()),
         ],
       ),
     );
@@ -121,6 +128,10 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomePageContent extends StatelessWidget {
+  final Map<String, dynamic> userData;
+
+  const HomePageContent({Key? key, required this.userData}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -130,8 +141,8 @@ class HomePageContent extends StatelessWidget {
               const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
           alignment: Alignment.center,
           color: Theme.of(context).colorScheme.background,
-          child: const Text(
-            'Bem Vindo',
+          child: Text(
+            'Bem Vindo, ${userData['Name'].split(' ')[0]}',
             style: TextStyle(color: Colors.blue, fontSize: 24),
           ),
         ),

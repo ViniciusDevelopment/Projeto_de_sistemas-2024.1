@@ -36,6 +36,8 @@ class _RegisterPageState extends State<RegisterPage> {
           password: _controllerPassword.text,
           endereco: _controllerEndereco.text,
           tipoUser: _selectedTipoUser ?? ''));
+
+          Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;

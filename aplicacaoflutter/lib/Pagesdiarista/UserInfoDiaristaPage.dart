@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DiaristaProfilePage extends StatelessWidget {
-  const DiaristaProfilePage({Key? key}) : super(key: key);
+
+  final Map<String, dynamic> userData;
+  const DiaristaProfilePage({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class DiaristaProfilePage extends StatelessWidget {
           children: [
             SizedBox(height: 20),
             Text(
-              'Nome do Usuário',
+              userData['Name'],
               style: TextStyle(
                 fontFamily: 'Readex Pro',
                 fontSize: 24,
