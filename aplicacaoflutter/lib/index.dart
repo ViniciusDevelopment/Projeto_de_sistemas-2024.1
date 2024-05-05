@@ -39,7 +39,7 @@ class _IndexPageState extends State<IndexPage> {
                   final Map<String, dynamic>? userDataMap = userData as Map<
                       String,
                       dynamic>?; // Convertendo para Map<String, dynamic>
-                  final userType = userDataMap?['TipoUser'];
+                  final userType = userDataMap?['TipoUser'] ?? '';
                   print("Tipo de usuário:  ${userType}");
                   if (userType == 'Prestador') {
                     return HomePagediarista();

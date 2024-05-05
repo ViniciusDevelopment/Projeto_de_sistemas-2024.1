@@ -1,10 +1,15 @@
+// Este é o código da página que exibe o perfil de outro usuário,
+// baseado no email fornecido.
+
+// Importações necessárias
 import 'DeleteAccountButton.dart';
 import 'EditButton.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// Widget Stateful para a página do perfil do outro usuário
 class outroUserPage extends StatefulWidget {
-  final String email;
+  final String email; // Email do usuário a ser exibido
 
   const outroUserPage({Key? key, required this.email}) : super(key: key);
 
@@ -13,12 +18,17 @@ class outroUserPage extends StatefulWidget {
 }
 
 class _outroUserPageState extends State<outroUserPage> {
+  late List<Record>
+      _simpleSearchResults; // Lista para armazenar os resultados da busca
+
   @override
   void initState() {
     super.initState();
-    _performSearch(widget.email);
+    _simpleSearchResults = [];
+    _performSearch(widget.email); // Executa a busca ao inicializar a página
   }
 
+  // Função para buscar os dados do usuário no Firestore
   Future<void> _performSearch(String searchTerm) async {
     final CollectionReference usersRef =
         FirebaseFirestore.instance.collection('Users');
@@ -30,7 +40,14 @@ class _outroUserPageState extends State<outroUserPage> {
 
     // Atualize o estado com os resultados da consulta
     setState(() {
-      // Aqui você pode acessar os resultados da consulta, como querySnapshot.docs
+      _simpleSearchResults = querySnapshot.docs.map((doc) {
+        return Record(
+          Name: doc['Name'],
+          Telefone: doc['Telefone'],
+          Email: doc['Email'],
+          Endereco: doc['Endereco'],
+        );
+      }).toList();
     });
   }
 
@@ -61,6 +78,7 @@ class _outroUserPageState extends State<outroUserPage> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            // Exibição dos dados do usuário
             Container(
               width: MediaQuery.of(context).size.width,
               height: 100,
@@ -69,6 +87,7 @@ class _outroUserPageState extends State<outroUserPage> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  // Exibição da foto de perfil
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                     child: Container(
@@ -82,23 +101,25 @@ class _outroUserPageState extends State<outroUserPage> {
                           fit: BoxFit.cover),
                     ),
                   ),
-                  const Column(
+                  Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Text(
-                            'Dante',
+                            _simpleSearchResults.isNotEmpty
+                                ? _simpleSearchResults[0].Name
+                                : '',
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Readex Pro',
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           )),
-                      Padding(
+                      const Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
                           child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -123,6 +144,7 @@ class _outroUserPageState extends State<outroUserPage> {
                 ],
               ),
             ),
+            // Botões de ação (Contratar, Serviços)
             Container(
                 width: double.infinity,
                 height: 122,
@@ -204,6 +226,7 @@ class _outroUserPageState extends State<outroUserPage> {
                     )
                   ],
                 )),
+            // Exibição dos serviços prestados pelo usuário
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
               child: Container(
@@ -346,26 +369,17 @@ class _outroUserPageState extends State<outroUserPage> {
     );
   }
 }
-/*
+
+// Função de busca no Firestore
 Future<void> _performSearch(String email) async {
   final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('Users');
 
   final QuerySnapshot querySnapshot =
       await usersRef.where('Email', isEqualTo: email).get();
-
-  setState(() {
-    _simpleSearchResults = querySnapshot.docs.map((doc) {
-      return Record(
-        Name: doc['Name'],
-        Telefone: doc['Telefone'],
-        Email: doc['Email'],
-        Endereco: doc['Endereco'],
-      );
-    }).toList();
-  });
 }
 
+// Classe para armazenar os dados do usuário
 class Record {
   final String Name;
   final String Telefone;
@@ -378,4 +392,5 @@ class Record {
     required this.Email,
     required this.Endereco,
   });
-}*/
+}
+//testeeeee
