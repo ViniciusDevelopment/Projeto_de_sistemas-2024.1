@@ -296,9 +296,9 @@ class _IndexPageState extends State<IndexPage> {
                     print("Tipo de usuário: $userType");
 
                     if (userType == 'Prestador') {
-                      return HomePagediarista();
+                      return HomePagediarista(userData: userData);
                     } else {
-                      return HomePage();
+                      return HomePage(userData: userData);
                     }
                   } else {
                     print("Dados do usuário são nulos");
