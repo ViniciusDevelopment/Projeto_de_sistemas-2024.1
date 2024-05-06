@@ -1,4 +1,3 @@
-import 'UserInfoPage.dart';
 import 'package:flutter/material.dart';
 
 class EditPage extends StatefulWidget {
@@ -71,12 +70,7 @@ class _EditPageState extends State<EditPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const UserInfoPage(),
-                      ),
-                    );
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
@@ -105,12 +99,7 @@ class _EditPageState extends State<EditPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const UserInfoPage(),
-                      ),
-                    );
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,

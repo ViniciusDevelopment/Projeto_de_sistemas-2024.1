@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Pagescliente/DeleteAccountButton.dart';
+import 'package:servicocerto/Pagescliente/EditButton.dart';
 import 'package:servicocerto/Pagescliente/EditPage.dart';
 
 class UserInfoPage extends StatefulWidget {
@@ -99,29 +100,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(40),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => EditPage()),
-                      );
-                    },
-                    child: const Text('Editar'),
-                  ),
+                  child: EditButton(),
                 ),
+                
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DeleteAccountButton()));
-                    },
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: const Text('Excluir'),
-                  ),
+                  child: DeleteAccountButton(),
                 ),
               ],
             ),
