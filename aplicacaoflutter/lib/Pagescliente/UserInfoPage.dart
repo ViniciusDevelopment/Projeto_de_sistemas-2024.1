@@ -1,293 +1,8 @@
-/*import 'DeleteAccountButton.dart';
-import 'EditButton.dart';
-import 'package:flutter/material.dart';
-
-class UserInfoPage extends StatefulWidget {
-  const UserInfoPage({super.key});
-
-  @override
-  State<UserInfoPage> createState() => _UserInfoPageState();
-}
-
-class _UserInfoPageState extends State<UserInfoPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        automaticallyImplyLeading: false,
-        title: const Align(
-          alignment: AlignmentDirectional(0, 0),
-          child: Text(
-            'Informações do Usuário',
-            style: TextStyle(
-              fontFamily: 'Outfit',
-              color: Colors.white,
-              fontSize: 22,
-              letterSpacing: 0,
-            ),
-          ),
-        ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2,
-      ),
-      body: SafeArea(
-        top: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Align(
-              alignment: AlignmentDirectional(0, 1),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  'https://images.unsplash.com/photo-1525357816819-392d2380d821?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyMXx8cHJvZmlsZSUyMGljb258ZW58MHx8fHwxNzEyNTM1NTA2fDA&ixlib=rb-4.0.3&q=80&w=1080',
-                  width: 152,
-                  height: 152,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            const Text(
-              'Erasmo Vieira',
-              style: TextStyle(
-                fontFamily: 'Readex Pro',
-                fontSize: 24,
-                letterSpacing: 0,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Container(
-              width: 264,
-              height: 239,
-              decoration: const BoxDecoration(
-                color: Colors.white24,
-              ),
-              child: const Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        'Telefone: (63)98877-6655',
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                      child: Text(
-                        'Email: erasmo@email.com',
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        'Endereço: 108 Norte Al02 Lt11',
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(children: [
-              Padding(
-                padding: EdgeInsets.all(40),
-                child: EditButton(),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: DeleteAccountButton(),
-              ),
-            ]),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
-
-/*import 'DeleteAccountButton.dart';
-import 'EditButton.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-class UserInfoPage extends StatefulWidget {
-  const UserInfoPage({Key? key});
-
-  @override
-  State<UserInfoPage> createState() => _UserInfoPageState();
-}
-
-class _UserInfoPageState extends State<UserInfoPage> {
-  late User _user;
-  late DocumentSnapshot _userSnapshot;
-
-  @override
-  void initState() {
-    super.initState();
-    _user = FirebaseAuth.instance.currentUser!;
-    _loadUserData();
-  }
-
-  Future<void> _loadUserData() async {
-    final userSnapshot = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(_user.uid)
-        .get();
-    setState(() {
-      _userSnapshot = userSnapshot;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        automaticallyImplyLeading: false,
-        title: const Align(
-          alignment: AlignmentDirectional(0, 0),
-          child: Text(
-            'Informações do Usuário',
-            style: TextStyle(
-              fontFamily: 'Outfit',
-              color: Colors.white,
-              fontSize: 22,
-              letterSpacing: 0,
-            ),
-          ),
-        ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2,
-      ),
-      body: SafeArea(
-        top: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Align(
-              alignment: AlignmentDirectional(0, 1),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  'https://images.unsplash.com/photo-1525357816819-392d2380d821?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyMXx8cHJvZmlsZSUyMGljb258ZW58MHx8fHwxNzEyNTM1NTA2fDA&ixlib=rb-4.0.3&q=80&w=1080', // Assuming you have a photoUrl field
-                  width: 152,
-                  height: 152,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            Text(
-              _userSnapshot['Name'] ?? '', // Assuming you have a name field
-              style: TextStyle(
-                fontFamily: 'Readex Pro',
-                fontSize: 24,
-                letterSpacing: 0,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Container(
-              width: 264,
-              height: 239,
-              decoration: const BoxDecoration(
-                color: Colors.white24,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        'Telefone: ${_userSnapshot['Telefone'] ?? ''}', // Assuming you have a phone field
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                      child: Text(
-                        'Email: ${_user.email}', // Use the email from Firebase Auth
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        'Endereço: ${_userSnapshot['Endereco'] ?? ''}', // Assuming you have an address field
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(children: [
-              Padding(
-                padding: const EdgeInsets.all(40),
-                child: EditButton(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: DeleteAccountButton(),
-              ),
-            ]),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
-
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:servicocerto/Pagescliente/DeleteAccountButton.dart';
+import 'package:servicocerto/Pagescliente/EditPage.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key}) : super(key: key);
@@ -311,17 +26,24 @@ class _UserInfoPageState extends State<UserInfoPage> {
     setState(() {
       _currentUser = currentUser;
     });
-    if (_currentUser != null) {
-      await _getUserData(_currentUser!.uid);
+    if (_currentUser != null && _currentUser!.email != null) {
+      await _getUserData(_currentUser!.email!);
     }
   }
 
-  Future<void> _getUserData(String userId) async {
-    final userData =
-        await FirebaseFirestore.instance.collection('Users').doc(userId).get();
-    setState(() {
-      _userData = userData.data() ?? {};
-    });
+  Future<void> _getUserData(String userEmail) async {
+    final userData = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userEmail)
+        .get();
+
+    if (userData.exists) {
+      setState(() {
+        _userData = userData.data() as Map<String, dynamic>;
+      });
+    } else {
+      print('Dados do usuário não encontrados.');
+    }
   }
 
   @override
@@ -348,7 +70,15 @@ class _UserInfoPageState extends State<UserInfoPage> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            // Adicione sua lógica para mostrar a imagem do usuário
+            // Exibir a imagem do usuário
+            const SizedBox(height: 20),
+            CircleAvatar(
+              radius: 50, // Tamanho da imagem do perfil
+              backgroundImage: //_userData['photoURL'] != null
+                  NetworkImage(
+                      'https://media.licdn.com/dms/image/D5603AQFYXD20YWa4Pg/profile-displayphoto-shrink_800_800/0/1673271268827?e=1720656000&v=beta&t=fBk_xn1aHZHpfGs0k4YhnEpYTjmBrpCJXA04WzMSGLE'), // Carrega a imagem do usuário a partir da URL
+              //: AssetImage('assets/images/default_profile_image.png'), // Imagem padrão se não houver URL
+            ),
             const SizedBox(height: 20),
             Text(
               _userData['Name'] ?? 'Nome do Usuário',
@@ -371,7 +101,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   padding: const EdgeInsets.all(40),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Lógica para editar o perfil
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditPage()),
+                      );
                     },
                     child: const Text('Editar'),
                   ),
@@ -380,7 +113,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   padding: const EdgeInsets.all(20),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Lógica para excluir a conta
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DeleteAccountButton()));
                     },
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
