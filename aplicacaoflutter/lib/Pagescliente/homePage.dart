@@ -6,6 +6,8 @@ import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
 import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
+import 'package:servicocerto/ReadData/get_user_endereco.dart';
+import 'package:servicocerto/ReadData/get_user_telefone.dart';
 import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 
 import 'calendarPage.dart'; // Importe a classe CalendarPage
@@ -178,6 +180,13 @@ class HomePageContent extends StatelessWidget {
                       child: ListTile(
                         leading: const Icon(Icons.person),
                         title: GetUserName(documentId: docIDs[index]),
+                         subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Telefone: ${GetUserTelefone(documentId: docIDs[index])}"),
+                            Text("Endereço: ${GetUserEndereco(documentId: docIDs[index])}"),
+                          ],
+                        ),
                         tileColor: Color.fromARGB(255, 252, 252, 252),
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 10),
