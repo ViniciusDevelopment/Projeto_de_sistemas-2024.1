@@ -7,16 +7,17 @@ class UserModel {
   final String endereco;
   final String tipoUser;
 
-  const UserModel(
-      {required this.name,
-      required this.email,
-      required this.cpf,
-      required this.telefone,
-      required this.password,
-      required this.endereco,
-      required this.tipoUser});
+  const UserModel({
+    required this.name,
+    required this.email,
+    required this.cpf,
+    required this.telefone,
+    required this.password,
+    required this.endereco,
+    required this.tipoUser,
+  });
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       "Name": name,
       "Email": email,
