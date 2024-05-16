@@ -74,7 +74,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
             // Exibir a imagem do usuário
             const SizedBox(height: 20),
             CircleAvatar(
-              radius: 50, // Tamanho da imagem do perfil
+              radius: 70, // Tamanho da imagem do perfil
               backgroundImage: //_userData['photoURL'] != null
                   NetworkImage(
                       'https://media.licdn.com/dms/image/D5603AQFYXD20YWa4Pg/profile-displayphoto-shrink_800_800/0/1673271268827?e=1720656000&v=beta&t=fBk_xn1aHZHpfGs0k4YhnEpYTjmBrpCJXA04WzMSGLE'), // Carrega a imagem do usuário a partir da URL
@@ -102,7 +102,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   padding: const EdgeInsets.all(40),
                   child: EditButton(),
                 ),
-                
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: DeleteAccountButton(),
