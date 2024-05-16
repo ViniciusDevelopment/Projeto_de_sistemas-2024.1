@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart'; // Adicione esta linha
+
 class ServiceModel {
   String descricao;
   double valor;
@@ -9,11 +11,11 @@ class ServiceModel {
     required this.disponibilidade,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'descricao': descricao,
-      'valor': valor,
-      'disponibilidade': disponibilidade,
-    };
+  factory ServiceModel.fromDocumentSnapshot(DocumentSnapshot doc) {
+    return ServiceModel(
+      descricao: doc['descricao'],
+      valor: doc['valor'],
+      disponibilidade: doc['disponibilidade'],
+    );
   }
 }
