@@ -1,14 +1,19 @@
 class ServiceModel {
-  final String descricao;
+  String descricao;
+  double valor;
+  String disponibilidade;
 
+  ServiceModel({
+    required this.descricao,
+    required this.valor,
+    required this.disponibilidade,
+  });
 
-  const ServiceModel(
-      {required this.descricao,});
-
-  toJson() {
+  Map<String, dynamic> toMap() {
     return {
-      "Descricao": descricao,
-
+      'descricao': descricao,
+      'valor': valor,
+      'disponibilidade': disponibilidade,
     };
   }
 }

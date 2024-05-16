@@ -22,7 +22,8 @@ class ServiceController extends GetxController {
       await _db.collection("Servicos").add({
         "uid": user.uid, // Vincular o UID do usuário ao serviço
         "descricao": service.descricao,
-        // Adicionar mais campos do serviço conforme necessário
+        "valor": service.valor,
+        "disponibilidade": service.disponibilidade,
       });
 
       // Exibir mensagem de sucesso
