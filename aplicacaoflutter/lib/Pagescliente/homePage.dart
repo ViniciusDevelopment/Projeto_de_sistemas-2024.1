@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
-import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
 import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
 import 'package:servicocerto/ReadData/get_user_endereco.dart';
@@ -55,14 +54,6 @@ class _HomePageState extends State<HomePage> {
     return ElevatedButton(onPressed: signOut, child: const Text('Sair'));
   }
 
-  void _cadastrarServico() {
-    // Navegar para a página de cadastro de serviço quando o botão for pressionado
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ServiceRegistrationPage()),
-    );
-  }
-
   Widget _userMenuButton(BuildContext context) {
     return CircleAvatar(
       radius: 20,
@@ -73,12 +64,6 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
         ),
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-          PopupMenuItem(
-            child: ElevatedButton(
-              onPressed: _cadastrarServico,
-              child: const Text('Cadastrar serviço'),
-            ),
-          ),
           PopupMenuItem(child: _signOutButton()),
         ],
       ),
