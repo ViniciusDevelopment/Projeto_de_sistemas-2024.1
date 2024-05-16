@@ -5,25 +5,31 @@ class GetUserEndereco extends StatelessWidget {
   
   final String documentId;
 
-  const GetUserEndereco({super.key, required this.documentId});
+  const GetUserEndereco({Key? key, required this.documentId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(documentId).get(),
-      builder: ((context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done){
-            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-            return Text('Endereco: ${data['Endereco']}');
-              
-
-          }
+    return StreamBuilder<DocumentSnapshot>(
+      stream: users.doc(documentId).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('loading...');
-
-
-    }));
+        } else if (snapshot.hasError) {
+          return const Text('error');
+        } else if (snapshot.hasData) {
+          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          if (data.containsKey('Endereco')) {
+            return Text('Endereco: ${data['Endereco']}');
+          } else {
+            return const Text('Endereco não encontrado');
+          }
+        } else {
+          return const Text('Document does not exist');
+        }
+      },
+    );
   }
 }
