@@ -62,7 +62,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        "Login to your account",
+                        "Entre na sua conta",
                         style: TextStyle(fontSize: 15, color: Colors.grey[700]),
                       )
                     ],
@@ -108,7 +108,7 @@ class LoginPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => RegisterPage()),
+                            MaterialPageRoute(builder: (context) => SignupPage()),
                           );
                         },
                         child: Text(

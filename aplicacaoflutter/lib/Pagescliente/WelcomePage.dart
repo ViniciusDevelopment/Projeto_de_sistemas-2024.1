@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:servicocerto/Pagescliente/loginPage.dart';
-import 'package:servicocerto/Pagescliente/registerPage.dart';
+import 'registerPage.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -72,7 +72,7 @@ class WelcomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50)
                     ),
                     child: Text(
-                      "Login",
+                      "Entrar",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18
@@ -85,15 +85,17 @@ class WelcomePage extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterPage()));
-
+                     Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignupPage()),
+                          );
                     },
                     color: Color(0xff0095FF),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50)
                     ),
                     child: Text(
-                      "Sign up",
+                      "Cadastre-se",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -113,7 +115,4 @@ class WelcomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-class SignupPage {
 }
