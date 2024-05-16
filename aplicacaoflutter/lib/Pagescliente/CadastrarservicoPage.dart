@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import necessário para FilteringTextInputFormatter
 import 'package:get/get.dart';
 import 'package:servicocerto/Controller/ServiceController.dart'; // Import corrigido para minúsculas
-import 'package:servicocerto/Models/service.dart'; // Import corrigido para minúsculas
+import 'package:servicocerto/Models/Service.dart'; // Import corrigido para minúsculas
 
 class ServiceRegistrationPage extends StatefulWidget {
   const ServiceRegistrationPage({Key? key}) : super(key: key); // Adicionado key

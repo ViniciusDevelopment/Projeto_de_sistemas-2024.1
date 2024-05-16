@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
-import 'package:servicocerto/PagesCliente/SearchPage.dart';
-import 'package:servicocerto/PagesCliente/calendarPage.dart';
+import 'package:servicocerto/Pagescliente/SearchPage.dart';
+import 'package:servicocerto/Pagescliente/calendarPage.dart';
 import 'package:servicocerto/Pagesdiarista/UserInfoDiaristaPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
-import 'package:servicocerto/PagesCliente/UserInfoPage.dart';
+import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 
 // Importe a classe CalendarPage
 

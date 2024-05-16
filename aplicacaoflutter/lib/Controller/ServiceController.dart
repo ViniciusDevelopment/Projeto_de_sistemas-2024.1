@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart'; // Adicione esta linha
-import 'package:servicocerto/Models/service.dart';
+import 'package:servicocerto/Models/Service.dart';
 
 class ServiceController extends GetxController {
   static ServiceController get instance => Get.find();

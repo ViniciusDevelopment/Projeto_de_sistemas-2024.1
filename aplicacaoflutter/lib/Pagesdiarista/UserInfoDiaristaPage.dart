@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:servicocerto/PagesCliente/CadastrarservicoPage.dart';
+import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
 import 'package:servicocerto/Pagescliente/DeleteAccountButton.dart';
 import 'package:servicocerto/Pagescliente/EditButton.dart';
 import 'package:servicocerto/Controller/ServiceController.dart'; // Atualize o import
-import 'package:servicocerto/Models/service.dart'; // Atualize o import
+import 'package:servicocerto/Models/Service.dart'; // Atualize o import
 
 class DiaristaProfilePage extends StatelessWidget {
   final Map<String, dynamic> userData;
