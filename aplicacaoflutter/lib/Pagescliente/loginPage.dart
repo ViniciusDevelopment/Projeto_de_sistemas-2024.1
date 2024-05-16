@@ -2,6 +2,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:servicocerto/index.dart';
 import '../Controller/authCheck.dart';
 import 'registerPage.dart';
 
@@ -24,7 +25,11 @@ class _LoginPageState extends State<LoginPage> {
       print("Tentando fazer login com ${_controllerEmail.text}");
       await Authentication().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
-      print("Login bem-sucedido para ${_controllerEmail.text}");
+          print("Login bem-sucedido para ${_controllerEmail.text}");
+          Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => IndexPage()),
+  );
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
