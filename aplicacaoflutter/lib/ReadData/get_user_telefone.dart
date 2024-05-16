@@ -5,25 +5,31 @@ class GetUserTelefone extends StatelessWidget {
   
   final String documentId;
 
-  const GetUserTelefone({super.key, required this.documentId});
+  const GetUserTelefone({Key? key, required this.documentId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(documentId).get(),
-      builder: ((context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done){
-            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-            return Text('Telefone: ${data['Telefone']}');
-              
-
-          }
+    return StreamBuilder<DocumentSnapshot>(
+      stream: users.doc(documentId).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('loading...');
-
-
-    }));
+        } else if (snapshot.hasError) {
+          return const Text('error');
+        } else if (snapshot.hasData) {
+          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          if (data.containsKey('Telefone')) {
+            return Text('Telefone: ${data['Telefone']}');
+          } else {
+            return const Text('Telefone não encontrado');
+          }
+        } else {
+          return const Text('Document does not exist');
+        }
+      },
+    );
   }
 }
