@@ -179,8 +179,8 @@ class HomePageContent extends StatelessWidget {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Telefone: ${GetUserTelefone(documentId: docIDs[index])}"),
-                            Text("Endereço: ${GetUserEndereco(documentId: docIDs[index])}"),
+                            GetUserTelefone(documentId: docIDs[index]),
+                            GetUserEndereco(documentId: docIDs[index])
                           ],
                         ),
                         tileColor: Color.fromARGB(255, 252, 252, 252),
