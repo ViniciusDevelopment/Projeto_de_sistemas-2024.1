@@ -734,3 +734,50 @@ Os principais entregáveis deste projeto incluem:
 **Protótipo da tela:**
 
 ![tela de outros perfis](https://github.com/joaovictorwg/prototipos_ServicoCerto/blob/develop/Tela%20meu%20perfil%20de%20prestadora%20de%20servi%C3%A7o.png)
+
+
+======
+
+  
+
+## Iteração 3 (22/Abril - 06/Maio)
+
+**Objetivo:** O objetivo dessa iteração 3 foi estabelecido pelo grupo no final da iteração 2 através de conversas, utilização do aplicativo em produção e brainstorming.    
+O objetivo da iteração, foi aprimorar o código legado de iterações anteriores, visando melhorar sua qualidade e eficiência. Além disso, foram adicionadas novas funcionalidades para enriquecer a aplicação e atender às necessidades emergentes do projeto.
+  
+
+- [X] RF12 - [Autenticação por tipo de usuário](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/22). [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
+
+  
+
+- [X] RF13 - [Tela inicial do prestador de serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/23). [Daniel Nolêto](https://github.com/Daniel-Noleto/) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
+
+  
+
+- [X] RF14 - [Tela de calendário](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/19). [Saulo Ferraz](https://github.com/Saulo-Ferraz-TC/) Revisado por [Daniel Nolêto](https://github.com/Daniel-Noleto)
+
+  
+
+- [X] RF15 - [Ver informações do pefil de outros usuários](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/21). [João Victor Walcacer](https://github.com/joaovictorwg) Revisado por [Daniel Nolêto](https://github.com/Danie-Noleto)
+
+  
+
+- [X] RF16 - Ajustar listagem de usuários na home. [Vinicius Maciel](https://github.com/ViniciusDevelopment) Revisado por [Vinícius Maciel Pires](https://github.com/ViniciusDevelopment)
+
+
+
+- [X] RF17 - [Adicionar mais informações nas recomendações de usuários na home](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/26). [Benedito Jaime](https://github.com/beneX90) Revisado por [Saulo Ferraz](https://github.com/Saulo-Ferraz-TC)
+
+
+- [X] RF18 - [Tela meu perfil do cliente](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/27). [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [Daniel Nolêto](https://github.com/Daniel-Noleto)
+
+
+- [X] RF19 - [Tela meu perfil do prestador de serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/28). [Daniel Nolêto](https://github.com/Daniel-Noleto) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
+
+<br/>
+
+---
+  
+Na iteração 3, dedicamos especial atenção à documentação de UI/UX, utilizando o Figma para criar protótipos detalhados das telas. Seguindo os princípios de design de interface do usuário e experiência do usuário (UI/UX), cada tela foi meticulosamente projetada para oferecer uma experiência fluida e intuitiva aos usuários. Os protótipos no Figma serviram como uma base sólida para o desenvolvimento das telas no projeto, garantindo consistência visual e funcional em todo o sistema. Ao integrar os elementos de UI/UX desde o estágio de prototipagem, buscamos não apenas melhorar a estética, mas também otimizar a usabilidade e a interatividade do produto final. Essa abordagem centrada no usuário reflete nosso compromisso em oferecer uma experiência de alta qualidade e satisfatória para os usuários finais.
+
+Link do repositório no figma: https://www.figma.com/file/saQzOFctzuMek2as0GkOba/Untitled?type=design&node-id=49-349&mode=design&t=LAAH2sBRwBLETJzu-0
