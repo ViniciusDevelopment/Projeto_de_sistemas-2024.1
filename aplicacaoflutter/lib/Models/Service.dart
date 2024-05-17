@@ -1,14 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart'; // Adicione esta linha
+
 class ServiceModel {
-  final String descricao;
+  String descricao;
+  double valor;
+  String disponibilidade;
 
+  ServiceModel({
+    required this.descricao,
+    required this.valor,
+    required this.disponibilidade,
+  });
 
-  const ServiceModel(
-      {required this.descricao,});
-
-  toJson() {
-    return {
-      "Descricao": descricao,
-
-    };
+  factory ServiceModel.fromDocumentSnapshot(DocumentSnapshot doc) {
+    return ServiceModel(
+      descricao: doc['descricao'],
+      valor: doc['valor'],
+      disponibilidade: doc['disponibilidade'],
+    );
   }
 }

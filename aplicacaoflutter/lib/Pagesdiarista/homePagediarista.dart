@@ -4,12 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
-import 'package:servicocerto/PagesCliente/CadastrarservicoPage.dart';
-import 'package:servicocerto/PagesCliente/SearchPage.dart';
+import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/Pagescliente/calendarPage.dart';
 import 'package:servicocerto/Pagesdiarista/UserInfoDiaristaPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
-import 'package:servicocerto/PagesCliente/UserInfoPage.dart';
+import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 
 // Importe a classe CalendarPage
 
@@ -44,14 +43,6 @@ class _HomePagediaristaState extends State<HomePagediarista> {
     return ElevatedButton(onPressed: signOut, child: const Text('Sair'));
   }
 
-  void _cadastrarServico() {
-    // Navegar para a página de cadastro de serviço quando o botão for pressionado
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ServiceRegistrationPage()),
-    );
-  }
-
   Widget _userMenuButton(BuildContext context) {
     return CircleAvatar(
       radius: 20,
@@ -62,12 +53,6 @@ class _HomePagediaristaState extends State<HomePagediarista> {
           color: Colors.black,
         ),
         itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-          PopupMenuItem(
-            child: ElevatedButton(
-              onPressed: _cadastrarServico,
-              child: const Text('Cadastrar serviço'),
-            ),
-          ),
           PopupMenuItem(child: _signOutButton()),
         ],
       ),
@@ -142,7 +127,8 @@ class HomePageContent extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
+          padding:
+              const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
           alignment: Alignment.center,
           color: Theme.of(context).colorScheme.background,
           child: Text(
@@ -165,9 +151,6 @@ class HomePageContent extends StatelessWidget {
             },
           ),
         ),
-
-
-
         Container(
           color: Theme.of(context).colorScheme.background,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -177,7 +160,6 @@ class HomePageContent extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
-
       ],
     );
   }
