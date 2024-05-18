@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.light, // Definindo tema claro
+        scaffoldBackgroundColor: Colors.white, // Fundo branco
       ),
       home: const IndexPage(),
     );

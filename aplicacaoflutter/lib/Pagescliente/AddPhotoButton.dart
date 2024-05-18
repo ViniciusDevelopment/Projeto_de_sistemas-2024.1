@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'AddPhotoPage.dart';
+import '../PagesCommon/AddPhotoPage.dart';
 
 class AddPhotoButton extends StatefulWidget {
   @override

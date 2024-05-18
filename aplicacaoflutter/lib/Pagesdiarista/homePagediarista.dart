@@ -6,6 +6,7 @@ import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/Pagescliente/calendarPage.dart';
+import 'package:servicocerto/Pagesdiarista/ProfilePage.dart';
 import 'package:servicocerto/Pagesdiarista/UserInfoDiaristaPage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
 import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
@@ -62,20 +63,20 @@ class _HomePagediaristaState extends State<HomePagediarista> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        centerTitle: true,
-        title: const Text(
-          "Início",
-          style: TextStyle(color: Colors.white),
-        ),
-        actions: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(right: 24),
-            child: _userMenuButton(context),
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.blue,
+      //   centerTitle: true,
+      //   title: const Text(
+      //     "Início",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      //   actions: <Widget>[
+      //     Container(
+      //       padding: const EdgeInsets.only(right: 24),
+      //       child: _userMenuButton(context),
+      //     )
+      //   ],
+      // ),
       body: Column(
         children: [
           Expanded(
@@ -85,7 +86,8 @@ class _HomePagediaristaState extends State<HomePagediarista> {
                 // Tela do Calendário
                 CalendarPage(),
                 HomePageContent(userData: widget.userData),
-                DiaristaProfilePage(userData: widget.userData),
+                ProfilePage(userData: widget.userData),
+                // DiaristaProfilePage(userData: widget.userData),
               ],
             ),
           ),
@@ -117,11 +119,20 @@ class _HomePagediaristaState extends State<HomePagediarista> {
   }
 }
 
-class HomePageContent extends StatelessWidget {
+class HomePageContent extends StatefulWidget {
+
   final Map<String, dynamic> userData;
 
   const HomePageContent({Key? key, required this.userData}) : super(key: key);
 
+  @override
+  State<HomePageContent> createState() => _HomePageContentState();
+}
+
+
+
+class _HomePageContentState extends State<HomePageContent> {
+  bool isDark = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -131,26 +142,62 @@ class HomePageContent extends StatelessWidget {
               const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
           alignment: Alignment.center,
           color: Theme.of(context).colorScheme.background,
-          child: Text(
-            "Bem Vindo, ${userData['Name'].split(' ')[0]}",
-            style: TextStyle(color: Colors.blue, fontSize: 24),
-          ),
+        
         ),
-        Container(
-          color: Theme.of(context).colorScheme.background,
-          child: TextField(
-            decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Pesquisar...',
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PesquisapageWidget()),
-              );
-            },
-          ),
-        ),
+       SearchAnchor(
+  builder: (BuildContext context, SearchController controller) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xff0095FF)), // Adiciona uma borda azul
+        borderRadius: BorderRadius.circular(8.0), // Define a borda arredondada
+        color: Colors.white, // Define o fundo como branco
+      ),
+      child: SearchBar(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        controller: controller,
+        padding: const MaterialStatePropertyAll<EdgeInsets>(
+            EdgeInsets.symmetric(horizontal: 16.0)),
+        onTap: () {
+          controller.openView();
+        },
+        onChanged: (_) {
+          controller.openView();
+        },
+        leading: const Icon(Icons.search),
+      ),
+    );
+  },
+  suggestionsBuilder: (BuildContext context, SearchController controller) {
+    return List<ListTile>.generate(5, (int index) {
+      final String item = 'item $index';
+      return ListTile(
+        title: Text(item),
+        onTap: () {
+          setState(() {
+            controller.closeView(item);
+          });
+        },
+      );
+    });
+  },
+),
+
+
+        // Container(
+        //   color: Theme.of(context).colorScheme.background,
+        //   child: TextField(
+        //     decoration: InputDecoration(
+        //       prefixIcon: Icon(Icons.search),
+        //       hintText: 'Pesquisar...',
+        //     ),
+        //     onTap: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => PesquisapageWidget()),
+        //       );
+        //     },
+        //   ),
+        // ),
         Container(
           color: Theme.of(context).colorScheme.background,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
