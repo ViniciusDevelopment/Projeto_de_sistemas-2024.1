@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.6
   table_calendar: ^3.0.0
   firebase_core: ^2.29.0
+  image_picker: ^0.8.7+4
+  firebase_storage: ^11.0.6
+  universal_io: ^2.0.4
   firebase_auth: ^4.19.1
   cloud_firestore: ^4.16.1
   firebase_analytics: ^10.10.1
