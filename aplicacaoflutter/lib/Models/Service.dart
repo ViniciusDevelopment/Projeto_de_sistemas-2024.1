@@ -4,13 +4,13 @@ class ServiceModel {
   String descricao;
   double valor;
   String disponibilidade;
-  String email;
+  String? email;
 
   ServiceModel({
     required this.descricao,
     required this.valor,
     required this.disponibilidade,
-    required this.email,
+    this.email,
   });
 
   factory ServiceModel.fromDocumentSnapshot(DocumentSnapshot doc) {

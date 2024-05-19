@@ -1,9 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
-import 'package:servicocerto/Pagescliente/calendarPage.dart';
-import 'package:servicocerto/Pagesdiarista/ProfilePage.dart';
+import 'package:servicocerto/Pagescliente/SearchPage.dart';
+import 'package:servicocerto/PagesCommon/calendarPage.dart';
+import 'package:servicocerto/PagesCommon/ProfilePage.dart';
+import 'package:servicocerto/ReadData/get_user_name.dart';
+import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 
 // Importe a classe CalendarPage
 
@@ -78,7 +83,7 @@ class _HomePagediaristaState extends State<HomePagediarista> {
               index: _selectedIndex,
               children: [
                 // Tela do Calendário
-                const CalendarPage(),
+                CalendarPage(),
                 HomePageContent(userData: widget.userData),
                 ProfilePage(userData: widget.userData),
                 // DiaristaProfilePage(userData: widget.userData),
@@ -116,7 +121,7 @@ class _HomePagediaristaState extends State<HomePagediarista> {
 class HomePageContent extends StatefulWidget {
   final Map<String, dynamic> userData;
 
-  const HomePageContent({super.key, required this.userData});
+  const HomePageContent({Key? key, required this.userData}) : super(key: key);
 
   @override
   State<HomePageContent> createState() => _HomePageContentState();
@@ -132,14 +137,13 @@ class _HomePageContentState extends State<HomePageContent> {
           padding:
               const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
           alignment: Alignment.center,
-          color: Theme.of(context).colorScheme.surface,
         ),
         SearchAnchor(
           builder: (BuildContext context, SearchController controller) {
             return Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: const Color(0xff0095FF)), // Adiciona uma borda azul
+                    color: Color(0xff0095FF)), // Adiciona uma borda azul
                 borderRadius:
                     BorderRadius.circular(8.0), // Define a borda arredondada
                 color: Colors.white, // Define o fundo como branco
@@ -174,24 +178,7 @@ class _HomePageContentState extends State<HomePageContent> {
             });
           },
         ),
-
-        // Container(
-        //   color: Theme.of(context).colorScheme.background,
-        //   child: TextField(
-        //     decoration: InputDecoration(
-        //       prefixIcon: Icon(Icons.search),
-        //       hintText: 'Pesquisar...',
-        //     ),
-        //     onTap: () {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => PesquisapageWidget()),
-        //       );
-        //     },
-        //   ),
-        // ),
         Container(
-          color: Theme.of(context).colorScheme.surface,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
           alignment: Alignment.centerLeft,
           child: const Text(

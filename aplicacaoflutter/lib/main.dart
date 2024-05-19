@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:provider/provider.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
+import 'package:servicocerto/Repository/UserRepository.dart';
+import 'package:servicocerto/providers.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'index.dart';
 
 Future<void> main() async {
@@ -11,7 +17,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(ServiceController());
-  runApp(const MyApp());
+   runApp(
+    MultiProvider(
+      providers: providers,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
