@@ -5,7 +5,6 @@ import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/AddPhotoPage.dart';
 import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
 import 'package:servicocerto/Pagescliente/EditPage.dart';
-import 'package:servicocerto/Pagescliente/homePage.dart';
 import 'package:servicocerto/Pagesdiarista/MeusServicosPage.dart';
 import 'package:servicocerto/Pagesdiarista/profile_list_item.dart';
 
@@ -17,7 +16,7 @@ Future<void> signOut() async {
 class ProfilePage extends StatelessWidget {
   final Map<String, dynamic> userData;
 
-  const ProfilePage({Key? key, required this.userData}) : super(key: key);
+  const ProfilePage({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         // Envolve a Column em um Center para centralizar horizontalmente
-        child: Container(
+        child: SizedBox(
           // Envolve o Expanded em um Container
           width: double.infinity, // Define a largura do Container
           child: Expanded(
@@ -33,18 +32,18 @@ class ProfilePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment
                   .center, // Alinha os elementos horizontalmente
               children: <Widget>[
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Container(
                   height: 100,
                   width: 100,
-                  margin: EdgeInsets.only(top: 30),
+                  margin: const EdgeInsets.only(top: 30),
                   child: Stack(
                     children: <Widget>[
                       CircleAvatar(
                         radius: 50,
                         backgroundImage: photoUrl != null && photoUrl.isNotEmpty
                             ? NetworkImage(photoUrl)
-                            : AssetImage('assets/images/avatar.png')
+                            : const AssetImage('assets/images/avatar.png')
                                 as ImageProvider,
                       ),
                       GestureDetector(
@@ -59,11 +58,11 @@ class ProfilePage extends StatelessWidget {
                           child: Container(
                             height: 30,
                             width: 30,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xff0095FF),
                               shape: BoxShape.circle,
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Icon(
                                 LineAwesomeIcons.pen,
                                 color: Colors.white,
@@ -75,27 +74,27 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   userData['Name'] ?? 'Nome do Usuário',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF212121),
                     decoration: TextDecoration.none,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   userData['Email'] ?? 'email do Usuário',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     color: Color(0xFF212121),
                     decoration: TextDecoration.none,
                     fontWeight: FontWeight.w100,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
                     // Navega para a página "EditarPerfil.dart" quando o contêiner for clicado
@@ -109,9 +108,9 @@ class ProfilePage extends StatelessWidget {
                     width: 250,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: Color(0xff0095FF),
+                      color: const Color(0xff0095FF),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Editar Perfil',
                         style: TextStyle(
@@ -146,15 +145,15 @@ class ProfilePage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    ServiceRegistrationPage()),
+                                    ServiceRegistrationPage(email: userData['Email'])),
                           );
                         },
                       ),
-                      ProfileListItem(
+                      const ProfileListItem(
                         icon: LineAwesomeIcons.question_circle,
                         text: 'Ajuda e Suporte',
                       ),
-                      ProfileListItem(
+                      const ProfileListItem(
                         icon: LineAwesomeIcons.cog,
                         text: 'Configurações',
                       ),

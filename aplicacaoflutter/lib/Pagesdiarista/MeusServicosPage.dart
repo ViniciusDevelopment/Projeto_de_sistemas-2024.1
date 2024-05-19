@@ -27,6 +27,16 @@ Stream<List<ServiceModel>> getUserServices() {
   });
 }
 
+
+String? getUserEmail() {
+  User? user = _auth.currentUser;
+  if (user == null) {
+    throw Exception("Nenhum usuário está logado");
+  }
+
+  return user.email;
+}
+
 class MeusServicosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -47,7 +57,7 @@ class MeusServicosPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ServiceRegistrationPage()),
+                    builder: (context) => ServiceRegistrationPage(email: getUserEmail()!)),
               );
             },
             child: Padding(
@@ -134,3 +144,4 @@ class MeusServicosPage extends StatelessWidget {
     );
   }
 }
+

@@ -1,15 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
-import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/Pagescliente/calendarPage.dart';
 import 'package:servicocerto/Pagesdiarista/ProfilePage.dart';
-import 'package:servicocerto/Pagesdiarista/UserInfoDiaristaPage.dart';
-import 'package:servicocerto/ReadData/get_user_name.dart';
-import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 
 // Importe a classe CalendarPage
 
@@ -84,7 +78,7 @@ class _HomePagediaristaState extends State<HomePagediarista> {
               index: _selectedIndex,
               children: [
                 // Tela do Calendário
-                CalendarPage(),
+                const CalendarPage(),
                 HomePageContent(userData: widget.userData),
                 ProfilePage(userData: widget.userData),
                 // DiaristaProfilePage(userData: widget.userData),
@@ -123,7 +117,7 @@ class HomePageContent extends StatefulWidget {
 
   final Map<String, dynamic> userData;
 
-  const HomePageContent({Key? key, required this.userData}) : super(key: key);
+  const HomePageContent({super.key, required this.userData});
 
   @override
   State<HomePageContent> createState() => _HomePageContentState();
@@ -141,21 +135,21 @@ class _HomePageContentState extends State<HomePageContent> {
           padding:
               const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
           alignment: Alignment.center,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
         
         ),
        SearchAnchor(
   builder: (BuildContext context, SearchController controller) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xff0095FF)), // Adiciona uma borda azul
+        border: Border.all(color: const Color(0xff0095FF)), // Adiciona uma borda azul
         borderRadius: BorderRadius.circular(8.0), // Define a borda arredondada
         color: Colors.white, // Define o fundo como branco
       ),
       child: SearchBar(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        backgroundColor: WidgetStateProperty.all<Color>(Colors.white),
         controller: controller,
-        padding: const MaterialStatePropertyAll<EdgeInsets>(
+        padding: const WidgetStatePropertyAll<EdgeInsets>(
             EdgeInsets.symmetric(horizontal: 16.0)),
         onTap: () {
           controller.openView();
@@ -199,7 +193,7 @@ class _HomePageContentState extends State<HomePageContent> {
         //   ),
         // ),
         Container(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
           alignment: Alignment.centerLeft,
           child: const Text(

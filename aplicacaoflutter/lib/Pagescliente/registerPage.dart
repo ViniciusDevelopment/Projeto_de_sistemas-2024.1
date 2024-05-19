@@ -68,12 +68,12 @@ class SignupPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           height: MediaQuery.of(context).size.height - 50,
           width: double.infinity,
           child: Column(
@@ -81,14 +81,14 @@ class SignupPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Cadastrar",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     "Crie sua conta gratuitamente ",
                     style: TextStyle(fontSize: 15, color: Colors.grey[700]),
@@ -114,7 +114,7 @@ class SignupPage extends StatelessWidget {
                     onChanged: (String? value) {
                       _selectedTipoUser = value;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Tipo de Usuário',
                       border: OutlineInputBorder(),
                     ),
@@ -122,7 +122,7 @@ class SignupPage extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(top: 3, left: 3),
+                padding: const EdgeInsets.only(top: 3, left: 3),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(color: Colors.black),
@@ -131,12 +131,12 @@ class SignupPage extends StatelessWidget {
                   minWidth: double.infinity,
                   height: 60,
                   onPressed: () => registerUser(context),
-                  color: Color(0xff0095FF),
+                  color: const Color(0xff0095FF),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Cadastrar",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -149,7 +149,7 @@ class SignupPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Possui uma conta?"),
+                  const Text("Possui uma conta?"),
                   TextButton(
                      onPressed: () {
                           Navigator.push(
@@ -157,7 +157,7 @@ class SignupPage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => LoginPage()),
                           );
                         },
-                    child: Text(
+                    child: const Text(
                       "Login",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -182,16 +182,16 @@ Widget inputFile({required String label, bool obscureText = false, required Text
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[400]!),
             borderRadius: BorderRadius.circular(8.0),
@@ -202,7 +202,7 @@ Widget inputFile({required String label, bool obscureText = false, required Text
           ),
         ),
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
     ],
   );
 }
