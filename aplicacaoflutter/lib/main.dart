@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'index.dart';
 
 Future<void> main() async {
@@ -25,6 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.light, // Definindo tema claro
+        scaffoldBackgroundColor: Colors.white, // Fundo branco
       ),
       home: const IndexPage(),
     );

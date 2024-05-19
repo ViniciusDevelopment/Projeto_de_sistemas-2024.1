@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
 import 'package:servicocerto/Pagescliente/DeleteAccountButton.dart';
 import 'package:servicocerto/Pagescliente/EditButton.dart';
@@ -10,8 +8,7 @@ import 'package:servicocerto/Models/Service.dart'; // Atualize o import
 class DiaristaProfilePage extends StatelessWidget {
   final Map<String, dynamic> userData;
 
-  const DiaristaProfilePage({Key? key, required this.userData})
-      : super(key: key);
+  const DiaristaProfilePage({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class DiaristaProfilePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             const SizedBox(height: 20),
-            CircleAvatar(
+            const CircleAvatar(
               radius: 50,
               backgroundImage: NetworkImage(
                   'https://cdn.pixabay.com/photo/2017/02/13/16/58/signal-2063096_1280.png'),
@@ -46,7 +43,7 @@ class DiaristaProfilePage extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               userData['Name'] ?? 'Nome do Usuário',
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Readex Pro',
                 fontSize: 24,
                 letterSpacing: 0,
@@ -61,13 +58,13 @@ class DiaristaProfilePage extends StatelessWidget {
                 stream: ServiceController.instance.getUserServices(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text("Erro ao carregar serviços"));
+                    return const Center(child: Text("Erro ao carregar serviços"));
                   }
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text("Nenhum serviço encontrado"));
+                    return const Center(child: const Text("Nenhum serviço encontrado"));
                   }
 
                   List<ServiceModel> services = snapshot.data!;
@@ -78,7 +75,7 @@ class DiaristaProfilePage extends StatelessWidget {
                       return Card(
                         elevation: 4,
                         margin:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                            const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -106,9 +103,9 @@ class DiaristaProfilePage extends StatelessWidget {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
+                          WidgetStateProperty.all<Color>(Colors.blue),
                       foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
+                          WidgetStateProperty.all<Color>(Colors.white),
                     ),
                     onPressed: () {
                       _cadastrarServico(context);
@@ -156,7 +153,7 @@ class DiaristaProfilePage extends StatelessWidget {
   void _cadastrarServico(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ServiceRegistrationPage()),
+      MaterialPageRoute(builder: (context) => ServiceRegistrationPage(email: userData['Email'],)),
     );
   }
 }

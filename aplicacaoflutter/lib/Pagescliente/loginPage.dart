@@ -44,94 +44,96 @@ class LoginPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
+      body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        "Login",
-                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            "Login",
+                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            "Entre na sua conta",
+                            style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+                          )
+                        ],
                       ),
-                      SizedBox(height: 20),
-                      Text(
-                        "Entre na sua conta",
-                        style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Column(
+                          children: <Widget>[
+                            inputFile(label: "Email", controller: _emailController),
+                            inputFile(label: "Senha", obscureText: true, controller: _passwordController),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Container(
+                          padding: EdgeInsets.only(top: 3, left: 3),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Colors.black),
+                          ),
+                          child: MaterialButton(
+                            minWidth: double.infinity,
+                            height: 60,
+                            onPressed: () => signInWithEmailAndPassword(context),
+                            color: Color(0xff0095FF),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Text(
+                              "Login",
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        inputFile(label: "Email", controller: _emailController),
-                        inputFile(label: "Senha", obscureText: true, controller: _passwordController),
+                        Text("Não tem uma conta?"),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignupPage()),
+                            );
+                          },
+                          child: Text(
+                            "Cadastre-se",
+                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: Container(
-                      padding: EdgeInsets.only(top: 3, left: 3),
+                    Container(
+                      padding: EdgeInsets.only(top: 100),
+                      height: 200,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Colors.black),
-                      ),
-                      child: MaterialButton(
-                        minWidth: double.infinity,
-                        height: 60,
-                        onPressed: () => signInWithEmailAndPassword(context),
-                        color: Color(0xff0095FF),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
+                        image: DecorationImage(
+                          image: AssetImage("assets/background.png"),
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text("Não tem uma conta?"),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignupPage()),
-                          );
-                        },
-                        child: Text(
-                          "Cadastre-se",
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 100),
-                    height: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/background.png"),
-                        fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
