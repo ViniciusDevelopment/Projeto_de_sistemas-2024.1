@@ -117,7 +117,7 @@ class DiaristaProfilePage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(40),
-                  child: EditButton(),
+                  // child: EditButton(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20),

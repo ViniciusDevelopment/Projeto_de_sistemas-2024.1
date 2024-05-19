@@ -9,6 +9,7 @@ import 'package:servicocerto/Pagesdiarista/MeusServicosPage.dart';
 import 'package:servicocerto/Pagesdiarista/profile_list_item.dart';
 import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:servicocerto/Pagescliente/EditButton.dart';
 
 final User? user = Authentication().currentUser;
 
@@ -48,9 +49,10 @@ class ProfilePage extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddPhotoPage()));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddPhotoPage()),
+                        );
                       },
                       child: Align(
                         alignment: Alignment.bottomRight,
@@ -94,33 +96,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditPage()),
-                  );
-                },
-                child: Container(
-                  height: 40,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Color(0xff0095FF),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Editar Perfil',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              EditButton(userData: userData), // Adicione o botão de edição aqui
               Expanded(
                 child: ListView(
                   children: <Widget>[

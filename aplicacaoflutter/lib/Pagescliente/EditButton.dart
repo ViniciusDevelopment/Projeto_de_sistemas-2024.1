@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'EditPage.dart';
 
 class EditButton extends StatefulWidget {
+  final Map<String, dynamic> userData;
+
+  const EditButton({Key? key, required this.userData}) : super(key: key);
+
   @override
   _EditButtonState createState() => _EditButtonState();
 }
@@ -18,7 +22,9 @@ class _EditButtonState extends State<EditButton> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => EditPage()),
+          MaterialPageRoute(
+            builder: (context) => EditPage(userData: widget.userData),
+          ),
         );
       },
       child: const Text('Editar Conta'),

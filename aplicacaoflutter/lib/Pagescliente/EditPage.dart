@@ -1,11 +1,67 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EditPage extends StatefulWidget {
+  final Map<String, dynamic> userData;
+
+  const EditPage({Key? key, required this.userData}) : super(key: key);
+
   @override
   State<EditPage> createState() => _EditPageState();
 }
 
 class _EditPageState extends State<EditPage> {
+  final _formKey = GlobalKey<FormState>();
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _addressController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.userData['Name']);
+    _emailController = TextEditingController(text: widget.userData['Email']);
+    _phoneController = TextEditingController(text: widget.userData['Telefone']);
+    _addressController =
+        TextEditingController(text: widget.userData['Endereço']);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _saveChanges() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final user = FirebaseAuth.instance.currentUser;
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(user!.email)
+            .update({
+          'Name': _nameController.text,
+          'Email': _emailController.text,
+          'Telefone': _phoneController.text,
+          'Endereço': _addressController.text,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Informações atualizadas com sucesso!')),
+        );
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao atualizar informações: $e')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +71,33 @@ class _EditPageState extends State<EditPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(32.0),
         child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 12),
               TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  labelText: 'Nome',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, informe um nome válido';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 12),
+              TextFormField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -39,6 +117,7 @@ class _EditPageState extends State<EditPage> {
               ),
               SizedBox(height: 12),
               TextFormField(
+                controller: _phoneController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -49,9 +128,16 @@ class _EditPageState extends State<EditPage> {
                   ),
                   labelText: 'Telefone',
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, informe um telefone válido';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 12),
               TextFormField(
+                controller: _addressController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -62,16 +148,19 @@ class _EditPageState extends State<EditPage> {
                   ),
                   labelText: 'Endereço',
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, informe um endereço válido';
+                  }
+                  return null;
+                },
               ),
               SizedBox(
                   height: 24), // Ajuste o valor de acordo com o espaço desejado
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: _saveChanges,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     shape: RoundedRectangleBorder(
@@ -83,7 +172,7 @@ class _EditPageState extends State<EditPage> {
                     ),
                   ),
                   child: const Text(
-                    'Editar',
+                    'Salvar',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -91,10 +180,8 @@ class _EditPageState extends State<EditPage> {
                   ),
                 ),
               ),
-
               SizedBox(
                   height: 12), // Ajuste o valor de acordo com o espaço desejado
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
