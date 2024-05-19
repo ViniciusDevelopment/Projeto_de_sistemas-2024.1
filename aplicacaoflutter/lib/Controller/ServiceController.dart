@@ -22,6 +22,7 @@ class ServiceController extends GetxController {
         "descricao": service.descricao,
         "valor": service.valor,
         "disponibilidade": service.disponibilidade,
+        "email": service.email
       });
 
       Get.snackbar(
@@ -77,7 +78,7 @@ class ServiceRequestController extends GetxController {
         throw Exception("Nenhum usuário está logado");
       }
 
-      await _db.collection("Servicos").add({
+      await _db.collection("SolicitacaoServico").add({
         "uid": user.uid,
         "descricao": service.descricao,
         "data": service.data,
@@ -114,7 +115,7 @@ class ServiceRequestController extends GetxController {
     }
 
     return _db
-        .collection("Servicos")
+        .collection("SolicitacaoServico")
         .where("uid", isEqualTo: user.uid)
         .snapshots()
         .map((QuerySnapshot query) {
@@ -126,3 +127,4 @@ class ServiceRequestController extends GetxController {
     });
   }
 }
+

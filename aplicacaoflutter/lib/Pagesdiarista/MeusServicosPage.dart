@@ -27,6 +27,7 @@ Stream<List<ServiceModel>> getUserServices() {
   });
 }
 
+
 String? getUserEmail() {
   User? user = _auth.currentUser;
   if (user == null) {
@@ -143,3 +144,4 @@ class MeusServicosPage extends StatelessWidget {
     );
   }
 }
+
