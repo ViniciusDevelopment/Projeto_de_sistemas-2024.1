@@ -1,5 +1,5 @@
-import '../main.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 
 class DeleteAccountButton extends StatefulWidget {
   @override
@@ -11,14 +11,17 @@ class _DeleteAccountButtonState extends State<DeleteAccountButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-            Colors.red), // Cor de fundo vermelha
-        foregroundColor: MaterialStateProperty.all<Color>(
-            Colors.white), // Cor do texto branco
+    return ListTile(
+      leading: Icon(Icons.delete, color: Colors.red), // Ícone de exclusão
+      title: Text(
+        'Excluir conta',
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 18,
+          color: Colors.red, // Cor do texto vermelho para indicar perigo
+        ),
       ),
-      onPressed: () {
+      onTap: () {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -60,7 +63,6 @@ class _DeleteAccountButtonState extends State<DeleteAccountButton> {
           },
         );
       },
-      child: Text('Apagar Conta'),
     );
   }
 }
