@@ -114,7 +114,6 @@ class _HomePagediaristaState extends State<HomePagediarista> {
 }
 
 class HomePageContent extends StatefulWidget {
-
   final Map<String, dynamic> userData;
 
   const HomePageContent({super.key, required this.userData});
@@ -122,8 +121,6 @@ class HomePageContent extends StatefulWidget {
   @override
   State<HomePageContent> createState() => _HomePageContentState();
 }
-
-
 
 class _HomePageContentState extends State<HomePageContent> {
   bool isDark = false;
@@ -136,46 +133,47 @@ class _HomePageContentState extends State<HomePageContent> {
               const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
           alignment: Alignment.center,
           color: Theme.of(context).colorScheme.surface,
-        
         ),
-       SearchAnchor(
-  builder: (BuildContext context, SearchController controller) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xff0095FF)), // Adiciona uma borda azul
-        borderRadius: BorderRadius.circular(8.0), // Define a borda arredondada
-        color: Colors.white, // Define o fundo como branco
-      ),
-      child: SearchBar(
-        backgroundColor: WidgetStateProperty.all<Color>(Colors.white),
-        controller: controller,
-        padding: const WidgetStatePropertyAll<EdgeInsets>(
-            EdgeInsets.symmetric(horizontal: 16.0)),
-        onTap: () {
-          controller.openView();
-        },
-        onChanged: (_) {
-          controller.openView();
-        },
-        leading: const Icon(Icons.search),
-      ),
-    );
-  },
-  suggestionsBuilder: (BuildContext context, SearchController controller) {
-    return List<ListTile>.generate(5, (int index) {
-      final String item = 'item $index';
-      return ListTile(
-        title: Text(item),
-        onTap: () {
-          setState(() {
-            controller.closeView(item);
-          });
-        },
-      );
-    });
-  },
-),
-
+        SearchAnchor(
+          builder: (BuildContext context, SearchController controller) {
+            return Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: const Color(0xff0095FF)), // Adiciona uma borda azul
+                borderRadius:
+                    BorderRadius.circular(8.0), // Define a borda arredondada
+                color: Colors.white, // Define o fundo como branco
+              ),
+              child: SearchBar(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                controller: controller,
+                padding: const MaterialStatePropertyAll<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 16.0)),
+                onTap: () {
+                  controller.openView();
+                },
+                onChanged: (_) {
+                  controller.openView();
+                },
+                leading: const Icon(Icons.search),
+              ),
+            );
+          },
+          suggestionsBuilder:
+              (BuildContext context, SearchController controller) {
+            return List<ListTile>.generate(5, (int index) {
+              final String item = 'item $index';
+              return ListTile(
+                title: Text(item),
+                onTap: () {
+                  setState(() {
+                    controller.closeView(item);
+                  });
+                },
+              );
+            });
+          },
+        ),
 
         // Container(
         //   color: Theme.of(context).colorScheme.background,

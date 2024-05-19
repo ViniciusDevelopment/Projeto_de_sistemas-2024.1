@@ -61,10 +61,12 @@ class DiaristaProfilePage extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return const Center(child: Text("Erro ao carregar serviços"));
+                    return const Center(
+                        child: Text("Erro ao carregar serviços"));
                   }
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: const Text("Nenhum serviço encontrado"));
+                    return const Center(
+                        child: const Text("Nenhum serviço encontrado"));
                   }
 
                   List<ServiceModel> services = snapshot.data!;
@@ -74,8 +76,8 @@ class DiaristaProfilePage extends StatelessWidget {
                       ServiceModel service = services[index];
                       return Card(
                         elevation: 4,
-                        margin:
-                            const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -103,9 +105,9 @@ class DiaristaProfilePage extends StatelessWidget {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          WidgetStateProperty.all<Color>(Colors.blue),
+                          MaterialStateProperty.all<Color>(Colors.blue),
                       foregroundColor:
-                          WidgetStateProperty.all<Color>(Colors.white),
+                          MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     onPressed: () {
                       _cadastrarServico(context);
@@ -153,7 +155,10 @@ class DiaristaProfilePage extends StatelessWidget {
   void _cadastrarServico(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ServiceRegistrationPage(email: userData['Email'],)),
+      MaterialPageRoute(
+          builder: (context) => ServiceRegistrationPage(
+                email: userData['Email'],
+              )),
     );
   }
 }
