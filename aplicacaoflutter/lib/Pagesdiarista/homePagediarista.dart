@@ -10,8 +10,6 @@ import 'package:servicocerto/PagesCommon/ProfilePage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
 import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 
-// Importe a classe CalendarPage
-
 class HomePagediarista extends StatefulWidget {
   final Map<String, dynamic> userData;
 
@@ -27,7 +25,7 @@ class _HomePagediaristaState extends State<HomePagediarista> {
     await Authentication().signOut();
   }
 
-  int _selectedIndex = 1; // Defina o índice inicial como 1 (tela inicial)
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -62,31 +60,15 @@ class _HomePagediaristaState extends State<HomePagediarista> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.blue,
-      //   centerTitle: true,
-      //   title: const Text(
-      //     "Início",
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //   actions: <Widget>[
-      //     Container(
-      //       padding: const EdgeInsets.only(right: 24),
-      //       child: _userMenuButton(context),
-      //     )
-      //   ],
-      // ),
       body: Column(
         children: [
           Expanded(
             child: IndexedStack(
               index: _selectedIndex,
               children: [
-                // Tela do Calendário
                 CalendarPage(),
                 HomePageContent(userData: widget.userData),
                 ProfilePage(userData: widget.userData),
-                // DiaristaProfilePage(userData: widget.userData),
               ],
             ),
           ),
@@ -129,6 +111,40 @@ class HomePageContent extends StatefulWidget {
 
 class _HomePageContentState extends State<HomePageContent> {
   bool isDark = false;
+
+  bool _isCurrentUserAuthorized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkCurrentUserAuthorization();
+  }
+
+  Future<void> _checkCurrentUserAuthorization() async {
+    final String? currentUserEmail = FirebaseAuth.instance.currentUser?.email;
+
+    if (currentUserEmail != null) {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('SolicitacaoServico')
+          .where('emailPrestador', isEqualTo: currentUserEmail)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        setState(() {
+          _isCurrentUserAuthorized = true;
+        });
+      } else {
+        setState(() {
+          _isCurrentUserAuthorized = false;
+        });
+      }
+    } else {
+      setState(() {
+        _isCurrentUserAuthorized = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -143,10 +159,10 @@ class _HomePageContentState extends State<HomePageContent> {
             return Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: Color(0xff0095FF)), // Adiciona uma borda azul
+                    color: Color(0xff0095FF)),
                 borderRadius:
-                    BorderRadius.circular(8.0), // Define a borda arredondada
-                color: Colors.white, // Define o fundo como branco
+                    BorderRadius.circular(8.0),
+                color: Colors.white,
               ),
               child: SearchBar(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -186,7 +202,112 @@ class _HomePageContentState extends State<HomePageContent> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
+
+Expanded(
+  child: _isCurrentUserAuthorized
+      ? FutureBuilder<QuerySnapshot>(
+          future: FirebaseFirestore.instance
+              .collection('SolicitacaoServico')
+              .where('emailPrestador', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+              .get(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              if (snapshot.hasError) {
+                return Center(child: Text('Erro: ${snapshot.error}'));
+              } else {
+                final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                return documents.isNotEmpty
+                    ? ListView.builder(
+  itemCount: documents.length,
+  itemBuilder: (context, index) {
+    final Map<String, dynamic> data = documents[index].data() as Map<String, dynamic>;
+    return ListTile(
+      title: Text('Serviço: ${data['descricao']}'),
+      subtitle: Text('Detalhes:\n Cliente: ${data['emailCliente']}\n Data: ${data['data']}\n Horário: ${data['horario']}\n Endereço: ${data['endereco']}'),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+            
+
+            onPressed: () async {
+   
+    final documentReference = FirebaseFirestore.instance
+        .collection('SolicitacaoServico')
+        .doc(documents[index].id);
+
+    try {
+     
+      final DocumentSnapshot documentSnapshot = await documentReference.get();
+      final Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+
+      
+      await FirebaseFirestore.instance
+          .collection('Servicos')
+          .add(data);
+
+      
+      await documentReference.delete();
+
+      
+      setState(() {});
+    } catch (e) {
+      
+      print('Erro ao aceitar o serviço: $e');
+    }
+  },
+            style: ElevatedButton.styleFrom(
+             backgroundColor: Colors.green,
+            ),
+            child: const Text(style:TextStyle(color: Colors.white),'Aceitar'),
+          ),
+          SizedBox(width: 8), 
+          ElevatedButton(
+            
+              onPressed: () async {
+    
+    final documentReference = FirebaseFirestore.instance
+        .collection('SolicitacaoServico')
+        .doc(documents[index].id); 
+
+    try {
+      
+      await documentReference.delete();
+      
+     
+      setState(() {});
+    } catch (e) {
+      
+      print('Erro ao excluir o documento: $e');
+    }
+  },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+            ),
+            child: Text(style:TextStyle(color: Colors.white),'Recusar'),
+          ),
+        ],
+      ),
+    );
+  },
+)
+                    : Center(
+                        child: Text('Nenhuma Solicitação Pendente'),
+                      );
+              }
+            }
+          },
+        )
+      : Center(
+          child: Text('Nenhuma Solicitação Pendente'),
+        ),
+),
+
+
       ],
     );
   }
 }
+
