@@ -46,7 +46,11 @@ Desenvolver uma plataforma de prestação de serviços que conecta prestadores d
 
 * Organizar o desenvolvimento do projeto em iterações definidas.
 
-  
+
+### Link do repositório no figma: 
+Dedicamos especial atenção à documentação de UI/UX, utilizando o Figma para criar protótipos detalhados das telas. Seguindo os princípios de design de interface do usuário e experiência do usuário (UI/UX), cada tela foi meticulosamente projetada para oferecer uma experiência fluida e intuitiva aos usuários. Os protótipos no Figma serviram como uma base sólida para o desenvolvimento das telas no projeto, garantindo consistência visual e funcional em todo o sistema. Ao integrar os elementos de UI/UX desde o estágio de prototipagem, buscamos não apenas melhorar a estética, mas também otimizar a usabilidade e a interatividade do produto final. Essa abordagem centrada no usuário reflete nosso compromisso em oferecer uma experiência de alta qualidade e satisfatória para os usuários finais.
+https://www.figma.com/file/saQzOFctzuMek2as0GkOba/Untitled?type=design&node-id=49-349&mode=design&t=LAAH2sBRwBLETJzu-0
+
 
 ### Requisitos Funcionais
 
@@ -774,6 +778,27 @@ O objetivo da iteração, foi aprimorar o código legado de iterações anterior
 
 ---
   
-Na iteração 3, dedicamos especial atenção à documentação de UI/UX, utilizando o Figma para criar protótipos detalhados das telas. Seguindo os princípios de design de interface do usuário e experiência do usuário (UI/UX), cada tela foi meticulosamente projetada para oferecer uma experiência fluida e intuitiva aos usuários. Os protótipos no Figma serviram como uma base sólida para o desenvolvimento das telas no projeto, garantindo consistência visual e funcional em todo o sistema. Ao integrar os elementos de UI/UX desde o estágio de prototipagem, buscamos não apenas melhorar a estética, mas também otimizar a usabilidade e a interatividade do produto final. Essa abordagem centrada no usuário reflete nosso compromisso em oferecer uma experiência de alta qualidade e satisfatória para os usuários finais.
+## Iteração 4 (06/ Maio - 20/ Maio)
 
-Link do repositório no figma: https://www.figma.com/file/saQzOFctzuMek2as0GkOba/Untitled?type=design&node-id=49-349&mode=design&t=LAAH2sBRwBLETJzu-0
+  
+**Objetivo:** O objetivo dessa iteração foi definido através de discussões em grupo e conversas com o nosso professor orientador e buscamos basicamente fazer a conexão entre os nossos dois tipos de usuários nessa iteração, os Clientes e Prestadores de serviço, possibilitando a pesquisa por prestadores, o contato direto e contratação para prestação de serviço.
+
+
+- [X] RF20 - [Adicionar opção Valor e Disponibilidade no cadastro de serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/30). [Saulo Ferraz](https://github.com/SauloFerrazTC/) Revisado por [Daniel Noleto](https://github.com/Daniel-Noleto)
+
+- [X] RF21 - [Listagem de serviços cadastrados  no perfil de diarista](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/31). [Saulo Ferraz](https://github.com/Saulo-Ferraz-TC) Revisado por [Daniel Noleto](https://github.com/Daniel-Noleto)
+
+ - [X] RF22 - [Adicionar opção para usuário atualizar a foto de perfil](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/32). [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [Vinicius Maciel](https://github.com/ViniciusDevelopment)
+
+  - [X] RF23 - [Contratação do serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/33). [João Victor Walcacer](https://github.com/joaovictorwg) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
+  
+- [X] RF24 - [Sistema de aceitar e recusar solicitação de serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/37). [Daniel Nolêto](https://github.com/Daniel-Noleto/) Revisado por [Saulo Ferraz](https://github.com/SauloFerrazTC)  
+
+- [X] RF25 - [Notificação para o prestador que existe uma solicitação de serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/38). [Vinicius Maciel](https://github.com/ViniciusDevelopment) Revisado por [Vinicius Maciel](https://github.com/ViniciusDevelopment)
+
+- [X] RF26 - [Opção de excluir conta](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/35). [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [João Victor ](https://github.com/joaovictorwg)
+
+
+- [X] RF27 - [Tela de suporte ao cliente](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/39). [Benedito Jaime](https://github.com/beneX90) Revisado por [Dante Ungarelli](https://github.com/danteungarelli)
+
+- [X] RF28 - [Opção de editar informações da conta](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/36). [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [Vinicius Maciel](https://github.com/ViniciusDevelopment)
