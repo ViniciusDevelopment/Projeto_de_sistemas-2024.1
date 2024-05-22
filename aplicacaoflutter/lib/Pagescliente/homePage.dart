@@ -10,7 +10,6 @@ import 'package:servicocerto/ReadData/get_user_endereco.dart';
 import 'package:servicocerto/ReadData/get_user_profile.dart';
 import 'package:servicocerto/ReadData/get_user_service.dart';
 import 'package:servicocerto/ReadData/get_user_telefone.dart';
-import 'package:servicocerto/Pagescliente/UserInfoPage.dart';
 import 'package:servicocerto/Repository/UserRepository.dart';
 import 'package:provider/provider.dart';
 import '../PagesCommon/calendarPage.dart'; // Importe a classe CalendarPage

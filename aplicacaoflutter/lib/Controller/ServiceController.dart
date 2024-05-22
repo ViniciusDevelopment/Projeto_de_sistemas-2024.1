@@ -53,7 +53,7 @@ class ServiceController extends GetxController {
 
     return _db
         .collection("Servicos")
-        .where("uid", isEqualTo: user.uid)
+        .where("email", isEqualTo: user.email)
         .snapshots()
         .map((QuerySnapshot query) {
       List<ServiceModel> services = [];
@@ -127,4 +127,3 @@ class ServiceRequestController extends GetxController {
     });
   }
 }
-

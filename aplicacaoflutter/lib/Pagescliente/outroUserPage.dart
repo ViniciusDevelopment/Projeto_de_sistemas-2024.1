@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'ContratarServico.dart';
+import 'ContratarServicoPage.dart';
 
 // Widget Stateful para a página do perfil do outro usuário
 class outroUserPage extends StatefulWidget {
@@ -13,6 +13,7 @@ class outroUserPage extends StatefulWidget {
 }
 
 class _outroUserPageState extends State<outroUserPage> {
+
   late List<Record>
       _simpleSearchResults; // Lista para armazenar os resultados da busca
 
@@ -23,29 +24,32 @@ class _outroUserPageState extends State<outroUserPage> {
     _performSearch(widget.email); // Executa a busca ao inicializar a página
   }
 
-
   Widget _contratarButton(BuildContext context) {
+
     return ElevatedButton(
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ServiceRequestPage(email: widget.email,)),
+          MaterialPageRoute(
+              builder: (context) => ContratarServicoPage(
+                    email: widget.email,
+                  )),
         );
       },
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(
+        minimumSize: WidgetStateProperty.all(
           const Size(double.infinity, 60),
         ),
-        padding: MaterialStateProperty.all(
+        padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 24),
         ),
-        backgroundColor: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(
           const Color.fromARGB(255, 45, 96, 234),
         ),
-        foregroundColor: MaterialStateProperty.all(
+        foregroundColor: WidgetStateProperty.all(
           Colors.white,
         ),
-        textStyle: MaterialStateProperty.all(
+        textStyle: WidgetStateProperty.all(
           const TextStyle(
             fontFamily: 'Readex Pro',
             fontSize: 16,
@@ -64,6 +68,7 @@ class _outroUserPageState extends State<outroUserPage> {
       ),
     );
   }
+
   // Função para buscar os dados do usuário no Firestore
   Future<void> _performSearch(String searchTerm) async {
     final CollectionReference usersRef =
@@ -85,7 +90,6 @@ class _outroUserPageState extends State<outroUserPage> {
         );
       }).toList();
     });
-
   }
 
   @override
@@ -116,29 +120,30 @@ class _outroUserPageState extends State<outroUserPage> {
           mainAxisSize: MainAxisSize.max,
           children: [
             // Exibição dos dados do usuário
-            
-            Padding(padding: const EdgeInsetsDirectional.fromSTEB(8, 5, 8, 5),
+
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(8, 5, 8, 5),
               child: IntrinsicHeight(
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsetsDirectional.fromSTEB(8, 5, 8, 5),
-                  decoration:
-                      BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 4,
-                            color: Color(0x33000000),
-                            offset: Offset(0, 2))
-                        ],
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(
+                          blurRadius: 4,
+                          color: Color(0x33000000),
+                          offset: Offset(0, 2))
+                    ],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       // Exibição da foto de perfil
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Container(
                           width: 110,
                           height: 110,
@@ -146,11 +151,14 @@ class _outroUserPageState extends State<outroUserPage> {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: Image.network('https://picsum.photos/seed/34/600',
+                          child: Image.network(
+                              'https://picsum.photos/seed/34/600',
                               fit: BoxFit.cover),
                         ),
                       ),
-                      Padding(padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -170,11 +178,14 @@ class _outroUserPageState extends State<outroUserPage> {
                                   ),
                                 )),
                             const Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
                                 child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -197,7 +208,7 @@ class _outroUserPageState extends State<outroUserPage> {
                 ),
               ),
             ),
-            
+
             // Botões de ação (Contratar, Serviços)
             Container(
                 width: double.infinity,
@@ -210,7 +221,8 @@ class _outroUserPageState extends State<outroUserPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 1),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 1),
                         child: _contratarButton(context)),
                   ],
                 )),

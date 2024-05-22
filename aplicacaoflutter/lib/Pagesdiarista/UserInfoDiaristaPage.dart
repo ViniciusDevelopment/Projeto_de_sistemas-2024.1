@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:servicocerto/Components/DeleteAccountButton.dart';
 import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
-import 'package:servicocerto/Pagescliente/DeleteAccountButton.dart';
-import 'package:servicocerto/Pagescliente/EditButton.dart';
+
 import 'package:servicocerto/Controller/ServiceController.dart'; // Atualize o import
 import 'package:servicocerto/Models/Service.dart'; // Atualize o import
 

@@ -113,7 +113,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                        //Aqui vai para a outra page
+                                            //Aqui vai para a outra page
                                             outroUserPage(email: item.Email)))
                                 .then((value) {
                               // Aqui você pode executar qualquer código após a navegação

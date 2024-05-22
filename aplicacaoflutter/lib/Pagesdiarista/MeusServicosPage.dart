@@ -27,7 +27,6 @@ Stream<List<ServiceModel>> getUserServices() {
   });
 }
 
-
 String? getUserEmail() {
   User? user = _auth.currentUser;
   if (user == null) {
@@ -57,7 +56,8 @@ class MeusServicosPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ServiceRegistrationPage(email: getUserEmail()!)),
+                    builder: (context) =>
+                        ServiceRegistrationPage(email: getUserEmail()!)),
               );
             },
             child: Padding(

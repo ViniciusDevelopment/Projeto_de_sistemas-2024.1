@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:servicocerto/Components/EditButton.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/AddPhotoPage.dart';
 import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
@@ -9,7 +10,6 @@ import 'package:servicocerto/Pagesdiarista/MeusServicosPage.dart';
 import 'package:servicocerto/Pagesdiarista/profile_list_item.dart';
 import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:servicocerto/Pagescliente/EditButton.dart';
 
 final User? user = Authentication().currentUser;
 
