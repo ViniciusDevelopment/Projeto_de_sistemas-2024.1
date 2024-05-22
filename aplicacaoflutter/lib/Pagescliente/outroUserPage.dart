@@ -37,19 +37,19 @@ class _outroUserPageState extends State<outroUserPage> {
         );
       },
       style: ButtonStyle(
-        minimumSize: WidgetStateProperty.all(
+        minimumSize: MaterialStateProperty.all(
           const Size(double.infinity, 60),
         ),
-        padding: WidgetStateProperty.all(
+        padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 24),
         ),
-        backgroundColor: WidgetStateProperty.all(
+        backgroundColor: MaterialStateProperty.all(
           const Color.fromARGB(255, 45, 96, 234),
         ),
-        foregroundColor: WidgetStateProperty.all(
+        foregroundColor: MaterialStateProperty.all(
           Colors.white,
         ),
-        textStyle: WidgetStateProperty.all(
+        textStyle: MaterialStateProperty.all(
           const TextStyle(
             fontFamily: 'Readex Pro',
             fontSize: 16,
