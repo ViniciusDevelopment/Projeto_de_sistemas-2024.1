@@ -4,7 +4,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:servicocerto/Components/EditButton.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/AddPhotoPage.dart';
-import 'package:servicocerto/Pagescliente/CadastrarservicoPage.dart';
+import 'package:servicocerto/PagesCommon/HelpAndSupportPage.dart';
 import 'package:servicocerto/Pagescliente/EditPage.dart';
 import 'package:servicocerto/Pagesdiarista/MeusServicosPage.dart';
 import 'package:servicocerto/Pagesdiarista/profile_list_item.dart';
@@ -100,17 +100,19 @@ class ProfilePage extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-                    ProfileListItem(
-                      icon: LineAwesomeIcons.user_shield,
-                      text: 'Meus Serviços',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MeusServicosPage()),
-                        );
-                      },
-                    ),
+                    if (userData['TipoUser'] !=
+                        'Cliente') // Verifica o tipo de usuário
+                      ProfileListItem(
+                        icon: LineAwesomeIcons.user_shield,
+                        text: 'Meus Serviços',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MeusServicosPage()),
+                          );
+                        },
+                      ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.alternate_trash,
                       text: 'Excluir conta',
@@ -121,6 +123,13 @@ class ProfilePage extends StatelessWidget {
                     ProfileListItem(
                       icon: LineAwesomeIcons.question_circle,
                       text: 'Ajuda e Suporte',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HelpAndSupportPage()),
+                        );
+                      },
                     ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.cog,
