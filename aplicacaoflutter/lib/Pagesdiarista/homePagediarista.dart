@@ -296,9 +296,8 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors
-                                                    .white, // cor de fundo
-                                                iconColor: Colors.green,
+                                                
+                                                backgroundColor: Colors.green,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -313,7 +312,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                               ),
                                               child: const Text(
                                                 style: TextStyle(
-                                                    color: Colors.green),
+                                                    color: Colors.white),
                                                 'Aceitar',
                                               ),
                                             ),
@@ -372,9 +371,8 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors
-                                                    .white, // cor de fundo
-                                                iconColor: Colors.red,
+                                                backgroundColor: Colors.red, // cor de fundo
+                                                
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -389,7 +387,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                               ),
                                               child: const Text(
                                                 style: TextStyle(
-                                                    color: Colors.red),
+                                                    color: Colors.white),
                                                 'Recusar',
                                               ),
                                             ),
