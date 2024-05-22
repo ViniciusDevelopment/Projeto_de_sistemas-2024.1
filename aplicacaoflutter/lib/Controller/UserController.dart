@@ -25,4 +25,38 @@ class UserController extends GetxController {
           colorText: Colors.red);
     });
   }
+
+
+  Future<List<UserModel>?> getUser(String email) async {
+
+    try {
+      final QuerySnapshot userQuery = await _db
+          .collection("Users")
+          .where("Email", isEqualTo: email)
+          .where('TipoUser', isEqualTo: 'Prestador')
+          .get();
+
+        final user = userQuery.docs.map((doc) {
+        return UserModel(
+            cpf: doc['Cpf'],
+            email: doc['Email'],
+            endereco: doc['Endereco'],
+            name: doc['Name'],
+            password: doc['Password'],
+            telefone: doc['Telefone'],
+            tipoUser: doc['TipoUser'],
+        );
+      }).toList();
+
+
+      if (userQuery != null) {
+        return user;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+  }
+
 }

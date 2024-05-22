@@ -1,29 +1,33 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GetUserName extends StatelessWidget {
-  
   final String documentId;
 
-  const GetUserName({super.key, required this.documentId});
+  const GetUserName({Key? key, required this.documentId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(documentId).get(),
-      builder: ((context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done){
-            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-            return Text('Name: ${data['Name']}');
-              
+    return StreamBuilder<DocumentSnapshot>(
+      stream: users.doc(documentId).snapshots(),
+      builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Carregando...');
+        }
+        if (snapshot.hasError) {
+          return Text('Erro: ${snapshot.error}');
+        }
+        if (!snapshot.hasData || !snapshot.data!.exists) {
+          return const Text('Nenhum usuário encontrado');
+        }
 
-          }
-          return const Text('loading...');
+        Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+        String? name = data['Name'];
 
-
-    }));
+        return Text('Name: ${name ?? 'Nome não encontrado'}');
+      },
+    );
   }
 }

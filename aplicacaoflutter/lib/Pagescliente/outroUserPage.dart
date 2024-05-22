@@ -1,23 +1,19 @@
-// Este é o código da página que exibe o perfil de outro usuário,
-// baseado no email fornecido.
-
-// Importações necessárias
-import 'DeleteAccountButton.dart';
-import 'EditButton.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'ContratarServicoPage.dart';
 
 // Widget Stateful para a página do perfil do outro usuário
 class outroUserPage extends StatefulWidget {
   final String email; // Email do usuário a ser exibido
 
-  const outroUserPage({Key? key, required this.email}) : super(key: key);
+  const outroUserPage({super.key, required this.email});
 
   @override
   _outroUserPageState createState() => _outroUserPageState();
 }
 
 class _outroUserPageState extends State<outroUserPage> {
+
   late List<Record>
       _simpleSearchResults; // Lista para armazenar os resultados da busca
 
@@ -26,6 +22,51 @@ class _outroUserPageState extends State<outroUserPage> {
     super.initState();
     _simpleSearchResults = [];
     _performSearch(widget.email); // Executa a busca ao inicializar a página
+  }
+
+  Widget _contratarButton(BuildContext context) {
+
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ContratarServicoPage(
+                    email: widget.email,
+                  )),
+        );
+      },
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(
+          const Size(double.infinity, 60),
+        ),
+        padding: MaterialStateProperty.all(
+          const EdgeInsets.symmetric(horizontal: 24),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          const Color.fromARGB(255, 45, 96, 234),
+        ),
+        foregroundColor: MaterialStateProperty.all(
+          Colors.white,
+        ),
+        textStyle: MaterialStateProperty.all(
+          const TextStyle(
+            fontFamily: 'Readex Pro',
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      child: const Text(
+        "Contratar",
+        style: TextStyle(
+          color: Colors.white, // Define a cor do texto como branco
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 
   // Função para buscar os dados do usuário no Firestore
@@ -67,9 +108,9 @@ class _outroUserPageState extends State<outroUserPage> {
             ),
           ),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 45, 96, 234),
         automaticallyImplyLeading: true,
-        actions: [],
+        actions: const [],
         centerTitle: true,
         elevation: 2,
       ),
@@ -79,151 +120,110 @@ class _outroUserPageState extends State<outroUserPage> {
           mainAxisSize: MainAxisSize.max,
           children: [
             // Exibição dos dados do usuário
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 100,
-              decoration:
-                  const BoxDecoration(color: Color.fromARGB(26, 192, 188, 188)),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  // Exibição da foto de perfil
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.network('https://picsum.photos/seed/34/600',
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                          alignment: const AlignmentDirectional(0, 0),
-                          child: Text(
-                            _simpleSearchResults.isNotEmpty
-                                ? _simpleSearchResults[0].Name
-                                : '',
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                      const Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
-                          child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 0, 0),
-                                  child: Text(
-                                    '50 avaliações',
-                                    style: TextStyle(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              ])),
+
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(8, 5, 8, 5),
+              child: IntrinsicHeight(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsetsDirectional.fromSTEB(8, 5, 8, 5),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(
+                          blurRadius: 4,
+                          color: Color(0x33000000),
+                          offset: Offset(0, 2))
                     ],
-                  )
-                ],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      // Exibição da foto de perfil
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        child: Container(
+                          width: 110,
+                          height: 110,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.network(
+                              'https://picsum.photos/seed/34/600',
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Text(
+                                  _simpleSearchResults.isNotEmpty
+                                      ? _simpleSearchResults[0].Name
+                                      : '',
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                )),
+                            const Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 0, 0, 0),
+                                        child: Text(
+                                          '50 avaliações',
+                                          style: TextStyle(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      )
+                                    ])),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
+
             // Botões de ação (Contratar, Serviços)
             Container(
                 width: double.infinity,
                 height: 122,
                 decoration: const BoxDecoration(
                     color: Color.fromARGB(26, 192, 188, 188)),
-                child: const Column(
+                child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 1),
-                        child: ElevatedButton(
-                          onPressed: null,
-                          style: ButtonStyle(
-                            minimumSize: MaterialStatePropertyAll(
-                                Size(double.infinity, 60)),
-                            padding: MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(horizontal: 24)),
-                            backgroundColor:
-                                MaterialStatePropertyAll(Colors.blue),
-                            foregroundColor:
-                                MaterialStatePropertyAll(Colors.white),
-                            textStyle: MaterialStatePropertyAll(
-                              TextStyle(
-                                  fontFamily: 'Readex Pro',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ),
-                          child: Text("Contratar",
-                              style: TextStyle(
-                                color: Colors
-                                    .white, // Define a cor do texto como branco
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        )),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 1),
-                          child: ElevatedButton(
-                              onPressed: null,
-                              style: ButtonStyle(
-                                minimumSize: MaterialStatePropertyAll(
-                                    Size(double.infinity, 60)),
-                                padding: MaterialStatePropertyAll(
-                                    EdgeInsets.symmetric(horizontal: 24)),
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white),
-                                foregroundColor:
-                                    MaterialStatePropertyAll(Colors.blue),
-                                textStyle: MaterialStatePropertyAll(
-                                  TextStyle(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                side: MaterialStatePropertyAll(
-                                  BorderSide(
-                                    color: Colors.blue, // Cor da borda
-                                    width: 2, // Largura da borda
-                                  ),
-                                ),
-                              ),
-                              child: Text(
-                                "Serviços",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        )
-                      ],
-                    )
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 1),
+                        child: _contratarButton(context)),
                   ],
                 )),
             // Exibição dos serviços prestados pelo usuário
@@ -251,7 +251,7 @@ class _outroUserPageState extends State<outroUserPage> {
                                 color: Color(0x33000000),
                                 offset: Offset(0, 2))
                           ],
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,

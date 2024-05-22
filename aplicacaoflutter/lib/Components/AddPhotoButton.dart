@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'EditPage.dart';
+import '../PagesCommon/AddPhotoPage.dart';
 
-class EditButton extends StatefulWidget {
+class AddPhotoButton extends StatefulWidget {
   @override
-  _EditButtonState createState() => _EditButtonState();
+  _AddPhotoButtonState createState() => _AddPhotoButtonState();
 }
 
-class _EditButtonState extends State<EditButton> {
+class _AddPhotoButtonState extends State<AddPhotoButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -18,10 +18,10 @@ class _EditButtonState extends State<EditButton> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => EditPage()),
+          MaterialPageRoute(builder: (context) => AddPhotoPage()),
         );
       },
-      child: const Text('Editar Conta'),
+      child: const Text('Adicionar foto de peril'),
     );
   }
 }
