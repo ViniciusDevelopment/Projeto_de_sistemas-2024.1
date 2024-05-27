@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:servicocerto/Controller/ServiceController.dart';
+import 'package:provider/provider.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/ProfilePage.dart';
 import 'package:servicocerto/Pagescliente/SearchPage.dart';
-import 'package:servicocerto/ReadData/get_user_name.dart';
-import 'package:servicocerto/ReadData/get_user_endereco.dart';
-import 'package:servicocerto/ReadData/get_user_profile.dart';
-import 'package:servicocerto/ReadData/get_user_service.dart';
-import 'package:servicocerto/ReadData/get_user_telefone.dart';
 import 'package:servicocerto/Repository/UserRepository.dart';
-import 'package:provider/provider.dart';
-import '../PagesCommon/calendarPage.dart'; // Importe a classe CalendarPage
+import 'package:servicocerto/PagesCommon/calendarPage.dart';
+import 'package:servicocerto/Pagescliente/outroUserPage.dart';
+
 class HomePage extends StatefulWidget {
   final Map<String, dynamic> userData;
   const HomePage({Key? key, required this.userData}) : super(key: key);
@@ -106,6 +101,7 @@ class HomePageContent extends StatefulWidget {
   final Map<String, dynamic> userData;
 
   const HomePageContent({Key? key, required this.userData}) : super(key: key);
+
   @override
   State<HomePageContent> createState() => _HomePageContentState();
 }
@@ -119,56 +115,99 @@ class _HomePageContentState extends State<HomePageContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 40),
-        Container(
-          child: TextField(
-            decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Pesquisar...',
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PesquisapageWidget()),
-              );
-            },
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-          alignment: Alignment.centerLeft,
-          child: const Text(
-            'Recomendações:',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Expanded(
-          child: Consumer<UserRepository>(
-            builder: (context, userRepository, child) {
-              if (userRepository.listaDeUsuarios.isEmpty) {
-                return Center(child: CircularProgressIndicator());
-              } else {
-                return ListView.builder(
-                  itemCount: userRepository.listaDeUsuarios.length,
-                  itemBuilder: (context, index) {
-                    final user = userRepository.listaDeUsuarios[index];
-                    return ListTile(
-                      // title: Text(user.name),
-                      leading: user.photoURL != null
-                          ? Image.network(user.photoURL!)
-                          : Icon(Icons.person),
-                      title: Text(user.name),
-                      subtitle: Text(user.descricao),
-                    );
-                  },
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(height: 40),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search, color: Colors.blue),
+                hintText: 'Pesquisar...',
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.all(16.0),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PesquisapageWidget()),
                 );
-              }
-            },
+              },
+            ),
           ),
-        ),
-      ],
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+            alignment: Alignment.centerLeft,
+            child: const Text(
+              'Recomendações:',
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Consumer<UserRepository>(
+              builder: (context, userRepository, child) {
+                if (userRepository.listaDeUsuarios.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: userRepository.listaDeUsuarios.length,
+                    itemBuilder: (context, index) {
+                      final user = userRepository.listaDeUsuarios[index];
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          leading: user.photoURL != null
+                              ? CircleAvatar(
+                                  backgroundImage: NetworkImage(user.photoURL!),
+                                  radius: 30,
+                                )
+                              : const CircleAvatar(
+                                  backgroundColor: Colors.grey,
+                                  radius: 30,
+                                  child:
+                                      Icon(Icons.person, color: Colors.white),
+                                ),
+                          title: Text(
+                            user.name,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(user.descricao),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    outroUserPage(email: user.email),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
