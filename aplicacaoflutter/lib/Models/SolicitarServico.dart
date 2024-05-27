@@ -7,6 +7,8 @@ class SolicitarServico {
   final String emailPrestador;
   final String emailCliente;
   final String status;
+  final String descricao;
+  final String valorcliente;
 
   const SolicitarServico({
     required this.servico,
@@ -15,6 +17,8 @@ class SolicitarServico {
     required this.emailPrestador,
     required this.emailCliente,
     required this.status,
+    required this.descricao,
+    required this.valorcliente,
   });
 
   Map<String, dynamic> toJson() {
@@ -25,6 +29,8 @@ class SolicitarServico {
       "emailPrestador": emailPrestador,
       "emailCliente": emailCliente,
       "status": status,
+      "descricao": descricao,
+      "valorcliente": valorcliente,
     };
   }
 }

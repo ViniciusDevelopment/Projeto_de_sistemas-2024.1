@@ -28,6 +28,8 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
   final _db = FirebaseFirestore.instance;
   final _dataController = TextEditingController();
   final _horaController = TextEditingController();
+  final _descricaoController = TextEditingController();
+  final _valorclienteController = TextEditingController();
   late UserModel? _userData;
 
   void _getEmail() async {
@@ -59,34 +61,36 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
     _fetchUserData();
   }
 
- void _contratarServico(SolicitarServico solicitarServico, NotificationService notificationService) async {
-  if (solicitarServico.data.isEmpty || solicitarServico.hora.isEmpty) {
-    Get.snackbar(
-      'Erro',
-      'Preencha todos os campos',
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-    );
-    return;
-  }
-  try {
-    await FirebaseFirestore.instance
-        .collection('SolicitacoesServico')
-        .add(solicitarServico.toJson());
+  void _contratarServico(SolicitarServico solicitarServico,
+      NotificationService notificationService) async {
+    if (solicitarServico.data.isEmpty || solicitarServico.hora.isEmpty) {
+      Get.snackbar(
+        'Erro',
+        'Preencha todos os campos',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection('SolicitacoesServico')
+          .add(solicitarServico.toJson());
 
-    notificationService.showLocalNotification(
-      CustomNotification(
-        id: DateTime.now().millisecondsSinceEpoch, // Usar timestamp como ID único
-        title: 'Serviço Solicitado',
-        body: 'Novo Serviço solicitado.',
-        payload: '', // Pode ser utilizado para abrir uma tela específica se necessário
-      ),
-    );
-  } catch (error) {
-    print('Erro ao contratar o serviço: $error');
+      notificationService.showLocalNotification(
+        CustomNotification(
+          id: DateTime.now()
+              .millisecondsSinceEpoch, // Usar timestamp como ID único
+          title: 'Serviço Solicitado',
+          body: 'Novo Serviço solicitado.',
+          payload:
+              '', // Pode ser utilizado para abrir uma tela específica se necessário
+        ),
+      );
+    } catch (error) {
+      print('Erro ao contratar o serviço: $error');
+    }
   }
-}
-
 
   Future<void> _fetchUserData() async {
     try {
@@ -114,7 +118,6 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
       print("Error fetching user data: $error");
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +212,7 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         5, 0, 0, 0),
                                     child: Text(
-                                      '50 avaliações',
+                                      'Sem avaliações',
                                       style: TextStyle(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 16,
@@ -357,6 +360,24 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                                           }
                                                         },
                                                       ),
+                                                      TextFormField(
+                                                        controller:
+                                                            _descricaoController, // Controlador de descrição
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              'Descrição do serviço', // Rótulo do campo
+                                                        ),
+                                                      ),
+                                                      TextFormField(
+                                                        controller:
+                                                            _valorclienteController, // Controlador de descrição
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText:
+                                                              'Valor que deseja pagar', // Rótulo do campo
+                                                        ),
+                                                      ),
                                                     ],
                                                   ),
                                                   actions: [
@@ -369,16 +390,30 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                                     ),
                                                     TextButton(
                                                       onPressed: () {
-                                                        SolicitarServico solicitarServico =
+                                                        SolicitarServico
+                                                            solicitarServico =
                                                             SolicitarServico(
-                                                                servico: service,
-                                                                data: _dataController.text,
-                                                                hora:_horaController.text,
-                                                                emailPrestador:service.email,
-                                                                emailCliente:emailCliente,
-                                                                status:"Solicitação enviada",
-                                                                );
-                                                        _contratarServico(solicitarServico, notificationService);
+                                                          servico: service,
+                                                          data: _dataController
+                                                              .text,
+                                                          hora: _horaController
+                                                              .text,
+                                                          descricao:
+                                                              _descricaoController
+                                                                  .text,
+                                                          valorcliente:
+                                                              _valorclienteController
+                                                                  .text,
+                                                          emailPrestador:
+                                                              service.email,
+                                                          emailCliente:
+                                                              emailCliente,
+                                                          status:
+                                                              "Solicitação enviada",
+                                                        );
+                                                        _contratarServico(
+                                                            solicitarServico,
+                                                            notificationService);
                                                         Navigator.of(context)
                                                             .pop();
                                                       },
@@ -411,5 +446,3 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
     );
   }
 }
-
-
