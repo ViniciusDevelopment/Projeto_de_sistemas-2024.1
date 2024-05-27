@@ -13,7 +13,6 @@ class outroUserPage extends StatefulWidget {
 }
 
 class _outroUserPageState extends State<outroUserPage> {
-
   late List<Record>
       _simpleSearchResults; // Lista para armazenar os resultados da busca
 
@@ -25,7 +24,6 @@ class _outroUserPageState extends State<outroUserPage> {
   }
 
   Widget _contratarButton(BuildContext context) {
-
     return ElevatedButton(
       onPressed: () {
         Navigator.push(
@@ -191,7 +189,7 @@ class _outroUserPageState extends State<outroUserPage> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 0, 0, 0),
                                         child: Text(
-                                          '50 avaliações',
+                                          'Sem avaliações',
                                           style: TextStyle(
                                             fontFamily: 'Readex Pro',
                                             fontSize: 16,
@@ -227,7 +225,7 @@ class _outroUserPageState extends State<outroUserPage> {
                   ],
                 )),
             // Exibição dos serviços prestados pelo usuário
-            Padding(
+            /* Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
               child: Container(
                 width: double.infinity,
@@ -362,7 +360,7 @@ class _outroUserPageState extends State<outroUserPage> {
                   ],
                 ),
               ),
-            )
+            )*/
           ],
         ),
       ),

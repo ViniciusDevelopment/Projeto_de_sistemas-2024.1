@@ -206,7 +206,8 @@ class _HomePageContentState extends State<HomePageContent> {
                   future: FirebaseFirestore.instance
                       .collection('SolicitacoesServico')
                       .where('emailPrestador',
-                          isEqualTo: FirebaseAuth.instance.currentUser!.email).where('status', isEqualTo: 'Solicitação enviada' )
+                          isEqualTo: FirebaseAuth.instance.currentUser!.email)
+                      .where('status', isEqualTo: 'Solicitação enviada')
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -235,7 +236,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                       children: [
                                         Text('Serviço: $descricao'),
                                         Text(
-                                          'Cliente: ${data['emailCliente']}\nData: ${data['data']}\nHorário: ${data['hora']}\nEndereço: ${data['endereco']}',
+                                          'Cliente: ${data['emailCliente']}\nData: ${data['data']}\nHorário: ${data['hora']}\nDescrição: ${data['descricao']}\nValor do serviço: ${data['valorcliente']}',
                                         ),
                                         SizedBox(height: 8),
                                         Column(
@@ -296,7 +297,6 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                
                                                 backgroundColor: Colors.green,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -317,7 +317,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                               ),
                                             ),
                                             SizedBox(height: 8),
-                                             ElevatedButton(
+                                            ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
                                                     FirebaseFirestore.instance
@@ -339,8 +339,9 @@ class _HomePageContentState extends State<HomePageContent> {
 
                                                   // Atualize o campo 'status' para 'Aceita'
                                                   await documentReference
-                                                      .update(
-                                                          {'status': 'Recusado'});
+                                                      .update({
+                                                    'status': 'Recusado'
+                                                  });
 
                                                   // Chame setState() para atualizar a UI se necessário
                                                   setState(() {});
@@ -348,8 +349,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                   Flushbar(
                                                     message:
                                                         'Serviço recusado!',
-                                                    backgroundColor:
-                                                        Colors.red,
+                                                    backgroundColor: Colors.red,
                                                     duration:
                                                         Duration(seconds: 3),
                                                     margin: EdgeInsets.all(8),
@@ -371,8 +371,9 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.red, // cor de fundo
-                                                
+                                                backgroundColor:
+                                                    Colors.red, // cor de fundo
+
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
