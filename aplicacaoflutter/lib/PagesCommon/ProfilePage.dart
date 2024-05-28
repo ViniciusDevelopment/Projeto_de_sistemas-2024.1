@@ -6,7 +6,9 @@ import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/AddPhotoPage.dart';
 import 'package:servicocerto/PagesCommon/HelpAndSupportPage.dart';
 import 'package:servicocerto/Pagescliente/EditPage.dart';
+import 'package:servicocerto/Pagescliente/ServicosContratadosCliente.dart';
 import 'package:servicocerto/Pagesdiarista/MeusServicosPage.dart';
+import 'package:servicocerto/Pagesdiarista/ServicosContratados.dart';
 import 'package:servicocerto/Pagesdiarista/profile_list_item.dart';
 import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -103,8 +105,8 @@ class ProfilePage extends StatelessWidget {
                     if (userData['TipoUser'] !=
                         'Cliente') // Verifica o tipo de usuário
                       ProfileListItem(
-                        icon: LineAwesomeIcons.user_shield,
-                        text: 'Meus Serviços',
+                        icon: LineAwesomeIcons.pen,
+                        text: 'Cadastrar Serviços',
                         onTap: () {
                           Navigator.push(
                             context,
@@ -113,6 +115,30 @@ class ProfilePage extends StatelessWidget {
                           );
                         },
                       ),
+
+                       ProfileListItem(
+                          icon: LineAwesomeIcons.user_shield,
+                          text: 'Meus Serviços',
+                          onTap: () {
+                            if (userData['TipoUser'] == 'Cliente') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ServicosContradosCliente(),
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ServicosContrados(),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+
+
                     ProfileListItem(
                       icon: LineAwesomeIcons.alternate_trash,
                       text: 'Excluir conta',
