@@ -85,8 +85,6 @@ class _outroUserPageState extends State<outroUserPage> {
           Telefone: doc['Telefone'],
           Email: doc['Email'],
           Endereco: doc['Endereco'],
-          photoURL: doc['photoURL'] ??
-              'https://picsum.photos/seed/34/600', // Default image
         );
       }).toList();
     });
@@ -151,15 +149,9 @@ class _outroUserPageState extends State<outroUserPage> {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: _simpleSearchResults.isNotEmpty
-                              ? Image.network(
-                                  _simpleSearchResults[0].photoURL,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.network(
-                                  'https://picsum.photos/seed/34/600',
-                                  fit: BoxFit.cover,
-                                ),
+                          child: Image.network(
+                              'https://picsum.photos/seed/34/600',
+                              fit: BoxFit.cover),
                         ),
                       ),
                       Padding(
@@ -391,14 +383,12 @@ class Record {
   final String Telefone;
   final String Email;
   final String Endereco;
-  final String photoURL;
 
   Record({
     required this.Name,
     required this.Telefone,
     required this.Email,
     required this.Endereco,
-    required this.photoURL,
   });
 }
 //testeeeee
