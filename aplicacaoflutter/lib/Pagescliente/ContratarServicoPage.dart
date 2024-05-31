@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:servicocerto/Controller/ServiceController.dart'; // Import corrigido para minúsculas
 import 'package:servicocerto/Controller/UserController.dart';
 import 'package:servicocerto/DTO/Request/ServiceDTO.dart';
+import 'package:servicocerto/DTO/Response/UserImageDTO.dart';
 import 'package:servicocerto/Models/Service.dart'; // Import corrigido para minúsculas
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Models/SolicitarServico.dart';
@@ -13,17 +14,18 @@ import 'package:servicocerto/Models/User.dart';
 import 'package:servicocerto/Pagescliente/cleaning.dart';
 import 'package:servicocerto/Services/notification_service.dart';
 
+
 class ContratarServicoPage extends StatefulWidget {
   final String email;
 
-  const ContratarServicoPage(
-      {super.key, required this.email}); // Adicionado key
+  const ContratarServicoPage({super.key, required this.email});
 
   @override
   _ContratarServicoPageState createState() => _ContratarServicoPageState();
 }
 
 class _ContratarServicoPageState extends State<ContratarServicoPage> {
+  UserImageDTO? _simpleSearchResults;
   final NotificationService notificationService = NotificationService();
   late String emailCliente;
   final _db = FirebaseFirestore.instance;
@@ -35,7 +37,6 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
 
   void _getEmail() async {
     User? user = FirebaseAuth.instance.currentUser;
-
     if (user != null) {
       emailCliente = user.email!;
     }
@@ -60,6 +61,7 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
     super.initState();
     _getEmail();
     _fetchUserData();
+    _performSearch(widget.email);
   }
 
   void _contratarServico(SolicitarServico solicitarServico,
@@ -80,12 +82,10 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
 
       notificationService.showLocalNotification(
         CustomNotification(
-          id: DateTime.now()
-              .millisecondsSinceEpoch, // Usar timestamp como ID único
+          id: DateTime.now().millisecondsSinceEpoch,
           title: 'Serviço Solicitado',
           body: 'Novo Serviço solicitado.',
-          payload:
-              '', // Pode ser utilizado para abrir uma tela específica se necessário
+          payload: '',
         ),
       );
     } catch (error) {
@@ -105,7 +105,7 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
         final userData = userQuery.docs.first.data() as Map<String, dynamic>;
         setState(() {
           _userData = UserModel(
-            name: userData['Name'] ?? '', // Adicionando verificação de nulidade
+            name: userData['Name'] ?? '',
             email: userData['Email'] ?? '',
             cpf: userData['Cpf'] ?? '',
             telefone: userData['Telefone'] ?? '',
@@ -117,6 +117,38 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
       }
     } catch (error) {
       print("Error fetching user data: $error");
+    }
+  }
+
+    Future<void> _performSearch(String searchTerm) async {
+    try {
+      final CollectionReference usersRef =
+          FirebaseFirestore.instance.collection('Users');
+
+      final QuerySnapshot querySnapshot = await usersRef
+          .where('Email', isEqualTo: searchTerm)
+          .where('TipoUser', isEqualTo: 'Prestador')
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        final userData =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
+        final user = UserImageDTO.fromJson(userData);
+
+        print("!@@@#####&&&&&");
+        print(user);
+
+        setState(() {
+          _simpleSearchResults = user;
+        });
+      } else {
+        print('Nenhum usuário encontrado.');
+      }
+    } catch (error) {
+      print("Erro ao buscar dados do usuário: $error");
+      setState(() {
+        _simpleSearchResults = null;
+      });
     }
   }
 
@@ -143,30 +175,27 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
       body: SafeArea(
         top: true,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
+              padding: const EdgeInsets.all(8.0),
               child: IntrinsicHeight(
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsetsDirectional.fromSTEB(8, 5, 8, 5),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: const [
                       BoxShadow(
-                          blurRadius: 4,
-                          color: Color(0x33000000),
-                          offset: Offset(0, 2))
+                        blurRadius: 4,
+                        color: Color(0x33000000),
+                        offset: Offset(0, 2),
+                      )
                     ],
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Row(
-                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        padding: const EdgeInsets.all(5),
                         child: Container(
                           width: 110,
                           height: 110,
@@ -174,57 +203,59 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: Image.network(
-                            'https://picsum.photos/seed/34/600',
-                            fit: BoxFit.cover,
-                          ),
+                          child: _simpleSearchResults != null
+                              ? (_simpleSearchResults!.photoURL != null
+                                  ? Image.network(
+                                      _simpleSearchResults!.photoURL!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg',
+                                      fit: BoxFit.cover,
+                                    ))
+                              : Image.network(
+                                  'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg',
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Text(
-                                _userData!.name,
-                                textAlign: TextAlign.start,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _simpleSearchResults != null
+                                    ? _simpleSearchResults!.name
+                                    : 'Nenhum usuário encontrado.',
                                 style: const TextStyle(
                                   fontFamily: 'Readex Pro',
                                   fontSize: 32,
                                   fontWeight: FontWeight.w900,
                                 ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                            const Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: Text(
-                                      'Sem avaliações',
-                                      style: TextStyle(
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Sem avaliações 1',
+                                      style: const TextStyle(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -253,8 +284,7 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                       child: StreamBuilder<List<ServiceModelDTO>>(
                         stream: getServices(widget.email),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
                             return Center(child: CircularProgressIndicator());
                           }
                           if (snapshot.hasError) {
@@ -263,42 +293,33 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                     "Erro ao carregar serviços: ${snapshot.error}"));
                           }
                           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return Center(
-                                child: Text("Nenhum serviço encontrado"));
+                            return Center(child: Text("Nenhum serviço encontrado"));
                           }
                           List<ServiceModelDTO> services = snapshot.data!;
 
                           return Container(
-                            height: MediaQuery.of(context).size.height *
-                                0.5, // Ajusta a altura do ListView
+                            height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
                               itemCount: services.length,
                               itemBuilder: (context, index) {
                                 ServiceModelDTO service = services[index];
                                 return Card(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 16),
+                                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   child: ListTile(
                                     title: Text(service.descricao),
                                     subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                            'Valor: R\$ ${service.valor.toString()}'),
-                                        Text(
-                                            'Disponibilidade: ${service.disponibilidade}'),
+                                        Text('Valor: R\$ ${service.valor.toString()}'),
+                                        Text('Disponibilidade: ${service.disponibilidade}'),
                                         Text('Categoria: ${service.categoria}'),
-                                        SizedBox(
-                                            height:
-                                                8), // Espaço entre os textos e o botão
+                                        SizedBox(height: 8),
                                         ElevatedButton(
                                           onPressed: () {
-                                            if (service.categoria ==
-                                                'Limpeza') {
+                                            if (service.categoria == 'Limpeza') {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -309,146 +330,123 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                             } else {
                                               showDialog(
                                                 context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'Contratar Serviço'),
-                                                    content: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
+                                                builder: (BuildContext context) {
+                                                  return Dialog(
+                                                    backgroundColor: Colors.white,
+                                                    insetPadding: EdgeInsets.all(0),
+                                                    child: Column(
                                                       children: [
-                                                        Text(
-                                                            'Você deseja contratar este serviço?'),
-                                                        TextFormField(
-                                                          controller:
-                                                              _dataController,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            labelText: 'Data',
-                                                          ),
-                                                          onTap: () async {
-                                                            FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(
-                                                                    FocusNode());
-                                                            DateTime? picked =
-                                                                await showDatePicker(
-                                                              context: context,
-                                                              initialDate:
-                                                                  DateTime
-                                                                      .now(),
-                                                              firstDate:
-                                                                  DateTime(
-                                                                      2020),
-                                                              lastDate:
-                                                                  DateTime(
-                                                                      2030),
-                                                            );
-                                                            if (picked !=
-                                                                null) {
-                                                              _dataController
-                                                                  .text = DateFormat(
-                                                                      'dd-MM-yyyy')
-                                                                  .format(
-                                                                      picked);
-                                                            }
-                                                          },
+                                                        AppBar(
+                                                          title: Text('Contratar Serviço'),
+                                                          automaticallyImplyLeading: false,
+                                                          actions: [
+                                                            IconButton(
+                                                              icon: Icon(Icons.close),
+                                                              onPressed: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                          ],
                                                         ),
-                                                        TextFormField(
-                                                          controller:
-                                                              _horaController,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            labelText:
-                                                                'Horário',
+                                                        Expanded(
+                                                          child: SingleChildScrollView(
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(16.0),
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Text('Você deseja contratar este serviço?'),
+                                                                  SizedBox(height: 16),
+                                                                  TextFormField(
+                                                                    controller: _dataController,
+                                                                    decoration: InputDecoration(
+                                                                      labelText: 'Data',
+                                                                    ),
+                                                                    onTap: () async {
+                                                                      FocusScope.of(context).requestFocus(FocusNode());
+                                                                      DateTime? picked = await showDatePicker(
+                                                                        context: context,
+                                                                        initialDate: DateTime.now(),
+                                                                        firstDate: DateTime(2020),
+                                                                        lastDate: DateTime(2030),
+                                                                      );
+                                                                      if (picked != null) {
+                                                                        _dataController.text = DateFormat('dd-MM-yyyy').format(picked);
+                                                                      }
+                                                                    },
+                                                                  ),
+                                                                  SizedBox(height: 16),
+                                                                  TextFormField(
+                                                                    controller: _horaController,
+                                                                    decoration: InputDecoration(
+                                                                      labelText: 'Horário',
+                                                                    ),
+                                                                    onTap: () async {
+                                                                      FocusScope.of(context).requestFocus(FocusNode());
+                                                                      TimeOfDay? picked = await showTimePicker(
+                                                                        context: context,
+                                                                        initialTime: TimeOfDay.now(),
+                                                                      );
+                                                                      if (picked != null) {
+                                                                        _horaController.text = picked.format(context);
+                                                                      }
+                                                                    },
+                                                                  ),
+                                                                  SizedBox(height: 16),
+                                                                  TextFormField(
+                                                                    controller: _descricaoController,
+                                                                    decoration: InputDecoration(
+                                                                      labelText: 'Descrição do serviço',
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(height: 16),
+                                                                  TextFormField(
+                                                                    controller: _valorclienteController,
+                                                                    decoration: InputDecoration(
+                                                                      labelText: 'Valor que deseja pagar',
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
                                                           ),
-                                                          onTap: () async {
-                                                            FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(
-                                                                    FocusNode());
-                                                            TimeOfDay? picked =
-                                                                await showTimePicker(
-                                                              context: context,
-                                                              initialTime:
-                                                                  TimeOfDay
-                                                                      .now(),
-                                                            );
-                                                            if (picked !=
-                                                                null) {
-                                                              _horaController
-                                                                      .text =
-                                                                  picked.format(
-                                                                      context);
-                                                            }
-                                                          },
                                                         ),
-                                                        TextFormField(
-                                                          controller:
-                                                              _descricaoController, // Controlador de descrição
-                                                          decoration:
-                                                              InputDecoration(
-                                                            labelText:
-                                                                'Descrição do serviço', // Rótulo do campo
-                                                          ),
-                                                        ),
-                                                        TextFormField(
-                                                          controller:
-                                                              _valorclienteController, // Controlador de descrição
-                                                          decoration:
-                                                              InputDecoration(
-                                                            labelText:
-                                                                'Valor que deseja pagar', // Rótulo do campo
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(16.0),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            children: [
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: Text('Cancelar'),
+                                                              ),
+                                                              SizedBox(width: 8),
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  SolicitarServico solicitarServico = SolicitarServico(
+                                                                    servico: service,
+                                                                    data: _dataController.text,
+                                                                    hora: _horaController.text,
+                                                                    descricao: _descricaoController.text,
+                                                                    valorcliente: _valorclienteController.text,
+                                                                    emailPrestador: widget.email,
+                                                                    emailCliente: emailCliente,
+                                                                    status: "Solicitação enviada",
+                                                                  );
+                                                                  _contratarServico(solicitarServico, notificationService);
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: Text('Contratar'),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Text('Cancelar'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          SolicitarServico
-                                                              solicitarServico =
-                                                              SolicitarServico(
-                                                            servico: service,
-                                                            data:
-                                                                _dataController
-                                                                    .text,
-                                                            hora:
-                                                                _horaController
-                                                                    .text,
-                                                            descricao:
-                                                                _descricaoController
-                                                                    .text,
-                                                            valorcliente:
-                                                                _valorclienteController
-                                                                    .text,
-                                                            emailPrestador:
-                                                                service.email,
-                                                            emailCliente:
-                                                                emailCliente,
-                                                            status:
-                                                                "Solicitação enviada",
-                                                          );
-                                                          _contratarServico(
-                                                              solicitarServico,
-                                                              notificationService);
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child:
-                                                            Text('Contratar'),
-                                                      ),
-                                                    ],
                                                   );
-                                                },
+                                                }
                                               );
                                             }
                                           },
