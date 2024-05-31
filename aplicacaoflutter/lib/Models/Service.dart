@@ -19,7 +19,7 @@ class ServiceModel {
   factory ServiceModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     return ServiceModel(
       descricao: doc['descricao'],
-      valor: doc['valor'],
+      valor: (doc['valor'] as num).toDouble(), 
       disponibilidade: doc['disponibilidade'],
       email: doc['email'],
       categoria: doc['categoria'],

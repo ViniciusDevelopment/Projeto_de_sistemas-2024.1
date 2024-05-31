@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart'; // Adicione esta linha
 import 'package:servicocerto/Models/Service.dart';
+import 'package:servicocerto/Models/SolicitarServico.dart';
 
 class ServiceController extends GetxController {
   static ServiceController get instance => Get.find();
@@ -63,6 +64,36 @@ class ServiceController extends GetxController {
       }
       return services;
     });
+  }
+
+  contratarServico(SolicitarServico solicitarServico) async {
+    if (solicitarServico.data.isEmpty || solicitarServico.hora.isEmpty) {
+      Get.snackbar(
+        'Erro',
+        'Preencha todos os campos',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection('SolicitacoesServico')
+          .add(solicitarServico.toJson());
+
+      // notificationService.showLocalNotification(
+      //   CustomNotification(
+      //     id: DateTime.now()
+      //         .millisecondsSinceEpoch, // Usar timestamp como ID único
+      //     title: 'Serviço Solicitado',
+      //     body: 'Novo Serviço solicitado.',
+      //     payload:
+      //         '', // Pode ser utilizado para abrir uma tela específica se necessário
+      //   ),
+      // );
+    } catch (error) {
+      print('Erro ao contratar o serviço: $error');
+    }
   }
 }
 

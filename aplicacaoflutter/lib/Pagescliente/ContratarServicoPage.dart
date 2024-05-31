@@ -10,6 +10,7 @@ import 'package:servicocerto/Models/Service.dart'; // Import corrigido para min�
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Models/SolicitarServico.dart';
 import 'package:servicocerto/Models/User.dart';
+import 'package:servicocerto/Pagescliente/cleaning.dart';
 import 'package:servicocerto/Services/notification_service.dart';
 
 class ContratarServicoPage extends StatefulWidget {
@@ -258,7 +259,8 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                           }
                           if (snapshot.hasError) {
                             return Center(
-                                child: Text("Erro ao carregar serviços"));
+                                child: Text(
+                                    "Erro ao carregar serviços: ${snapshot.error}"));
                           }
                           if (!snapshot.hasData || snapshot.data!.isEmpty) {
                             return Center(
@@ -286,143 +288,169 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            'Valor: ${service.valor.toString()} reais'),
+                                            'Valor: R\$ ${service.valor.toString()}'),
                                         Text(
                                             'Disponibilidade: ${service.disponibilidade}'),
+                                        Text('Categoria: ${service.categoria}'),
                                         SizedBox(
                                             height:
                                                 8), // Espaço entre os textos e o botão
                                         ElevatedButton(
                                           onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  title:
-                                                      Text('Contratar Serviço'),
-                                                  content: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                          'Você deseja contratar este serviço?'),
-                                                      TextFormField(
-                                                        controller:
-                                                            _dataController,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText: 'Data',
+                                            if (service.categoria ==
+                                                'Limpeza') {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CleaningPage(service: service, emailCliente: emailCliente),
+                                                ),
+                                              );
+                                            } else {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        'Contratar Serviço'),
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Text(
+                                                            'Você deseja contratar este serviço?'),
+                                                        TextFormField(
+                                                          controller:
+                                                              _dataController,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            labelText: 'Data',
+                                                          ),
+                                                          onTap: () async {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(
+                                                                    FocusNode());
+                                                            DateTime? picked =
+                                                                await showDatePicker(
+                                                              context: context,
+                                                              initialDate:
+                                                                  DateTime
+                                                                      .now(),
+                                                              firstDate:
+                                                                  DateTime(
+                                                                      2020),
+                                                              lastDate:
+                                                                  DateTime(
+                                                                      2030),
+                                                            );
+                                                            if (picked !=
+                                                                null) {
+                                                              _dataController
+                                                                  .text = DateFormat(
+                                                                      'dd-MM-yyyy')
+                                                                  .format(
+                                                                      picked);
+                                                            }
+                                                          },
                                                         ),
-                                                        onTap: () async {
-                                                          FocusScope.of(context)
-                                                              .requestFocus(
-                                                                  FocusNode());
-                                                          DateTime? picked =
-                                                              await showDatePicker(
-                                                            context: context,
-                                                            initialDate:
-                                                                DateTime.now(),
-                                                            firstDate:
-                                                                DateTime(2020),
-                                                            lastDate:
-                                                                DateTime(2030),
-                                                          );
-                                                          if (picked != null) {
-                                                            _dataController
-                                                                .text = DateFormat(
-                                                                    'dd-MM-yyyy')
-                                                                .format(picked);
-                                                          }
+                                                        TextFormField(
+                                                          controller:
+                                                              _horaController,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            labelText:
+                                                                'Horário',
+                                                          ),
+                                                          onTap: () async {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(
+                                                                    FocusNode());
+                                                            TimeOfDay? picked =
+                                                                await showTimePicker(
+                                                              context: context,
+                                                              initialTime:
+                                                                  TimeOfDay
+                                                                      .now(),
+                                                            );
+                                                            if (picked !=
+                                                                null) {
+                                                              _horaController
+                                                                      .text =
+                                                                  picked.format(
+                                                                      context);
+                                                            }
+                                                          },
+                                                        ),
+                                                        TextFormField(
+                                                          controller:
+                                                              _descricaoController, // Controlador de descrição
+                                                          decoration:
+                                                              InputDecoration(
+                                                            labelText:
+                                                                'Descrição do serviço', // Rótulo do campo
+                                                          ),
+                                                        ),
+                                                        TextFormField(
+                                                          controller:
+                                                              _valorclienteController, // Controlador de descrição
+                                                          decoration:
+                                                              InputDecoration(
+                                                            labelText:
+                                                                'Valor que deseja pagar', // Rótulo do campo
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
                                                         },
+                                                        child: Text('Cancelar'),
                                                       ),
-                                                      TextFormField(
-                                                        controller:
-                                                            _horaController,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText: 'Horário',
-                                                        ),
-                                                        onTap: () async {
-                                                          FocusScope.of(context)
-                                                              .requestFocus(
-                                                                  FocusNode());
-                                                          TimeOfDay? picked =
-                                                              await showTimePicker(
-                                                            context: context,
-                                                            initialTime:
-                                                                TimeOfDay.now(),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          SolicitarServico
+                                                              solicitarServico =
+                                                              SolicitarServico(
+                                                            servico: service,
+                                                            data:
+                                                                _dataController
+                                                                    .text,
+                                                            hora:
+                                                                _horaController
+                                                                    .text,
+                                                            descricao:
+                                                                _descricaoController
+                                                                    .text,
+                                                            valorcliente:
+                                                                _valorclienteController
+                                                                    .text,
+                                                            emailPrestador:
+                                                                service.email,
+                                                            emailCliente:
+                                                                emailCliente,
+                                                            status:
+                                                                "Solicitação enviada",
                                                           );
-                                                          if (picked != null) {
-                                                            _horaController
-                                                                    .text =
-                                                                picked.format(
-                                                                    context);
-                                                          }
+                                                          _contratarServico(
+                                                              solicitarServico,
+                                                              notificationService);
+                                                          Navigator.of(context)
+                                                              .pop();
                                                         },
-                                                      ),
-                                                      TextFormField(
-                                                        controller:
-                                                            _descricaoController, // Controlador de descrição
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              'Descrição do serviço', // Rótulo do campo
-                                                        ),
-                                                      ),
-                                                      TextFormField(
-                                                        controller:
-                                                            _valorclienteController, // Controlador de descrição
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              'Valor que deseja pagar', // Rótulo do campo
-                                                        ),
+                                                        child:
+                                                            Text('Contratar'),
                                                       ),
                                                     ],
-                                                  ),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text('Cancelar'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        SolicitarServico
-                                                            solicitarServico =
-                                                            SolicitarServico(
-                                                          servico: service,
-                                                          data: _dataController
-                                                              .text,
-                                                          hora: _horaController
-                                                              .text,
-                                                          descricao:
-                                                              _descricaoController
-                                                                  .text,
-                                                          valorcliente:
-                                                              _valorclienteController
-                                                                  .text,
-                                                          emailPrestador:
-                                                              service.email,
-                                                          emailCliente:
-                                                              emailCliente,
-                                                          status:
-                                                              "Solicitação enviada",
-                                                        );
-                                                        _contratarServico(
-                                                            solicitarServico,
-                                                            notificationService);
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text('Contratar'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
+                                                  );
+                                                },
+                                              );
+                                            }
                                           },
                                           child: Text('Contratar'),
                                         ),

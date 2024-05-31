@@ -106,7 +106,7 @@ class MeusServicosPage extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 }
                 if (snapshot.hasError) {
-                  return Center(child: Text("Erro ao carregar serviços"));
+                  return Center(child: Text("Erro ao carregar serviços: ${snapshot.error}"));
                 }
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(child: Text("Nenhum serviço encontrado"));
@@ -128,7 +128,7 @@ class MeusServicosPage extends StatelessWidget {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Valor: ${service.valor.toString()} reais'),
+                            Text('Valor: R\$ ${service.valor.toString()}'),
                             Text('Disponibilidade: ${service.disponibilidade}'),
                           ],
                         ),
