@@ -22,7 +22,8 @@ class ServiceController extends GetxController {
         "descricao": service.descricao,
         "valor": service.valor,
         "disponibilidade": service.disponibilidade,
-        "email": service.email
+        "email": service.email,
+        "categoria": service.categoria
       });
 
       Get.snackbar(

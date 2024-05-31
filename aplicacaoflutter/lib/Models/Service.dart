@@ -5,12 +5,15 @@ class ServiceModel {
   double valor;
   String disponibilidade;
   String? email;
+  String categoria;
 
   ServiceModel({
     required this.descricao,
     required this.valor,
     required this.disponibilidade,
     this.email,
+    required this.categoria,
+
   });
 
   factory ServiceModel.fromDocumentSnapshot(DocumentSnapshot doc) {
@@ -18,7 +21,8 @@ class ServiceModel {
       descricao: doc['descricao'],
       valor: doc['valor'],
       disponibilidade: doc['disponibilidade'],
-      email: doc['email']
+      email: doc['email'],
+      categoria: doc['categoria'],
     );
   }
 }

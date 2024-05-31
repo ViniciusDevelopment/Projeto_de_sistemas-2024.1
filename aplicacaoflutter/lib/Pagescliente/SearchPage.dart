@@ -114,7 +114,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             //Aqui vai para a outra page
-                                            outroUserPage(email: item.Email)))
+                                            OutroUserPage(email: item.Email)))
                                 .then((value) {
                               // Aqui você pode executar qualquer código após a navegação
                               print('Página do usuário foi aberta');

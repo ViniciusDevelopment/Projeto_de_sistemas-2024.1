@@ -147,7 +147,7 @@ class _HomePageContentState extends State<HomePageContent> {
           ),
           const SizedBox(height: 20),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
             alignment: Alignment.centerLeft,
             child: const Text(
               'Recomendações:',
@@ -158,7 +158,7 @@ class _HomePageContentState extends State<HomePageContent> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Consumer<UserRepository>(
               builder: (context, userRepository, child) {
                 if (userRepository.listaDeUsuarios.isEmpty) {
@@ -171,6 +171,8 @@ class _HomePageContentState extends State<HomePageContent> {
                     itemBuilder: (context, index) {
                       final user = userRepository.listaDeUsuarios[index];
                       return Card(
+                        elevation: 0,
+                        color: Colors.white,
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
                         child: ListTile(
                           leading: user.photoURL != null
@@ -194,7 +196,7 @@ class _HomePageContentState extends State<HomePageContent> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    outroUserPage(email: user.email),
+                                    OutroUserPage(email: user.email),
                               ),
                             );
                           },
