@@ -39,19 +39,13 @@ void initState() {
           var userData = querySnapshot.docs.first.data();
           if (userData != null && userData is Map<String, dynamic>) {
             String tipoUsuario = userData['TipoUser'] as String;
-            // Agora você tem o tipo do usuário, você pode fazer o que precisa com ele
-            print('Tipo do usuário: $tipoUsuario');
 
-            // Agora você pode chamar _fetchAcceptedSolicitations com base no tipo de usuário
             if (tipoUsuario == 'Prestador') {
-              print("Macarrão Azedo");
               _fetchAcceptedSolicitationsPrestador(emailUsuario);
             } else {
-              print("Macarrão Fedido");
               _fetchAcceptedSolicitationsCliente(emailUsuario);
             }
           } else {
-            // Lidar com o caso em que userData é nulo
             print('Dados do usuário não encontrados.');
           }
         }
@@ -118,7 +112,24 @@ void initState() {
             mainAxisSize: MainAxisSize.min,
             children: events.map((event) {
               return ListTile(
-                title: Text(event['descricao'] ?? 'Descrição não disponível'),
+                title: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Descrição: ${event['descricao']}'),
+                                Text('Prestador: ${event['emailPrestador']}'),
+                                Text(
+                                    "Data: ${event['data']}     Horário: ${event['hora']}"),
+                                Text(
+                                    'Valor Proposto: R\$${event['valorcliente']}'),
+                              ],
+                            ),
+                ),
               );
             }).toList(),
           ),
