@@ -6,7 +6,6 @@ import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/DTO/Request/ServiceDTO.dart';
 import 'package:servicocerto/Models/SolicitarServico.dart';
 import 'package:servicocerto/Models/comodos.dart';
-import 'package:servicocerto/Pagesdiarista/calendarDiaristaPage.dart';
 import 'package:servicocerto/animation/FadeAnimation.dart';
 
 class CleaningPage extends StatefulWidget {

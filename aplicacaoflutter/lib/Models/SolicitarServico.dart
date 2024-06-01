@@ -34,7 +34,7 @@ class SolicitarServico {
       "status": status,
       "descricao": descricao,
       "valorcliente": valorcliente,
-      "comodos": comodos!.toJson(),
+       if (comodos != null) "comodos": comodos!.toJson(),
     };
   }
 }
