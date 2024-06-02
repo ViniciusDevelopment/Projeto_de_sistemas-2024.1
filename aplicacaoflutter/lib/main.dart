@@ -18,6 +18,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(ServiceController());
+  Get.put(RatingServiceController());
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
    runApp(
     MultiProvider(

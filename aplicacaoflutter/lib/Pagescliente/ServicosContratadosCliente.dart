@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:servicocerto/Models/ratingService.dart';
+import 'package:servicocerto/Controller/ServiceController.dart';
+import 'package:servicocerto/Models/ratingService.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ServicosContradosCliente extends StatefulWidget {
   const ServicosContradosCliente({Key? key}) : super(key: key);
@@ -11,6 +15,7 @@ class ServicosContradosCliente extends StatefulWidget {
 }
 
 class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
   late Future<List<DocumentSnapshot>> _futureServices;
 
@@ -19,6 +24,7 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
     super.initState();
     _futureServices = _fetchServices();
   }
+
 
   Future<List<DocumentSnapshot>> _fetchServices() async {
     final currentUserEmail = FirebaseAuth.instance.currentUser?.email;
@@ -43,13 +49,14 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
     }
   }
 
-  void _confirmarConclusaoServico(String serviceId) {
+  void _confirmarConclusaoServico(String serviceId, String emailPrestador) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Confirmação"),
-          content: Text("Você confirma que o serviço foi prestado?"),
+          content: 
+          buildRatingPage(context, emailPrestador, serviceId),
           actions: [
             TextButton(
               child: Text("Cancelar"),
@@ -67,8 +74,6 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                     .doc(serviceId)
                     .update({'status': 'Concluido'});
                 Navigator.of(context).pop();
-                _showRatingDialog(
-                    serviceId); // Chama a função para mostrar o popup de avaliação
                 setState(() {
                   _futureServices = _fetchServices();
                 });
@@ -80,80 +85,99 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
     );
   }
 
-  void _showRatingDialog(String serviceId) {
-    double _rating = 0;
-    TextEditingController _commentController = TextEditingController();
+  
+  static const photoUrl = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fflowgames.gg%2Fdestiny-2-a-forma-final-tem-novos-detalhes-e-data%2F&psig=AOvVaw18da4vkKJizXQ85YToSCh9&ust=1717427108102000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJCPttiYvYYDFQAAAAAdAAAAABAE';
+  Widget buildRatingPage(BuildContext context, String emailPrestador, String serviceId) {
+    
+  TextEditingController _commentController = TextEditingController();
+  double _rating = 3.0;
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          // Adicionado StatefulBuilder
-          builder: (context, setState) {
-            return AlertDialog(
-              title: Text("Avaliação (Opcional)"),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("Por favor, avalie o serviço:"),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(5, (index) {
-                      return IconButton(
-                        icon: Icon(
-                          index < _rating ? Icons.star : Icons.star_border,
-                          color: Colors.amber,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            // Agora isso atualizará o estado
-                            _rating = index + 1.0;
-                          });
-                        },
-                      );
-                    }),
-                  ),
-                  TextField(
-                    controller: _commentController,
-                    decoration: InputDecoration(
-                      hintText: "Escreva sua avaliação aqui",
-                    ),
-                    maxLines: 3,
-                  ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  child: Text("Fechar"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: Text("Enviar"),
-                  onPressed: () async {
-                    await FirebaseFirestore.instance
-                        .collection('AvaliacoesServico')
-                        .add({
-                      'serviceId': serviceId,
-                      'rating': _rating,
-                      'comment': _commentController.text,
-                      'date': Timestamp.now(),
-                    });
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
+  void _sendReview() async {
+  try {
+    String comment = _commentController.text;
+    RatingServiceModel service = RatingServiceModel(
+      rating: _rating,
+      comment: comment,
+      date: DateTime.now(),
+      emailCliente: FirebaseAuth.instance.currentUser?.email,
+      emailPrestador: emailPrestador,
+      serviceID: serviceId,
     );
+
+    await RatingServiceController.instance.rateService(service);
+
+    // Mostra um SnackBar com a mensagem de confirmação após o envio da avaliação
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Avaliação enviada com sucesso!'),
+      ),
+    );
+
+    // Navega para a mesma página atualizada após enviar a avaliação
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (BuildContext context) =>
+            ServicosContradosCliente(),
+      ),
+    );
+  } catch (error) {
+    print('Erro ao enviar avaliação: $error');
   }
+}
+
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text(
+        'AVALIE O SERVIÇO! (OPCIONAL)',
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 20),
+      Center(
+        child: RatingBar.builder(
+          initialRating: _rating,
+          minRating: 1,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => const Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          onRatingUpdate: (rating) {
+            _rating = rating;
+            print(rating);
+          },
+        ),
+      ),
+      const SizedBox(height: 20),
+      TextField(
+        controller: _commentController,
+        decoration: const InputDecoration(
+          labelText: 'Deixe um comentário',
+          border: OutlineInputBorder(),
+        ),
+        maxLines: 3,
+      ),
+      const SizedBox(height: 20),
+      Center(
+        child: ElevatedButton(
+          onPressed: _sendReview,
+          child: const Text('Enviar Avaliação'),
+        ),
+      ),
+    ],
+  );
+}
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Text(
           "Meus Serviços",
@@ -235,7 +259,7 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                                     child: ElevatedButton(
                                       onPressed: () =>
                                           _confirmarConclusaoServico(
-                                              service.id),
+                                              service.id, service['emailPrestador']),
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.white,
                                         backgroundColor:
