@@ -69,6 +69,28 @@ class ServiceController extends GetxController {
     }
   }
 
+  Future<void> deleteService(String serviceId) async {
+    try {
+      await _db.collection("Servicos").doc(serviceId).delete();
+      Get.snackbar(
+        "Sucesso",
+        "Serviço excluído com sucesso",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.blue.withOpacity(0.1),
+        colorText: Colors.blue,
+      );
+    } catch (error) {
+      Get.snackbar(
+        "Erro",
+        "Erro ao excluir serviço. Tente novamente.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      print("Erro ao excluir serviço: $error");
+    }
+  }
+
   Stream<List<ServiceModel>> getUserServices() {
     User? user = _auth.currentUser;
     if (user == null) {
