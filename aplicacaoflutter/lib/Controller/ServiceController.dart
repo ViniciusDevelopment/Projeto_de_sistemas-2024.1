@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart'; // Adicione esta linha
+import 'package:flutter/material.dart';
 import 'package:servicocerto/Models/Service.dart';
 import 'package:servicocerto/Models/SolicitarServico.dart';
 
@@ -42,8 +42,30 @@ class ServiceController extends GetxController {
         backgroundColor: Colors.redAccent.withOpacity(0.1),
         colorText: Colors.red,
       );
-      // Use uma framework de logging em produção
       print("Erro ao criar serviço: $error");
+    }
+  }
+
+  Future<void> updateService(ServiceModel service) async {
+    try {
+      await _db.collection("Servicos").doc(service.id).update(service.toMap());
+
+      Get.snackbar(
+        "Sucesso",
+        "Seu serviço foi atualizado",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.blue.withOpacity(0.1),
+        colorText: Colors.blue,
+      );
+    } catch (error) {
+      Get.snackbar(
+        "Error",
+        "Algo deu errado. Tente novamente",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      print("Erro ao atualizar serviço: $error");
     }
   }
 
@@ -80,17 +102,6 @@ class ServiceController extends GetxController {
       await FirebaseFirestore.instance
           .collection('SolicitacoesServico')
           .add(solicitarServico.toJson());
-
-      // notificationService.showLocalNotification(
-      //   CustomNotification(
-      //     id: DateTime.now()
-      //         .millisecondsSinceEpoch, // Usar timestamp como ID único
-      //     title: 'Serviço Solicitado',
-      //     body: 'Novo Serviço solicitado.',
-      //     payload:
-      //         '', // Pode ser utilizado para abrir uma tela específica se necessário
-      //   ),
-      // );
     } catch (error) {
       print('Erro ao contratar o serviço: $error');
     }
@@ -135,7 +146,6 @@ class ServiceRequestController extends GetxController {
         backgroundColor: Colors.redAccent.withOpacity(0.1),
         colorText: Colors.red,
       );
-      // Use uma framework de logging em produção
       print("Erro ao criar serviço: $error");
     }
   }

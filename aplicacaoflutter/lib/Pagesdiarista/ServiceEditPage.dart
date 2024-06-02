@@ -1,61 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Import necessário para FilteringTextInputFormatter
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:servicocerto/Controller/ServiceController.dart'; // Import corrigido para minúsculas
-import 'package:servicocerto/Models/Service.dart'; // Import corrigido para maiúsculas
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:servicocerto/Models/Service.dart'; // Import corrigido para minúsculas
 
-class ServiceRegistrationPage extends StatefulWidget {
-  final String email;
+class ServiceEditPage extends StatefulWidget {
+  final ServiceModel service;
 
-  const ServiceRegistrationPage(
-      {super.key, required this.email}); // Adicionado key
+  const ServiceEditPage({Key? key, required this.service}) : super(key: key);
 
   @override
-  _ServiceRegistrationPageState createState() =>
-      _ServiceRegistrationPageState();
+  _ServiceEditPageState createState() => _ServiceEditPageState();
 }
 
-class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
-  final TextEditingController _descricaoController = TextEditingController();
-  final TextEditingController _valorController = TextEditingController();
-  final TextEditingController _disponibilidadeController =
-      TextEditingController();
-  String? _categoriaSelecionada;
-  final List<String> _categorias = ['Limpeza', 'Alimentação'];
+class _ServiceEditPageState extends State<ServiceEditPage> {
+  late TextEditingController _descricaoController;
+  late TextEditingController _valorController;
+  late TextEditingController _disponibilidadeController;
 
-  Future<void> _cadastrarServico() async {
+  @override
+  void initState() {
+    super.initState();
+    // Inicializar os controladores com valores existentes
+    _descricaoController =
+        TextEditingController(text: widget.service.descricao);
+    _valorController =
+        TextEditingController(text: widget.service.valor.toString());
+    _disponibilidadeController =
+        TextEditingController(text: widget.service.disponibilidade);
+  }
+
+  Future<void> _editarServico() async {
     String descricao = _descricaoController.text.trim();
     String valor = _valorController.text.trim();
     String disponibilidade = _disponibilidadeController.text.trim();
 
-    if (_categoriaSelecionada == null) {
-      Get.snackbar(
-        "Erro",
-        "Por favor, selecione uma categoria.",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.redAccent.withOpacity(0.1),
-        colorText: Colors.red,
-      );
-      return;
-    }
-
     if (descricao.isNotEmpty &&
         valor.isNotEmpty &&
         disponibilidade.isNotEmpty) {
-      String id = FirebaseFirestore.instance.collection('services').doc().id;
-      ServiceModel service = ServiceModel(
-        id: id,
+      ServiceModel updatedService = ServiceModel(
+        id: widget.service.id,
         descricao: descricao,
         valor: double.parse(valor),
         disponibilidade: disponibilidade,
-        email: widget.email,
-        categoria: _categoriaSelecionada!,
+        email: widget.service.email,
+        categoria: widget.service.categoria,
       );
-      BuildContext? context = this.context;
 
       if (mounted) {
-        await ServiceController.instance.createService(service);
+        await ServiceController.instance.updateService(updatedService);
         Navigator.pop(context); // Redireciona para a página anterior
       } else {
         print("Contexto nulo ou widget não está montado");
@@ -69,20 +62,13 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
         colorText: Colors.red,
       );
     }
-    return Future.value();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _categoriaSelecionada = _categorias.first;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de Serviço'), // Adicionado const
+        title: const Text('Editar Serviço'), // Adicionado const
       ),
       body: SafeArea(
         top: true,
@@ -113,7 +99,7 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
                       ),
                       child: const Center(
                         child: Text(
-                          'Cadastrar Serviço',
+                          'Editar Serviço',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Color.fromARGB(255, 45, 96, 234),
@@ -192,6 +178,7 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 20.0), // Adicionado const
                   Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 5),
@@ -207,30 +194,16 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
                         ],
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: DropdownButtonFormField<String>(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        child: Text(
+                          'Categoria: ${widget.service.categoria}',
+                          style: const TextStyle(
+                            color:
+                                Colors.grey, // Ajuste a cor conforme necessário
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
                         ),
-                        value: _categoriaSelecionada,
-                        items: _categorias
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _categoriaSelecionada =
-                                newValue; // Definindo o novo valor selecionado
-                          });
-                        },
-                        hint: const Text(
-                            'Selecione a categoria'), // Texto exibido quando nenhum valor está selecionado
                       ),
                     ),
                   ),
@@ -284,7 +257,7 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: ElevatedButton(
-                        onPressed: _cadastrarServico,
+                        onPressed: () => _editarServico(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(
                               255, 45, 96, 234), // Cor de fundo
@@ -296,7 +269,7 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
                           ),
                         ),
                         child:
-                            const Text('Cadastrar Serviço'), // Adicionado const
+                            const Text('Salvar Alterações'), // Adicionado const
                       ),
                     ),
                   ),
