@@ -834,4 +834,4 @@ O objetivo da iteração, foi aprimorar o código legado de iterações anterior
 - [X] RF36 - [Esqueci a senha](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/54). [Benedito Jaime](https://github.com/beneX90) Revisado por [Daniel Noleto](https://github.com/Daniel-Noleto)
 
 - [X] RF37 - [Busca por serviços a partir da categoria de serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/52). [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [](https://github.com/ViniciusDevelopment)
-- [X] RF38-[Chat do cliente com diarista](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/55)[Daniel Noleto](https://github.com/Daniel-Noleto) Revisado por  [Dante Ungarelli](https://github.com/danteungarelli)
+- [X] RF38-[Chat do cliente com diarista](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/55). [Daniel Noleto](https://github.com/Daniel-Noleto) Revisado por  [Dante Ungarelli](https://github.com/danteungarelli)
