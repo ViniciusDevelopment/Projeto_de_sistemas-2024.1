@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:servicocerto/PagesCommon/ForgotPassword.dart';
 import 'package:servicocerto/index.dart'; // Certifique-se de substituir por seu arquivo de destino
 import 'registerPage.dart';
 
@@ -73,6 +74,27 @@ class LoginPage extends StatelessWidget {
                       children: <Widget>[
                         inputFile(label: "Email", controller: _emailController),
                         inputFile(label: "Senha", obscureText: true, controller: _passwordController),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context){
+                                  return ForgotPassword();
+                                }));
+                              },
+                              child: Text(
+                                "Esqueceu a senha?",
+                                style: TextStyle(
+                                  color:Colors.grey[700],
+                                  fontWeight: FontWeight.w600, fontSize: 18
+                                  ),
+                                ),
+                            )
+                          ]
+                        ),
+
                       ],
                     ),
                   ),
@@ -99,7 +121,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
+                  ),                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
