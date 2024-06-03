@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:servicocerto/DTO/Response/UserImageDTO.dart';
+import 'package:servicocerto/PagesCommon/ChatPage.dart';
 import 'ContratarServicoPage.dart';
 
 import 'package:flutter/material.dart';
@@ -27,6 +28,32 @@ class _OutroUserPageState extends State<OutroUserPage> {
     _simpleSearchResults = null;
     _performSearch(widget.email);
   }
+
+    Widget _chatButton(BuildContext context){
+    return ElevatedButton(
+      onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder:(context)=>ChatPage(receiverUserEmail: widget.email,)));
+      },
+      style: ElevatedButton.styleFrom(
+           minimumSize: const Size(double.infinity, 60),
+           padding: const EdgeInsets.symmetric(horizontal: 24),
+           backgroundColor: const Color.fromARGB(255, 45, 96, 234),
+
+      ),
+
+      child: const Text(
+        "Conversar",
+        style: TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+          ),
+        ), 
+      );
+  }
+
+
+
 
   Widget _contratarButton(BuildContext context) {
     return ElevatedButton(
@@ -213,6 +240,10 @@ class _OutroUserPageState extends State<OutroUserPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                   Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: _chatButton(context),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: _contratarButton(context),
