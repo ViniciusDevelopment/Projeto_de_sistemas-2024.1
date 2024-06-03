@@ -1,38 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Models/Service.dart';
 import 'package:servicocerto/Pagesdiarista/CadastrarservicoPage.dart';
+import 'package:servicocerto/Pagesdiarista/ServiceEditPage.dart';
 
-final _db = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance;
-
-Stream<List<ServiceModel>> getUserServices() {
-  User? user = _auth.currentUser;
-  if (user == null) {
-    throw Exception("Nenhum usuário está logado");
-  }
-
-  return _db
-      .collection("Servicos")
-      .where("uid", isEqualTo: user.uid)
-      .snapshots()
-      .map((QuerySnapshot query) {
-    List<ServiceModel> services = [];
-    for (var doc in query.docs) {
-      services.add(ServiceModel.fromDocumentSnapshot(doc));
-    }
-    return services;
-  });
-}
 
 String? getUserEmail() {
   User? user = _auth.currentUser;
   if (user == null) {
     throw Exception("Nenhum usuário está logado");
   }
-
   return user.email;
 }
 
@@ -52,19 +31,18 @@ class MeusServicosPage extends StatelessWidget {
           SizedBox(height: 15),
           GestureDetector(
             onTap: () {
-              // Navega para a página "EditarPerfil.dart" quando o contêiner for clicado
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        ServiceRegistrationPage(email: getUserEmail()!)),
+                  builder: (context) =>
+                      ServiceRegistrationPage(email: getUserEmail()!),
+                ),
               );
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 height: 40,
-                // width: 150,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.white,
@@ -106,7 +84,9 @@ class MeusServicosPage extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 }
                 if (snapshot.hasError) {
-                  return Center(child: Text("Erro ao carregar serviços"));
+                  return Center(
+                      child:
+                          Text("Erro ao carregar serviços: ${snapshot.error}"));
                 }
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(child: Text("Nenhum serviço encontrado"));
@@ -128,8 +108,57 @@ class MeusServicosPage extends StatelessWidget {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Valor: ${service.valor.toString()} reais'),
+                            Text('Valor: R\$ ${service.valor.toString()}'),
                             Text('Disponibilidade: ${service.disponibilidade}'),
+                          ],
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ServiceEditPage(service: service),
+                                  ),
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () async {
+                                bool? confirmDelete = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Confirmar Exclusão'),
+                                      content: Text(
+                                          'Deseja realmente excluir este serviço?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(false),
+                                          child: Text('Cancelar'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(true),
+                                          child: Text('Excluir'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                if (confirmDelete == true) {
+                                  ServiceController.instance
+                                      .deleteService(service.id);
+                                }
+                              },
+                            ),
                           ],
                         ),
                       ),

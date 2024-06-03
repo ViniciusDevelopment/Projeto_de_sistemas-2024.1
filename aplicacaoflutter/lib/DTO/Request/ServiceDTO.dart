@@ -6,6 +6,7 @@ class ServiceModelDTO {
   double valor;
   String disponibilidade;
   String email;
+  String categoria;
 
   ServiceModelDTO({
     required this.id,
@@ -13,15 +14,17 @@ class ServiceModelDTO {
     required this.valor,
     required this.disponibilidade,
     required this.email,
+    required this.categoria,
   });
 
   factory ServiceModelDTO.fromDocumentSnapshot(DocumentSnapshot doc) {
     return ServiceModelDTO(
       id: doc.id, // Usando o ID do documento
       descricao: doc['descricao'],
-      valor: doc['valor'],
+      valor: (doc['valor'] as num).toDouble(),
       disponibilidade: doc['disponibilidade'],
-      email: doc['email']
+      email: doc['email'],
+      categoria: doc['categoria']
     );
   }
 
@@ -32,6 +35,7 @@ class ServiceModelDTO {
       'valor': valor,
       'disponibilidade': disponibilidade,
       'email': email,
+      'categoria': categoria,
     };
   }
 }

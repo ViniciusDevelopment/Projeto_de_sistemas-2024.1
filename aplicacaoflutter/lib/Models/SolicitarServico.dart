@@ -1,4 +1,5 @@
 import 'package:servicocerto/DTO/Request/ServiceDTO.dart';
+import 'package:servicocerto/Models/comodos.dart';
 
 class SolicitarServico {
   final ServiceModelDTO servico;
@@ -7,6 +8,9 @@ class SolicitarServico {
   final String emailPrestador;
   final String emailCliente;
   final String status;
+  final String descricao;
+  final String valorcliente;
+  final Comodos? comodos;
 
   const SolicitarServico({
     required this.servico,
@@ -15,6 +19,9 @@ class SolicitarServico {
     required this.emailPrestador,
     required this.emailCliente,
     required this.status,
+    required this.descricao,
+    required this.valorcliente,
+    this.comodos,
   });
 
   Map<String, dynamic> toJson() {
@@ -25,6 +32,9 @@ class SolicitarServico {
       "emailPrestador": emailPrestador,
       "emailCliente": emailCliente,
       "status": status,
+      "descricao": descricao,
+      "valorcliente": valorcliente,
+       if (comodos != null) "comodos": comodos!.toJson(),
     };
   }
 }

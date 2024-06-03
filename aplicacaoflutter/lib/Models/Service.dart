@@ -1,25 +1,41 @@
-import 'package:cloud_firestore/cloud_firestore.dart'; // Adicione esta linha
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ServiceModel {
+  String id;
   String descricao;
   double valor;
   String disponibilidade;
   String? email;
+  String categoria;
 
   ServiceModel({
+    required this.id,
     required this.descricao,
     required this.valor,
     required this.disponibilidade,
     this.email,
+    required this.categoria,
   });
 
   factory ServiceModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     return ServiceModel(
+      id: doc.id,
       descricao: doc['descricao'],
-      valor: doc['valor'],
+      valor: (doc['valor'] as num).toDouble(),
       disponibilidade: doc['disponibilidade'],
-      email: doc['email']
+      email: doc['email'],
+      categoria: doc['categoria'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'descricao': descricao,
+      'valor': valor,
+      'disponibilidade': disponibilidade,
+      'email': email,
+      'categoria': categoria,
+    };
   }
 }
 
@@ -49,8 +65,7 @@ class ServiceRequestModel {
       horario: doc['horario'],
       endereco: doc['endereco'],
       emailCliente: doc['emailCliente'],
-      emailPrestador: doc['emailPrestador']
+      emailPrestador: doc['emailPrestador'],
     );
   }
-
 }

@@ -9,6 +9,7 @@ import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/PagesCommon/calendarPage.dart';
 import 'package:servicocerto/PagesCommon/ProfilePage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
+import 'package:servicocerto/PagesCommon/ChatPage.dart';
 
 class HomePagediarista extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -206,7 +207,8 @@ class _HomePageContentState extends State<HomePageContent> {
                   future: FirebaseFirestore.instance
                       .collection('SolicitacoesServico')
                       .where('emailPrestador',
-                          isEqualTo: FirebaseAuth.instance.currentUser!.email).where('status', isEqualTo: 'Solicitação enviada' )
+                          isEqualTo: FirebaseAuth.instance.currentUser!.email)
+                      .where('status', isEqualTo: 'Solicitação enviada')
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -235,13 +237,50 @@ class _HomePageContentState extends State<HomePageContent> {
                                       children: [
                                         Text('Serviço: $descricao'),
                                         Text(
-                                          'Cliente: ${data['emailCliente']}\nData: ${data['data']}\nHorário: ${data['hora']}\nEndereço: ${data['endereco']}',
+                                          'Cliente: ${data['emailCliente']}\nData: ${data['data']}\nHorário: ${data['hora']}\nDescrição: ${data['descricao']}\nValor do serviço: ${data['valorcliente']}',
                                         ),
                                         SizedBox(height: 8),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: [
+
+
+                                            ElevatedButton(
+                                               onPressed: (){
+                                               Navigator.push(context, MaterialPageRoute(builder:(context)=>ChatPage(receiverUserEmail: data["emailCliente"],)));
+                                            },
+                                              style: /*ElevatedButton.styleFrom(
+                                                minimumSize: const Size(double.infinity, 60),
+                                                padding: const EdgeInsets.symmetric(horizontal: 24),
+                                                backgroundColor: Color.fromARGB(255, 174, 174, 174),*/
+                                                ElevatedButton.styleFrom(
+                                                backgroundColor:Color.fromARGB(255, 174, 174, 174),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5), // raio dos cantos
+                                                  side: BorderSide(
+                                                    color: Color.fromARGB(255, 174, 174, 174),// cor da borda
+                                                    width:
+                                                        2, // largura da borda
+                                                  ),
+                                                ),
+                                              ),
+
+                                              
+
+                                              child: const Text(
+                                                "Conversar",
+                                                style: TextStyle(
+                                                color: Colors.white,
+                                                 ),
+                                              ), 
+                                           ),
+
+
+                                            SizedBox(height: 8),
+
                                             ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
@@ -296,7 +335,6 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                
                                                 backgroundColor: Colors.green,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -317,7 +355,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                               ),
                                             ),
                                             SizedBox(height: 8),
-                                             ElevatedButton(
+                                            ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
                                                     FirebaseFirestore.instance
@@ -339,8 +377,9 @@ class _HomePageContentState extends State<HomePageContent> {
 
                                                   // Atualize o campo 'status' para 'Aceita'
                                                   await documentReference
-                                                      .update(
-                                                          {'status': 'Recusado'});
+                                                      .update({
+                                                    'status': 'Recusado'
+                                                  });
 
                                                   // Chame setState() para atualizar a UI se necessário
                                                   setState(() {});
@@ -348,8 +387,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                   Flushbar(
                                                     message:
                                                         'Serviço recusado!',
-                                                    backgroundColor:
-                                                        Colors.red,
+                                                    backgroundColor: Colors.red,
                                                     duration:
                                                         Duration(seconds: 3),
                                                     margin: EdgeInsets.all(8),
@@ -371,8 +409,9 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.red, // cor de fundo
-                                                
+                                                backgroundColor:
+                                                    Colors.red, // cor de fundo
+
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
