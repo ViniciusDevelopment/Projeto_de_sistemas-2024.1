@@ -819,7 +819,7 @@ O objetivo da iteração, foi aprimorar o código legado de iterações anterior
 
 - [X] RF29 - [Confirmação da conclusão de serviço](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/45). [Saulo Ferraz](https://github.com/SauloFerrazTC/) Revisado por [João Victor](https://github.com/joaovictorwg)
 
-- [X] RF30 - [Opção de serviços agendados e anteriores](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/44). [Daniel Noleto](https://github.com/Daniel-Noleto) Revisado por [Daniel Noleto](https://github.com/SauloFerrazTC)
+- [X] RF30 - [Opção de serviços agendados e anteriores](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/44). [Daniel Noleto](https://github.com/Daniel-Noleto) Revisado por [Saulo Ferraz(https://github.com/SauloFerrazTC)
 
  - [X] RF31 - [Edição do serviço cadastrado](https://github.com/ViniciusDevelopment/Projeto_de_sistemas-2024.1/pull/48). [Dante Ungarelli](https://github.com/danteungarelli) Revisado por [João Victor](https://github.com/joaovictorwg)
 
