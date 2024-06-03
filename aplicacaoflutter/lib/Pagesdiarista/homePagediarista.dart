@@ -9,6 +9,7 @@ import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/PagesCommon/calendarPage.dart';
 import 'package:servicocerto/PagesCommon/ProfilePage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
+import 'package:servicocerto/PagesCommon/ChatPage.dart';
 
 class HomePagediarista extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -243,6 +244,43 @@ class _HomePageContentState extends State<HomePageContent> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: [
+
+
+                                            ElevatedButton(
+                                               onPressed: (){
+                                               Navigator.push(context, MaterialPageRoute(builder:(context)=>ChatPage(receiverUserEmail: data["emailCliente"],)));
+                                            },
+                                              style: /*ElevatedButton.styleFrom(
+                                                minimumSize: const Size(double.infinity, 60),
+                                                padding: const EdgeInsets.symmetric(horizontal: 24),
+                                                backgroundColor: Color.fromARGB(255, 174, 174, 174),*/
+                                                ElevatedButton.styleFrom(
+                                                backgroundColor:Color.fromARGB(255, 174, 174, 174),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5), // raio dos cantos
+                                                  side: BorderSide(
+                                                    color: Color.fromARGB(255, 174, 174, 174),// cor da borda
+                                                    width:
+                                                        2, // largura da borda
+                                                  ),
+                                                ),
+                                              ),
+
+                                              
+
+                                              child: const Text(
+                                                "Conversar",
+                                                style: TextStyle(
+                                                color: Colors.white,
+                                                 ),
+                                              ), 
+                                           ),
+
+
+                                            SizedBox(height: 8),
+
                                             ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
