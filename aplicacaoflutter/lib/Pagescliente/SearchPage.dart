@@ -13,6 +13,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
   late TextEditingController _entradaBuscaController;
   late FocusNode _entradaBuscaFocusNode;
   List<Record> _simpleSearchResults = [];
+  String _selectedCategory = 'Limpeza';
 
   @override
   void initState() {
@@ -64,24 +65,49 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
-                child: TextFormField(
-                  controller: _entradaBuscaController,
-                  focusNode: _entradaBuscaFocusNode,
-                  onFieldSubmitted: (_) async {
-                    await _performSearch(_entradaBuscaController.text);
-                  },
-                  autofocus: true,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'search...',
-                    // aqui os estilos de decoração
-                  ),
-                  style: TextStyle(
-                    fontFamily: 'Outfit',
-                    fontSize: 18,
-                    letterSpacing: 0,
-                    fontWeight: FontWeight.normal,
-                  ),
+                child: Column(
+                  children: [
+                    DropdownButton<String>(
+                      value: _selectedCategory,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedCategory = newValue!;
+                        });
+                      },
+                      items: <String>['Limpeza', 'Alimentação']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                    TextFormField(
+                      controller: _entradaBuscaController,
+                      focusNode: _entradaBuscaFocusNode,
+                      onFieldSubmitted: (_) async {
+                        await _performSearch();
+                      },
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Search...',
+                        // aqui os estilos de decoração
+                      ),
+                      style: TextStyle(
+                        fontFamily: 'Outfit',
+                        fontSize: 18,
+                        letterSpacing: 0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _performSearch();
+                      },
+                      child: Text('Pesquisar'),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -113,7 +139,6 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            //Aqui vai para a outra page
                                             OutroUserPage(email: item.Email)))
                                 .then((value) {
                               // Aqui você pode executar qualquer código após a navegação
@@ -141,7 +166,6 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                           ),
                         ),
                       );
-                      //
                     },
                   ),
                 ),
@@ -153,29 +177,42 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
     );
   }
 
-  Future<void> _performSearch(String searchTerm) async {
-    // Referência para a coleção 'Users' no Firestore
-    final CollectionReference usersRef =
-        FirebaseFirestore.instance.collection('Users');
+  Future<void> _performSearch() async {
+    String searchTerm = _entradaBuscaController.text.trim();
 
-    // Executar a consulta para buscar usuários que correspondem ao termo de pesquisa
-    final QuerySnapshot querySnapshot = await usersRef
-        .where('Name',
-            isEqualTo:
-                searchTerm) // ajustar o campo de pesquisa conforme necessário
-        .where('TipoUser', isEqualTo: 'Prestador')
-        .get();
+    // Referência para a coleção 'Servicos' no Firestore
+    final CollectionReference servicosRef =
+        FirebaseFirestore.instance.collection('Servicos');
 
-    // Atualizar a lista de resultados da pesquisa com base nos documentos encontrados
+    Query query = servicosRef.where('categoria', isEqualTo: _selectedCategory);
+
+    final QuerySnapshot querySnapshot = await query.get();
+
+    List<Record> filteredResults = [];
+
+    for (var doc in querySnapshot.docs) {
+      String email = doc['email'];
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('Users').doc(email).get();
+
+      if (userDoc.exists) {
+        String name = userDoc['Name'];
+        if (searchTerm.isEmpty ||
+            name.toLowerCase().contains(searchTerm.toLowerCase())) {
+          filteredResults.add(
+            Record(
+              Name: name,
+              Telefone: userDoc['Telefone'],
+              Email: userDoc['Email'],
+              Endereco: userDoc['Endereco'],
+            ),
+          );
+        }
+      }
+    }
+
     setState(() {
-      _simpleSearchResults = querySnapshot.docs.map((doc) {
-        return Record(
-          Name: doc['Name'],
-          Telefone: doc['Telefone'],
-          Email: doc['Email'],
-          Endereco: doc['Endereco'],
-        );
-      }).toList();
+      _simpleSearchResults = filteredResults;
     });
   }
 }
