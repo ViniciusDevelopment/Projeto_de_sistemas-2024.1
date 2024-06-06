@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/ProfilePage.dart';
+import 'package:servicocerto/PagesCommon/RelatorioPage.dart';
 import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/Repository/UserRepository.dart';
 import 'package:servicocerto/PagesCommon/calendarPage.dart';
@@ -31,8 +33,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _screens = [
-      CalendarPage(), // Tela do Calendário
+      CalendarPage(),
       HomePageContent(userData: widget.userData),
+      RelatorioPage(),
       ProfilePage(userData: widget.userData),
     ];
   }
@@ -67,31 +70,72 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        backgroundColor: Colors.blue,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendário',
+      body: Column(
+        children: [
+          Expanded(
+            child: IndexedStack(
+              index: _selectedIndex,
+              children: [
+                CalendarPage(),
+                HomePageContent(userData: widget.userData),
+                RelatorioPage(),
+                ProfilePage(userData: widget.userData),
+              ],
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
+        BottomNavigationBar(
+  elevation: 0,
+  type: BottomNavigationBarType.fixed,
+  currentIndex: _selectedIndex,
+  onTap: _onItemTapped,
+  backgroundColor: Colors.white,
+  items: <BottomNavigationBarItem>[
+    BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
+        child: Icon(Iconsax.calendar),
+      ), 
+      label: 'Calendário',
+    ),
+    BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
+        child: Icon(Iconsax.home),
+      ), 
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
+        child: Icon(Iconsax.wallet),
+      ), 
+      label: 'Relatórios',
+    ),
+    BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
+        child: Icon(Iconsax.user),
+      ), 
+      label: 'Perfil',
+    ),
+  ],
+  selectedItemColor: Colors.blue, // Cor dos itens selecionados
+  unselectedItemColor: Colors.grey[700], // Cor dos itens não selecionados
+  iconSize: 24,
+  selectedFontSize: 14, // Tamanho da fonte dos itens selecionados
+  unselectedFontSize: 14, // Tamanho da fonte dos itens não selecionados
+  showSelectedLabels: true, // Mostrar rótulos dos itens selecionados
+  showUnselectedLabels: true, // Mostrar rótulos dos itens não selecionados
+  selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto'), // Estilo do rótulo dos itens selecionados
+  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, fontFamily: 'Roboto'), // Estilo do rótulo dos itens não selecionados
+),
+
+
+
         ],
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white.withOpacity(0.6),
-        iconSize: 24,
       ),
     );
   }

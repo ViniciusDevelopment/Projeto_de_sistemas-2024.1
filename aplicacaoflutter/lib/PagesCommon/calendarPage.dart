@@ -150,8 +150,11 @@ void initState() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendário'),
-      ),
+  automaticallyImplyLeading: false, // Remove o botão de voltar
+  backgroundColor: Colors.white, // Define o fundo como branco
+  title: const Text('Agenda'),
+),
+
       body: Center(
         child: TableCalendar(
           locale: 'pt_BR',

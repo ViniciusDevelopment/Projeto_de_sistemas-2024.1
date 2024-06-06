@@ -55,6 +55,7 @@ dependencies:
   timezone:
   flutter_local_notifications:
   simple_animations:
+  iconsax:
 
 
 
