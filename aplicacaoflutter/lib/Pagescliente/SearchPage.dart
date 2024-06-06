@@ -14,6 +14,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
   late FocusNode _entradaBuscaFocusNode;
   List<Record> _simpleSearchResults = [];
   String _selectedCategory = 'Limpeza';
+  String? _selectedOrder;
 
   @override
   void initState() {
@@ -33,11 +34,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (_entradaBuscaFocusNode.canRequestFocus) {
-          FocusScope.of(context).requestFocus(_entradaBuscaFocusNode);
-        } else {
-          FocusScope.of(context).unfocus();
-        }
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -67,45 +64,76 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
-                    DropdownButton<String>(
-                      value: _selectedCategory,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedCategory = newValue!;
-                        });
-                      },
-                      items: <String>['Limpeza', 'Alimentação']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ChoiceChip(
+                          label: Text('Limpeza'),
+                          selected: _selectedCategory == 'Limpeza',
+                          onSelected: (bool selected) {
+                            setState(() {
+                              _selectedCategory = 'Limpeza';
+                            });
+                          },
+                        ),
+                        SizedBox(width: 10),
+                        ChoiceChip(
+                          label: Text('Alimentação'),
+                          selected: _selectedCategory == 'Alimentação',
+                          onSelected: (bool selected) {
+                            setState(() {
+                              _selectedCategory = 'Alimentação';
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    TextFormField(
-                      controller: _entradaBuscaController,
-                      focusNode: _entradaBuscaFocusNode,
-                      onFieldSubmitted: (_) async {
-                        await _performSearch();
-                      },
-                      autofocus: true,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'Search...',
-                        // aqui os estilos de decoração
-                      ),
-                      style: TextStyle(
-                        fontFamily: 'Outfit',
-                        fontSize: 18,
-                        letterSpacing: 0,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _performSearch();
-                      },
-                      child: Text('Pesquisar'),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _entradaBuscaController,
+                            focusNode: _entradaBuscaFocusNode,
+                            onFieldSubmitted: (_) async {
+                              await _performSearch();
+                            },
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              prefixIcon: GestureDetector(
+                                onTap: () {
+                                  _performSearch();
+                                },
+                                child: const Icon(
+                                  Icons.search,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              hintText: 'Pesquisar...',
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: const EdgeInsets.all(16.0),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide:
+                                    const BorderSide(color: Colors.blue),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide:
+                                    const BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                            style: TextStyle(
+                              fontFamily: 'Outfit',
+                              fontSize: 18,
+                              letterSpacing: 0,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -136,11 +164,12 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            OutroUserPage(email: item.Email)))
-                                .then((value) {
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    OutroUserPage(email: item.Email),
+                              ),
+                            ).then((value) {
                               // Aqui você pode executar qualquer código após a navegação
                               print('Página do usuário foi aberta');
                             });
@@ -148,12 +177,20 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color.fromARGB(
                                 255, 255, 255, 255), // Cor de fundo do botão
-                            // Cor do texto do botão
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
                           child: ListTile(
+                            leading: CircleAvatar(
+                              radius: 25,
+                              backgroundImage: item.photoURL != null
+                                  ? NetworkImage(item.photoURL!)
+                                  : null,
+                              child: item.photoURL == null
+                                  ? Icon(Icons.person, size: 40)
+                                  : null,
+                            ),
                             title: Text(item.Name),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,6 +223,10 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
 
     Query query = servicosRef.where('categoria', isEqualTo: _selectedCategory);
 
+    if (_selectedOrder != null) {
+      query = query.orderBy('valor', descending: _selectedOrder == 'desc');
+    }
+
     final QuerySnapshot querySnapshot = await query.get();
 
     List<Record> filteredResults = [];
@@ -197,6 +238,9 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
 
       if (userDoc.exists) {
         String name = userDoc['Name'];
+        String? photoURL = userDoc.data().toString().contains('photoURL')
+            ? userDoc['photoURL']
+            : null;
         if (searchTerm.isEmpty ||
             name.toLowerCase().contains(searchTerm.toLowerCase())) {
           filteredResults.add(
@@ -205,6 +249,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
               Telefone: userDoc['Telefone'],
               Email: userDoc['Email'],
               Endereco: userDoc['Endereco'],
+              photoURL: photoURL,
             ),
           );
         }
@@ -222,11 +267,13 @@ class Record {
   final String Telefone;
   final String Email;
   final String Endereco;
+  final String? photoURL;
 
   Record({
     required this.Name,
     required this.Telefone,
     required this.Email,
     required this.Endereco,
+    this.photoURL,
   });
 }
