@@ -23,15 +23,16 @@ class _RelatorioPageState extends State<RelatorioPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Relatorio", style: const TextStyle(color:Colors.white )),
-        backgroundColor: Colors.blue,
-      ),
+  automaticallyImplyLeading: false, // Remove o botão de voltar
+  backgroundColor: Colors.white, // Define o fundo como branco
+  title: const Text('Relatorio', style: TextStyle(color: Colors.black)), // Define o título da página
+),
       
       body: Column(
         children: [
           //MENSAGENS
           Expanded(
-            child: Text("Relatorio", style: const TextStyle(color:Colors.white )),
+            child: Text("Relatório", style: const TextStyle(color:Colors.white )),
           ),
 
 
