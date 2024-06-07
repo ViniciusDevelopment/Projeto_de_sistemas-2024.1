@@ -16,7 +16,9 @@ class UserRepository extends ChangeNotifier {
         .get();
 
     Map<String, List<Map<String, dynamic>>> prestadoresServicos = {};
+    Map<String, double> prestadoresRating = {};
 
+    // Obter avaliações de cada prestador
     for (QueryDocumentSnapshot prestadorDocument in prestadoresSnapshot.docs) {
       String email = prestadorDocument['Email'];
 
@@ -32,6 +34,23 @@ class UserRepository extends ChangeNotifier {
       }
 
       prestadoresServicos[email] = servicos;
+
+      // Calcular a média das avaliações
+      QuerySnapshot avaliacoesSnapshot = await firestore
+          .collection('AvaliacaoPrestador')
+          .where('email', isEqualTo: email)
+          .get();
+
+      double totalRating = 0;
+      int ratingCount = 0;
+
+      for (QueryDocumentSnapshot avaliacaoDocument in avaliacoesSnapshot.docs) {
+        totalRating += avaliacaoDocument['rating'];
+        ratingCount++;
+      }
+
+      double averageRating = ratingCount > 0 ? totalRating / ratingCount : 0;
+      prestadoresRating[email] = averageRating;
     }
 
     listaDeUsuarios.clear();
@@ -44,7 +63,7 @@ class UserRepository extends ChangeNotifier {
 
        num totalValor = 0;
 
-        if (servicos != null && servicos.isNotEmpty) {
+       if (servicos != null && servicos.isNotEmpty) {
           for (var servico in servicos) {
             totalValor += servico['valor'] as num;
           }
@@ -63,11 +82,24 @@ class UserRepository extends ChangeNotifier {
             ? servicos.map((servico) => servico['disponibilidade']).join(', ')
             : "Sem disponibilidade",
         valor: totalValor,
+        rating: prestadoresRating[email] ?? 0, // Usando a média de rating calculada
       );
 
       // Adicionar o prestador à lista
       listaDeUsuarios.add(prestador);
     }
+
+     listaDeUsuarios.sort((a, b) {
+      if (a.rating != null && b.rating != null) {
+        return b.rating!.compareTo(a.rating!);
+      } else if (a.rating == null && b.rating != null) {
+        return 1; // Se a.rating for nulo, b.rating vem primeiro
+      } else if (a.rating != null && b.rating == null) {
+        return -1; // Se b.rating for nulo, a.rating vem primeiro
+      } else {
+        return 0; // Se ambos forem nulos, são considerados iguais
+      }
+    });
 
     notifyListeners();
 
@@ -77,5 +109,6 @@ class UserRepository extends ChangeNotifier {
     return [];
   }
 }
+
 
 }

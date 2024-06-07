@@ -6,6 +6,7 @@ class UserListImageDTO {
   final String descricao;
   final String disponibilidade;
   final num valor;
+  final num? rating;
 
   const UserListImageDTO({
     required this.name,
@@ -15,6 +16,7 @@ class UserListImageDTO {
     required this.descricao,
     required this.disponibilidade,
     required this.valor,
+    this.rating,
   });
 
   Map<String, dynamic> toJson() {
@@ -26,6 +28,7 @@ class UserListImageDTO {
       "descricao": descricao,
       "disponibilidade": disponibilidade,
       "valor": valor,
+      "rating": rating,
     };
   }
   factory UserListImageDTO.fromJson(Map<String, dynamic> json) {
@@ -37,6 +40,7 @@ class UserListImageDTO {
       descricao: json['descricao'],
       disponibilidade: json['disponibilidade'],
       valor: json['valor'],
+      rating: json['rating'],
     );
   }
 }

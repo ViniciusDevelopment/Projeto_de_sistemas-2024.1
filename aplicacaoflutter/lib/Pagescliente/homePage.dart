@@ -287,67 +287,82 @@ class _HomePageContentState extends State<HomePageContent> {
                               },
                             ),
                           ),
-                          
-                         Expanded(
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      SizedBox(height: 20),
-      Padding(
-        padding: const EdgeInsets.only(left: 16.0),
-        child: Text("Categorias",
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold)),
-      ),
-      SizedBox(height: 10),
-      Container(
-        height: MediaQuery.of(context).size.width * 0.20, // Defina uma altura suficiente para o ListView.builder
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal, // Define a rolagem horizontal
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-          itemCount: menuItems.length,
-          itemBuilder: (context, index) {
-            final item = menuItems[index];
-            return GestureDetector(
-              onTap: () => _onItemTapped(context, item.name),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.10,
-                      height: MediaQuery.of(context).size.width * 0.10,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: Icon(item.icon, color: Colors.blue, size: 30),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      item.name,
-                      style: TextStyle(
-                        color: Colors.white, //Deve ser branco sempre
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    ],
-  ),
-),
 
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16.0),
+                                  child: Text("Categorias",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                SizedBox(height: 10),
+                                Container(
+                                  height: MediaQuery.of(context).size.width *
+                                      0.20, // Defina uma altura suficiente para o ListView.builder
+                                  child: ListView.builder(
+                                    scrollDirection: Axis
+                                        .horizontal, // Define a rolagem horizontal
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0, vertical: 0),
+                                    itemCount: menuItems.length,
+                                    itemBuilder: (context, index) {
+                                      final item = menuItems[index];
+                                      return GestureDetector(
+                                        onTap: () =>
+                                            _onItemTapped(context, item.name),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.10,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.10,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                ),
+                                                child: Center(
+                                                  child: Icon(item.icon,
+                                                      color: Colors.blue,
+                                                      size: 30),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                item.name,
+                                                style: TextStyle(
+                                                  color: Colors
+                                                      .white, //Deve ser branco sempre
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
 
                           // SearchBar
                           // Categorias
@@ -357,35 +372,7 @@ class _HomePageContentState extends State<HomePageContent> {
               ),
             ),
           ),
-
           const SizedBox(height: 20),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          //   child: TextField(
-          //     decoration: InputDecoration(
-          //       prefixIcon: const Icon(Icons.search, color: Colors.blue),
-          //       hintText: 'Pesquisar...',
-          //       filled: true,
-          //       fillColor: Colors.white,
-          //       contentPadding: const EdgeInsets.all(16.0),
-          //       enabledBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(25.0),
-          //         borderSide: const BorderSide(color: Colors.blue),
-          //       ),
-          //       focusedBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(25.0),
-          //         borderSide: const BorderSide(color: Colors.blue),
-          //       ),
-          //     ),
-          //     onTap: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(builder: (context) => PesquisapageWidget()),
-          //       );
-          //     },
-          //   ),
-          // ),
-          // const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
             alignment: Alignment.centerLeft,
@@ -426,9 +413,34 @@ class _HomePageContentState extends State<HomePageContent> {
                                   child:
                                       Icon(Icons.person, color: Colors.white),
                                 ),
-                          title: Text(
-                            user.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          title: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    user.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(width: 5),
+                              Row(children: [
+                                Text(
+                                  '${user.rating}',
+                                  style: TextStyle(
+                                    color: Colors
+                                        .amber, // Cor amarela para o rating
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                  size: 20,
+                                ),
+                              ])
+                            ],
                           ),
                           subtitle: Text(user.descricao),
                           onTap: () {
