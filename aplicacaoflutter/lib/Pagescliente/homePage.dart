@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
+import 'package:servicocerto/PagesCommon/ChatListPage.dart';
 import 'package:servicocerto/PagesCommon/ProfilePage.dart';
 import 'package:servicocerto/PagesCommon/RelatorioPage.dart';
 import 'package:servicocerto/Pagescliente/SearchPage.dart';
@@ -82,6 +83,7 @@ class _HomePageState extends State<HomePage> {
                 CalendarPage(),
                 HomePageContent(userData: widget.userData),
                 RelatorioPage(),
+                ChatListPage(),
                 ProfilePage(userData: widget.userData),
               ],
             ),
@@ -114,6 +116,16 @@ class _HomePageState extends State<HomePage> {
       ), 
       label: 'Relatórios',
     ),
+
+    BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
+        child: Icon(Iconsax.message),
+      ), 
+      label: 'Conversas',
+    ),
+
+
     BottomNavigationBarItem(
       icon: Padding(
         padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
