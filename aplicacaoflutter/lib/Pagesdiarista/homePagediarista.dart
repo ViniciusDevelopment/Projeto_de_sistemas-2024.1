@@ -32,10 +32,10 @@ class _HomePagediaristaState extends State<HomePagediarista> {
   int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
-  setState(() {
-    _selectedIndex = index;
-  });
-}
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   Widget _userId() {
     return Text(user?.email ?? 'User email');
@@ -78,65 +78,73 @@ class _HomePagediaristaState extends State<HomePagediarista> {
               ],
             ),
           ),
-        BottomNavigationBar(
-  elevation: 0,
-  type: BottomNavigationBarType.fixed,
-  currentIndex: _selectedIndex,
-  onTap: _onItemTapped,
-  backgroundColor: Colors.white,
-  items: <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.calendar),
-      ), 
-      label: 'Calendário',
-    ),
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.home),
-      ), 
-      label: 'Home',
-    ),
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.wallet),
-      ), 
-      label: 'Relatórios',
-    ),
-
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.message),
-      ), 
-      label: 'Conversas',
-    ),
-
-
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.user),
-      ), 
-      label: 'Perfil',
-    ),
-  ],
-  selectedItemColor: Colors.blue, // Cor dos itens selecionados
-  unselectedItemColor: Colors.grey[700], // Cor dos itens não selecionados
-  iconSize: 24,
-  selectedFontSize: 14, // Tamanho da fonte dos itens selecionados
-  unselectedFontSize: 14, // Tamanho da fonte dos itens não selecionados
-  showSelectedLabels: true, // Mostrar rótulos dos itens selecionados
-  showUnselectedLabels: true, // Mostrar rótulos dos itens não selecionados
-  selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto'), // Estilo do rótulo dos itens selecionados
-  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, fontFamily: 'Roboto'), // Estilo do rótulo dos itens não selecionados
-),
-
-
-
+          BottomNavigationBar(
+            elevation: 0,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            backgroundColor: Colors.white,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: 4), // Adicionando espaçamento inferior ao ícone
+                  child: Icon(Iconsax.calendar),
+                ),
+                label: 'Calendário',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: 4), // Adicionando espaçamento inferior ao ícone
+                  child: Icon(Iconsax.home),
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: 4), // Adicionando espaçamento inferior ao ícone
+                  child: Icon(Iconsax.wallet),
+                ),
+                label: 'Relatórios',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: 4), // Adicionando espaçamento inferior ao ícone
+                  child: Icon(Iconsax.message),
+                ),
+                label: 'Conversas',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: 4), // Adicionando espaçamento inferior ao ícone
+                  child: Icon(Iconsax.user),
+                ),
+                label: 'Perfil',
+              ),
+            ],
+            selectedItemColor: Colors.blue, // Cor dos itens selecionados
+            unselectedItemColor:
+                Colors.grey[700], // Cor dos itens não selecionados
+            iconSize: 24,
+            selectedFontSize: 14, // Tamanho da fonte dos itens selecionados
+            unselectedFontSize:
+                14, // Tamanho da fonte dos itens não selecionados
+            showSelectedLabels: true, // Mostrar rótulos dos itens selecionados
+            showUnselectedLabels:
+                true, // Mostrar rótulos dos itens não selecionados
+            selectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily:
+                    'Roboto'), // Estilo do rótulo dos itens selecionados
+            unselectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontFamily:
+                    'Roboto'), // Estilo do rótulo dos itens não selecionados
+          ),
         ],
       ),
     );
@@ -271,58 +279,105 @@ class _HomePageContentState extends State<HomePageContent> {
                                   final Map<String, dynamic> servico =
                                       data['servico'] as Map<String, dynamic>;
                                   final String descricao = servico['descricao'];
+                                  final String categoria = servico['categoria'];
+                                  final bool isLimpeza = categoria
+                                          .toLowerCase() ==
+                                      'limpeza'; // Verifica se é um serviço de limpeza
 
-                                  return ListTile(
-                                    title: Column(
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    padding: const EdgeInsets.all(15),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                      border: Border.all(
+                                          color: Colors.grey.withOpacity(0.3)),
+                                    ),
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text('Serviço: $descricao'),
                                         Text(
-                                          'Cliente: ${data['emailCliente']}\nData: ${data['data']}\nHorário: ${data['hora']}\nDescrição: ${data['descricao']}\nValor do serviço: ${data['valorcliente']}',
+                                          'Serviço: $descricao',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
+                                        SizedBox(height: 8),
+                                        Text(
+                                          'Cliente: ${data['emailCliente']}',
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                        Text(
+                                          'Data: ${data['data']}',
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                        Text(
+                                          'Horário: ${data['hora']}',
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                        Text(
+                                          'Descrição: ${data['descricao']}',
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                        Text(
+                                          'Valor do serviço: ${data['valorcliente']}',
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                        if (isLimpeza)
+                                          Text(
+                                            'Cômodos: ${data['comodos']}',
+                                            style: TextStyle(fontSize: 14),
+                                          ),
                                         SizedBox(height: 8),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: [
-
-
                                             ElevatedButton(
-                                               onPressed: (){
-                                               Navigator.push(context, MaterialPageRoute(builder:(context)=>ChatPage(receiverUserEmail: data["emailCliente"],)));
-                                            },
-                                              style: /*ElevatedButton.styleFrom(
-                                                minimumSize: const Size(double.infinity, 60),
-                                                padding: const EdgeInsets.symmetric(horizontal: 24),
-                                                backgroundColor: Color.fromARGB(255, 174, 174, 174),*/
-                                                ElevatedButton.styleFrom(
-                                                backgroundColor:Color.fromARGB(255, 174, 174, 174),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ChatPage(
+                                                      receiverUserEmail:
+                                                          data["emailCliente"],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 174, 174, 174),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5), // raio dos cantos
+                                                      BorderRadius.circular(5),
                                                   side: BorderSide(
-                                                    color: Color.fromARGB(255, 174, 174, 174),// cor da borda
-                                                    width:
-                                                        2, // largura da borda
+                                                    color: Color.fromARGB(
+                                                        255, 174, 174, 174),
+                                                    width: 2,
                                                   ),
                                                 ),
                                               ),
-
-                                              
-
                                               child: const Text(
                                                 "Conversar",
                                                 style: TextStyle(
-                                                color: Colors.white,
-                                                 ),
-                                              ), 
-                                           ),
-
-
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
                                             SizedBox(height: 8),
-
                                             ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
@@ -380,20 +435,17 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 backgroundColor: Colors.green,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5), // raio dos cantos
+                                                      BorderRadius.circular(5),
                                                   side: BorderSide(
-                                                    color: Colors
-                                                        .green, // cor da borda
-                                                    width:
-                                                        2, // largura da borda
+                                                    color: Colors.green,
+                                                    width: 2,
                                                   ),
                                                 ),
                                               ),
                                               child: const Text(
+                                                'Aceitar',
                                                 style: TextStyle(
                                                     color: Colors.white),
-                                                'Aceitar',
                                               ),
                                             ),
                                             SizedBox(height: 8),
@@ -417,7 +469,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                           as Map<String,
                                                               dynamic>;
 
-                                                  // Atualize o campo 'status' para 'Aceita'
+                                                  // Atualize o campo 'status' para 'Recusado'
                                                   await documentReference
                                                       .update({
                                                     'status': 'Recusado'
@@ -447,29 +499,24 @@ class _HomePageContentState extends State<HomePageContent> {
                                                   )..show(context);
                                                 } catch (e) {
                                                   print(
-                                                      'Erro ao aceitar o serviço: $e');
+                                                      'Erro ao recusar o serviço: $e');
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Colors.red, // cor de fundo
-
+                                                backgroundColor: Colors.red,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5), // raio dos cantos
+                                                      BorderRadius.circular(5),
                                                   side: BorderSide(
-                                                    color: Colors
-                                                        .red, // cor da borda
-                                                    width:
-                                                        2, // largura da borda
+                                                    color: Colors.red,
+                                                    width: 2,
                                                   ),
                                                 ),
                                               ),
                                               child: const Text(
+                                                'Recusar',
                                                 style: TextStyle(
                                                     color: Colors.white),
-                                                'Recusar',
                                               ),
                                             ),
                                           ],

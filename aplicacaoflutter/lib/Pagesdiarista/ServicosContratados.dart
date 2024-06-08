@@ -82,7 +82,8 @@ class _ServicosContradosState extends State<ServicosContrados> {
             onPressed: (index) {
               setState(() {
                 _selectedIndex = index;
-                _futureServices = _fetchServices(); // Atualiza a lista de serviços quando o botão é pressionado
+                _futureServices =
+                    _fetchServices(); // Atualiza a lista de serviços quando o botão é pressionado
               });
             },
           ),
@@ -103,6 +104,11 @@ class _ServicosContradosState extends State<ServicosContrados> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         final service = snapshot.data![index];
+                        final String categoria =
+                            (service['servico'] as Map)['categoria'];
+                        final bool isLimpeza = categoria.toLowerCase() ==
+                            'limpeza'; // Verifica se é um serviço de limpeza
+
                         return ListTile(
                           title: Container(
                             decoration: BoxDecoration(
@@ -115,8 +121,12 @@ class _ServicosContradosState extends State<ServicosContrados> {
                               children: [
                                 Text('Descrição: ${service['descricao']}'),
                                 Text('Cliente: ${service['emailCliente']}'),
-                                Text("Data: ${service['data']}     Horário: ${service['hora']}"),
-                                Text('Valor Proposto: R\$${service['valorcliente']}'),
+                                Text(
+                                    "Data: ${service['data']}     Horário: ${service['hora']}"),
+                                Text(
+                                    'Valor Proposto: R\$${service['valorcliente']}'),
+                                if (isLimpeza)
+                                  Text('Cômodos: ${service['comodos']}'),
                               ],
                             ),
                           ),
