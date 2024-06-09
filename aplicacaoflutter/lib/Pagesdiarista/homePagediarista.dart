@@ -72,7 +72,6 @@ class _HomePagediaristaState extends State<HomePagediarista> {
               children: [
                 CalendarPage(key: UniqueKey()),
                 HomePageContent(userData: widget.userData),
-                RelatorioPage(),
                 ChatListPage(),
                 ProfilePage(userData: widget.userData),
               ],
@@ -98,13 +97,6 @@ class _HomePagediaristaState extends State<HomePagediarista> {
         child: Icon(Iconsax.home),
       ), 
       label: 'Home',
-    ),
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.wallet),
-      ), 
-      label: 'Relatórios',
     ),
 
     BottomNavigationBarItem(

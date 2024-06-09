@@ -5,6 +5,7 @@ import 'package:servicocerto/Components/EditButton.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/AddPhotoPage.dart';
 import 'package:servicocerto/PagesCommon/HelpAndSupportPage.dart';
+import 'package:servicocerto/PagesCommon/RelatorioPage.dart';
 import 'package:servicocerto/Pagescliente/EditPage.dart';
 import 'package:servicocerto/Pagescliente/ServicosContratadosCliente.dart';
 import 'package:servicocerto/Pagesdiarista/MeusServicosPage.dart';
@@ -159,7 +160,14 @@ class ProfilePage extends StatelessWidget {
                     ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.cog,
-                      text: 'Configurações',
+                      text: 'Relatórios',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RelatorioPage()),
+                        );
+                      },
                     ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.alternate_sign_out,
