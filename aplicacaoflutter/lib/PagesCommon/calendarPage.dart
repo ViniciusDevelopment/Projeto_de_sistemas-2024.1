@@ -5,7 +5,6 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
 
@@ -20,21 +19,54 @@ class _CalendarPageState extends State<CalendarPage> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   Map<DateTime, List<dynamic>> _events = {};
-  
 
-@override
-void initState() {
-  super.initState();
-  initializeDateFormatting('pt_BR', null);
-  User? user = FirebaseAuth.instance.currentUser;
-  if (user != null) {
-    String emailUsuario = user.email!;
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting('pt_BR', null);
+    // User? user = FirebaseAuth.instance.currentUser;
+    // if (user != null) {
+    //   String emailUsuario = user.email!;
 
-    FirebaseFirestore.instance
-      .collection('Users')
-      .where('Email', isEqualTo: emailUsuario)
-      .get()
-      .then((QuerySnapshot querySnapshot) {
+    //   FirebaseFirestore.instance
+    //     .collection('Users')
+    //     .where('Email', isEqualTo: emailUsuario)
+    //     .get()
+    //     .then((QuerySnapshot querySnapshot) {
+    //       if (querySnapshot.docs.isNotEmpty) {
+    //         var userData = querySnapshot.docs.first.data();
+    //         if (userData != null && userData is Map<String, dynamic>) {
+    //           String tipoUsuario = userData['TipoUser'] as String;
+
+    //           if (tipoUsuario == 'Prestador') {
+    //             _fetchAcceptedSolicitationsPrestador(emailUsuario);
+    //           } else {
+    //             _fetchAcceptedSolicitationsCliente(emailUsuario);
+    //           }
+    //         } else {
+    //           print('Dados do usuário não encontrados.');
+    //         }
+    //       }
+    //     });
+    // }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadUserData();
+  }
+
+  void _loadUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String emailUsuario = user.email!;
+
+      FirebaseFirestore.instance
+          .collection('Users')
+          .where('Email', isEqualTo: emailUsuario)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
         if (querySnapshot.docs.isNotEmpty) {
           var userData = querySnapshot.docs.first.data();
           if (userData != null && userData is Map<String, dynamic>) {
@@ -50,15 +82,14 @@ void initState() {
           }
         }
       });
+    }
   }
-}
-
 
   DateTime _normalizeDate(DateTime date) {
     return DateTime(date.year, date.month, date.day);
   }
 
-  void _fetchAcceptedSolicitationsPrestador(emailUsuario) async {
+  void _fetchAcceptedSolicitationsPrestador(String emailUsuario) async {
     FirebaseFirestore.instance
         .collection('SolicitacoesServico')
         .where('status', isEqualTo: 'Aceita')
@@ -67,8 +98,8 @@ void initState() {
         .then((QuerySnapshot querySnapshot) {
       Map<DateTime, List<dynamic>> events = {};
       for (var doc in querySnapshot.docs) {
-        String dateString = doc['data'];
-        DateTime date = DateFormat('dd-MM-yyyy').parse(dateString);
+        Timestamp timestamp = doc['data']; // Captura o Timestamp
+        DateTime date = timestamp.toDate(); // Converte para DateTime
         DateTime normalizedDate = _normalizeDate(date);
 
         if (events[normalizedDate] == null) events[normalizedDate] = [];
@@ -83,23 +114,24 @@ void initState() {
   void _fetchAcceptedSolicitationsCliente(emailUsuario) async {
     FirebaseFirestore.instance
         .collection('SolicitacoesServico')
-        .where('status', whereIn: ['Solicitação enviada', 'Aceita', 'Concluida'])
+        .where('status',
+            whereIn: ['Solicitação enviada', 'Aceita', 'Concluida'])
         .where('emailCliente', isEqualTo: emailUsuario)
         .get()
         .then((QuerySnapshot querySnapshot) {
-      Map<DateTime, List<dynamic>> events = {};
-      for (var doc in querySnapshot.docs) {
-        String dateString = doc['data'];
-        DateTime date = DateFormat('dd-MM-yyyy').parse(dateString);
+          Map<DateTime, List<dynamic>> events = {};
+          for (var doc in querySnapshot.docs) {
+       Timestamp timestamp = doc['data']; // Captura o Timestamp
+        DateTime date = timestamp.toDate(); // Converte para DateTime
         DateTime normalizedDate = _normalizeDate(date);
 
-        if (events[normalizedDate] == null) events[normalizedDate] = [];
-        events[normalizedDate]!.add(doc.data());
-      }
-      setState(() {
-        _events = events;
-      });
-    });
+            if (events[normalizedDate] == null) events[normalizedDate] = [];
+            events[normalizedDate]!.add(doc.data());
+          }
+          setState(() {
+            _events = events;
+          });
+        });
   }
 
   void _showEventDetails(List<dynamic> events) {
@@ -111,24 +143,25 @@ void initState() {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: events.map((event) {
+              Timestamp timestamp = event['data'];
+              DateTime date = timestamp.toDate();
+              String formattedDate = DateFormat('dd-MM-yyyy').format(date);
               return ListTile(
                 title: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Descrição: ${event['descricao']}'),
-                                Text('Prestador: ${event['emailPrestador']}'),
-                                Text(
-                                    "Data: ${event['data']}     Horário: ${event['hora']}"),
-                                Text(
-                                    'Valor Proposto: R\$${event['valorcliente']}'),
-                              ],
-                            ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Descrição: ${event['descricao']}'),
+                      Text('Prestador: ${event['emailPrestador']}'),
+                      Text("Data: $formattedDate    Horário: ${event['hora']}"),
+                      Text('Valor Proposto: R\$${event['valorcliente']}'),
+                    ],
+                  ),
                 ),
               );
             }).toList(),
@@ -150,11 +183,10 @@ void initState() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-  automaticallyImplyLeading: false, // Remove o botão de voltar
-  backgroundColor: Colors.white, // Define o fundo como branco
-  title: const Text('Agenda'),
-),
-
+        automaticallyImplyLeading: false, // Remove o botão de voltar
+        backgroundColor: Colors.white, // Define o fundo como branco
+        title: const Text('Agenda'),
+      ),
       body: Center(
         child: TableCalendar(
           locale: 'pt_BR',
@@ -261,9 +293,7 @@ void initState() {
 
 // Map<String, int> totalEvents = {};
 
-
 // int totalEventsCount = events.length;
-
 
 //   // Se houver eventos neste dia
 //   if (totalEventsCount > 0) {
@@ -310,7 +340,6 @@ void initState() {
 //     return SizedBox.shrink();
 //   }
 // }
-
 
   Widget _buildEventsMarker(DateTime date, List events) {
     print(events[0]['status']);

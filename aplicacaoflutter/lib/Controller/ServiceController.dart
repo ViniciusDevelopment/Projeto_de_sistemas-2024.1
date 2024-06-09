@@ -112,7 +112,7 @@ class ServiceController extends GetxController {
   }
 
   contratarServico(SolicitarServico solicitarServico) async {
-    if (solicitarServico.data.isEmpty || solicitarServico.hora.isEmpty) {
+    if (solicitarServico.data == null  || solicitarServico.hora == null ) {
       Get.snackbar(
         'Erro',
         'Preencha todos os campos',

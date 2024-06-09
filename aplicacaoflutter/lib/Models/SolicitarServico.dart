@@ -3,7 +3,7 @@ import 'package:servicocerto/Models/comodos.dart';
 
 class SolicitarServico {
   final ServiceModelDTO servico;
-  final String data;
+  final DateTime data;
   final String hora;
   final String emailPrestador;
   final String emailCliente;

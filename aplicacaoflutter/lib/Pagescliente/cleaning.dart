@@ -62,6 +62,16 @@ class _CleaningPageState extends State<CleaningPage> {
 
   List<int> _selectedRooms = [];
 
+    DateTime _parseDate(String dateStr) {
+  try {
+    return DateFormat('dd-MM-yyyy').parse(dateStr);
+  } catch (e) {
+    print('Invalid date format: $e');
+    //retornar dia de hoje
+    return DateTime.now();
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +91,12 @@ class _CleaningPageState extends State<CleaningPage> {
                   _selectedQuantities['Escritório']!,
                 );
 
+                DateTime dataSelecionada = _parseDate(_dataController.text);
+                // DateTime horaSelecionada =
+                //     DateTime.parse(_horarioController.text);
                 SolicitarServico solicitarServico = SolicitarServico(
                   servico: widget.service,
-                  data: _dataController.text,
+                  data: dataSelecionada,
                   hora: _horarioController.text,
                   emailPrestador: widget.service.email,
                   emailCliente: widget.emailCliente,
@@ -300,7 +313,6 @@ class _CleaningPageState extends State<CleaningPage> {
                     ],
                   ),
                 ),
-                
               ],
             ),
           ),

@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
             child: IndexedStack(
               index: _selectedIndex,
               children: [
-                CalendarPage(),
+                CalendarPage(key: UniqueKey()),
                 HomePageContent(userData: widget.userData),
                 RelatorioPage(),
                 ChatListPage(),
@@ -412,7 +412,7 @@ class _HomePageContentState extends State<HomePageContent> {
                         color: Colors.white,
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
                         child: ListTile(
-                          leading: user.photoURL != null
+                          leading: user.photoURL != null && user.photoURL != ""
                               ? CircleAvatar(
                                   backgroundImage: NetworkImage(user.photoURL!),
                                   radius: 30,

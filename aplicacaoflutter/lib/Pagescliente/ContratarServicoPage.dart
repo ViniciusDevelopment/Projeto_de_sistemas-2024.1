@@ -34,6 +34,26 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
   final _valorController = TextEditingController();
   late UserModel? _userData;
 
+  DateTime _parseDate(String dateStr) {
+  try {
+    return DateFormat('dd-MM-yyyy').parse(dateStr);
+  } catch (e) {
+    print('Invalid date format: $e');
+    //retornar dia de hoje
+    return DateTime.now();
+  }
+}
+
+DateTime _parseTime(String timeStr) {
+  try {
+    return DateFormat('HH:mm').parse(timeStr);
+  } catch (e) {
+    print('Invalid time format: $e');
+      return DateTime.now();
+
+  }
+}
+
   void _getEmail() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -65,7 +85,7 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
 
   void _contratarServico(SolicitarServico solicitarServico,
       NotificationService notificationService) async {
-    if (solicitarServico.data.isEmpty || solicitarServico.hora.isEmpty) {
+    if (solicitarServico.data == null || solicitarServico.hora == null) {
       Get.snackbar(
         'Erro',
         'Preencha todos os campos',
@@ -456,7 +476,7 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                                                             obscureText:
                                                                                 false,
                                                                             onTap:
-                                                                                () async {
+                                                                                () async {                                                                          
                                                                               FocusScope.of(context).requestFocus(FocusNode());
                                                                               TimeOfDay? picked = await showTimePicker(
                                                                                 context: context,
@@ -577,16 +597,32 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
                                                                 TextButton(
                                                                   onPressed:
                                                                       () {
-                                                                   SolicitarServico solicitarServico = SolicitarServico(
-                                                                    servico: service, 
-                                                                    data: _dataController.text,
-                                                                    hora: _horarioController.text,
-                                                                    descricao: _descricaoController.text,
-                                                                    valorcliente: _valorController.text,
-                                                                    emailPrestador: widget.email,
-                                                                    emailCliente: emailCliente,
-                                                                    status: "Solicitação enviada",
-                                                                  );
+                                                                    DateTime dataSelecionada = _parseDate(_dataController.text);
+    // DateTime horaSelecionada = _parseTime(_horarioController.text);
+
+                                                                    SolicitarServico
+                                                                        solicitarServico =
+                                                                        SolicitarServico(
+                                                                      servico:
+                                                                          service,
+                                                                      data:
+                                                                          dataSelecionada,
+                                                                      hora:
+                                                                          _horarioController.text,
+                                                                      descricao:
+                                                                          _descricaoController
+                                                                              .text,
+                                                                      valorcliente:
+                                                                          _valorController
+                                                                              .text,
+                                                                      emailPrestador:
+                                                                          widget
+                                                                              .email,
+                                                                      emailCliente:
+                                                                          emailCliente,
+                                                                      status:
+                                                                          "Solicitação enviada",
+                                                                    );
                                                                     _contratarServico(
                                                                         solicitarServico,
                                                                         notificationService);
