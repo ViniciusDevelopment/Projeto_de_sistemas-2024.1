@@ -32,10 +32,10 @@ class _HomePagediaristaState extends State<HomePagediarista> {
   int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
-  setState(() {
-    _selectedIndex = index;
-  });
-}
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   Widget _userId() {
     return Text(user?.email ?? 'User email');
@@ -77,58 +77,54 @@ class _HomePagediaristaState extends State<HomePagediarista> {
               ],
             ),
           ),
-        BottomNavigationBar(
-  elevation: 0,
-  type: BottomNavigationBarType.fixed,
-  currentIndex: _selectedIndex,
-  onTap: _onItemTapped,
-  backgroundColor: Colors.white,
-  items: <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.calendar),
-      ), 
-      label: 'Calendário',
-    ),
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.home),
-      ), 
-      label: 'Home',
-    ),
-
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.message),
-      ), 
-      label: 'Conversas',
-    ),
-
-
-    BottomNavigationBarItem(
-      icon: Padding(
-        padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
-        child: Icon(Iconsax.user),
-      ), 
-      label: 'Perfil',
-    ),
-  ],
-  selectedItemColor: Colors.blue, // Cor dos itens selecionados
-  unselectedItemColor: Colors.grey[700], // Cor dos itens não selecionados
-  iconSize: 24,
-  selectedFontSize: 14, // Tamanho da fonte dos itens selecionados
-  unselectedFontSize: 14, // Tamanho da fonte dos itens não selecionados
-  showSelectedLabels: true, // Mostrar rótulos dos itens selecionados
-  showUnselectedLabels: true, // Mostrar rótulos dos itens não selecionados
-  selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto'), // Estilo do rótulo dos itens selecionados
-  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, fontFamily: 'Roboto'), // Estilo do rótulo dos itens não selecionados
-),
-
-
-
+          BottomNavigationBar(
+            elevation: 0,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            backgroundColor: Colors.white,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Icon(Iconsax.calendar),
+                ),
+                label: 'Calendário',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Icon(Iconsax.home),
+                ),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Icon(Iconsax.message),
+                ),
+                label: 'Conversas',
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Icon(Iconsax.user),
+                ),
+                label: 'Perfil',
+              ),
+            ],
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.grey[700],
+            iconSize: 24,
+            selectedFontSize: 14,
+            unselectedFontSize: 14,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            selectedLabelStyle:
+                TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
+            unselectedLabelStyle:
+                TextStyle(fontWeight: FontWeight.normal, fontFamily: 'Roboto'),
+          ),
         ],
       ),
     );
@@ -178,6 +174,14 @@ class _HomePageContentState extends State<HomePageContent> {
         _isCurrentUserAuthorized = false;
       });
     }
+  }
+
+  Future<void> _createNotification(String clientEmail, String message) async {
+    await FirebaseFirestore.instance.collection('Notificacoes').add({
+      'emailCliente': clientEmail,
+      'mensagem': message,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 
   @override
@@ -278,43 +282,39 @@ class _HomePageContentState extends State<HomePageContent> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: [
-
-
                                             ElevatedButton(
-                                               onPressed: (){
-                                               Navigator.push(context, MaterialPageRoute(builder:(context)=>ChatPage(receiverUserEmail: data["emailCliente"],)));
-                                            },
-                                              style: /*ElevatedButton.styleFrom(
-                                                minimumSize: const Size(double.infinity, 60),
-                                                padding: const EdgeInsets.symmetric(horizontal: 24),
-                                                backgroundColor: Color.fromARGB(255, 174, 174, 174),*/
-                                                ElevatedButton.styleFrom(
-                                                backgroundColor:Color.fromARGB(255, 174, 174, 174),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ChatPage(
+                                                            receiverUserEmail: data[
+                                                                "emailCliente"],
+                                                          )),
+                                                );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 174, 174, 174),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5), // raio dos cantos
+                                                      BorderRadius.circular(5),
                                                   side: BorderSide(
-                                                    color: Color.fromARGB(255, 174, 174, 174),// cor da borda
-                                                    width:
-                                                        2, // largura da borda
+                                                    color: Color.fromARGB(
+                                                        255, 174, 174, 174),
+                                                    width: 2,
                                                   ),
                                                 ),
                                               ),
-
-                                              
-
                                               child: const Text(
                                                 "Conversar",
                                                 style: TextStyle(
-                                                color: Colors.white,
-                                                 ),
-                                              ), 
-                                           ),
-
-
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
                                             SizedBox(height: 8),
-
                                             ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
@@ -335,12 +335,18 @@ class _HomePageContentState extends State<HomePageContent> {
                                                           as Map<String,
                                                               dynamic>;
 
-                                                  // Atualize o campo 'status' para 'Aceita'
                                                   await documentReference
                                                       .update(
                                                           {'status': 'Aceita'});
 
-                                                  // Chame setState() para atualizar a UI se necessário
+                                                  final String diaristaEmail =
+                                                      FirebaseAuth.instance
+                                                          .currentUser!.email!;
+
+                                                  await _createNotification(
+                                                      data['emailCliente'],
+                                                      'A diarista $diaristaEmail aceitou a sua solicitação');
+
                                                   setState(() {});
 
                                                   Flushbar(
@@ -372,13 +378,10 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 backgroundColor: Colors.green,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5), // raio dos cantos
+                                                      BorderRadius.circular(5),
                                                   side: BorderSide(
-                                                    color: Colors
-                                                        .green, // cor da borda
-                                                    width:
-                                                        2, // largura da borda
+                                                    color: Colors.green,
+                                                    width: 2,
                                                   ),
                                                 ),
                                               ),
@@ -409,13 +412,19 @@ class _HomePageContentState extends State<HomePageContent> {
                                                           as Map<String,
                                                               dynamic>;
 
-                                                  // Atualize o campo 'status' para 'Aceita'
                                                   await documentReference
                                                       .update({
                                                     'status': 'Recusado'
                                                   });
 
-                                                  // Chame setState() para atualizar a UI se necessário
+                                                  final String diaristaEmail =
+                                                      FirebaseAuth.instance
+                                                          .currentUser!.email!;
+
+                                                  await _createNotification(
+                                                      data['emailCliente'],
+                                                      'A diarista $diaristaEmail recusou a sua solicitação');
+
                                                   setState(() {});
 
                                                   Flushbar(
@@ -439,22 +448,17 @@ class _HomePageContentState extends State<HomePageContent> {
                                                   )..show(context);
                                                 } catch (e) {
                                                   print(
-                                                      'Erro ao aceitar o serviço: $e');
+                                                      'Erro ao recusar o serviço: $e');
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Colors.red, // cor de fundo
-
+                                                backgroundColor: Colors.red,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5), // raio dos cantos
+                                                      BorderRadius.circular(5),
                                                   side: BorderSide(
-                                                    color: Colors
-                                                        .red, // cor da borda
-                                                    width:
-                                                        2, // largura da borda
+                                                    color: Colors.red,
+                                                    width: 2,
                                                   ),
                                                 ),
                                               ),
