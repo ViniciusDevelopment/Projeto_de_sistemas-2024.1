@@ -12,6 +12,7 @@ import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/Repository/UserRepository.dart';
 import 'package:servicocerto/PagesCommon/calendarPage.dart';
 import 'package:servicocerto/Pagescliente/outroUserPage.dart';
+import 'package:servicocerto/Pagescliente/Notificacoes.dart'; // Importação da página de notificações
 
 class HomePage extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -112,15 +113,14 @@ class _HomePageState extends State<HomePage> {
                 ),
                 label: 'Home',
               ),
-             
-               BottomNavigationBarItem(
+              BottomNavigationBarItem(
                 icon: Padding(
-                  padding: EdgeInsets.only(bottom: 4), // Adicionando espaçamento inferior ao ícone
+                  padding: EdgeInsets.only(
+                      bottom: 4), // Adicionando espaçamento inferior ao ícone
                   child: Icon(Iconsax.message),
-                ), 
-                label: 'Conversas',
                 ),
-
+                label: 'Conversas',
+              ),
               BottomNavigationBarItem(
                 icon: Padding(
                   padding: EdgeInsets.only(
@@ -249,11 +249,28 @@ class _HomePageContentState extends State<HomePageContent> {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 45, horizontal: 16.0),
-                            child: Text("Olá, João Diarista",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Olá, João Diarista",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold)),
+                                IconButton(
+                                  icon: Icon(Icons.notifications,
+                                      color: Colors.white),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              NotificacoesPage()),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
 
                           // const SizedBox(height: 40),
