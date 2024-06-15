@@ -57,7 +57,8 @@ dependencies:
   simple_animations:
   iconsax:
   fl_chart:
-
+  email_validator: ^2.1.17
+  brasil_fields:
 
 
 dev_dependencies:
