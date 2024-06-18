@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart'; // Importar pacote intl
 
 class ServicosContrados extends StatefulWidget {
   const ServicosContrados({Key? key}) : super(key: key);
@@ -109,6 +110,12 @@ class _ServicosContradosState extends State<ServicosContrados> {
                         final bool isLimpeza = categoria.toLowerCase() ==
                             'limpeza'; // Verifica se é um serviço de limpeza
 
+                        // Converte o Timestamp para DateTime e formata a data
+                        final DateTime dateTime =
+                            (service['data'] as Timestamp).toDate();
+                        final String formattedDate =
+                            DateFormat('dd/MM/yyyy').format(dateTime);
+
                         return ListTile(
                           title: Container(
                             decoration: BoxDecoration(
@@ -122,7 +129,7 @@ class _ServicosContradosState extends State<ServicosContrados> {
                                 Text('Descrição: ${service['descricao']}'),
                                 Text('Cliente: ${service['emailCliente']}'),
                                 Text(
-                                    "Data: ${service['data']}     Horário: ${service['hora']}"),
+                                    "Data: $formattedDate     Horário: ${service['hora']}"),
                                 Text(
                                     'Valor Proposto: R\$${service['valorcliente']}'),
                                 if (isLimpeza)

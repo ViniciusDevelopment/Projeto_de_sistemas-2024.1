@@ -13,6 +13,7 @@ import 'package:servicocerto/PagesCommon/ProfilePage.dart';
 import 'package:servicocerto/ReadData/get_user_name.dart';
 import 'package:servicocerto/PagesCommon/ChatPage.dart';
 import 'package:servicocerto/PagesCommon/ChatListPage.dart';
+import 'package:intl/intl.dart'; // Importar pacote intl
 
 class HomePagediarista extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -25,6 +26,7 @@ class HomePagediarista extends StatefulWidget {
 
 class _HomePagediaristaState extends State<HomePagediarista> {
   final User? user = Authentication().currentUser;
+
   Future<void> signOut() async {
     await Authentication().signOut();
   }
@@ -142,8 +144,9 @@ class HomePageContent extends StatefulWidget {
 
 class _HomePageContentState extends State<HomePageContent> {
   bool isDark = false;
-
   bool _isCurrentUserAuthorized = false;
+  String _searchQuery = '';
+  Map<String, String> clientNames = {}; // Armazena nomes dos clientes
 
   @override
   void initState() {
@@ -161,6 +164,8 @@ class _HomePageContentState extends State<HomePageContent> {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
+        // Pré-carregar os nomes dos clientes
+        await _preloadClientNames(querySnapshot.docs);
         setState(() {
           _isCurrentUserAuthorized = true;
         });
@@ -176,12 +181,29 @@ class _HomePageContentState extends State<HomePageContent> {
     }
   }
 
-  Future<void> _createNotification(String clientEmail, String message) async {
-    await FirebaseFirestore.instance.collection('Notificacoes').add({
-      'emailCliente': clientEmail,
-      'mensagem': message,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
+  Future<void> _preloadClientNames(List<DocumentSnapshot> docs) async {
+    for (var doc in docs) {
+      final data = doc.data() as Map<String, dynamic>;
+      final clientEmail = data['emailCliente'] ?? '';
+
+      if (!clientNames.containsKey(clientEmail)) {
+        final clientName = await _getClientName(clientEmail);
+        clientNames[clientEmail] = clientName;
+      }
+    }
+  }
+
+  Future<String> _getClientName(String clientEmail) async {
+    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .where('Email', isEqualTo: clientEmail)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      return querySnapshot.docs.first['Name'];
+    } else {
+      return 'Nome não encontrado';
+    }
   }
 
   @override
@@ -190,46 +212,28 @@ class _HomePageContentState extends State<HomePageContent> {
       children: [
         Container(
           padding:
-              const EdgeInsets.only(top: 15, bottom: 45, left: 80, right: 80),
+              const EdgeInsets.only(top: 15, bottom: 15, left: 80, right: 80),
           alignment: Alignment.center,
         ),
-        SearchAnchor(
-          builder: (BuildContext context, SearchController controller) {
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xff0095FF)),
-                borderRadius: BorderRadius.circular(8.0),
-                color: Colors.white,
-              ),
-              child: SearchBar(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                controller: controller,
-                padding: const MaterialStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 16.0)),
-                onTap: () {
-                  controller.openView();
-                },
-                onChanged: (_) {
-                  controller.openView();
-                },
-                leading: const Icon(Icons.search),
-              ),
-            );
-          },
-          suggestionsBuilder:
-              (BuildContext context, SearchController controller) {
-            return List<ListTile>.generate(5, (int index) {
-              final String item = 'item $index';
-              return ListTile(
-                title: Text(item),
-                onTap: () {
-                  setState(() {
-                    controller.closeView(item);
-                  });
-                },
-              );
-            });
-          },
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xff0095FF)),
+            borderRadius: BorderRadius.circular(8.0),
+            color: Colors.white,
+          ),
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: 'Buscar cliente',
+              prefixIcon: Icon(Icons.search),
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+            ),
+            onChanged: (query) {
+              setState(() {
+                _searchQuery = query;
+              });
+            },
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -257,26 +261,64 @@ class _HomePageContentState extends State<HomePageContent> {
                       } else {
                         final List<DocumentSnapshot> documents =
                             snapshot.data!.docs;
-                        return documents.isNotEmpty
+                        final filteredDocuments = documents.where((doc) {
+                          final data = doc.data() as Map<String, dynamic>;
+                          final clientEmail = data['emailCliente'] ?? '';
+                          final clientName = clientNames[clientEmail] ?? '';
+
+                          return clientName
+                              .toLowerCase()
+                              .contains(_searchQuery.toLowerCase());
+                        }).toList();
+
+                        return filteredDocuments.isNotEmpty
                             ? ListView.builder(
-                                itemCount: documents.length,
+                                itemCount: filteredDocuments.length,
                                 itemBuilder: (context, index) {
                                   final Map<String, dynamic> data =
-                                      documents[index].data()
+                                      filteredDocuments[index].data()
                                           as Map<String, dynamic>;
                                   final Map<String, dynamic> servico =
-                                      data['servico'] as Map<String, dynamic>;
-                                  final String descricao = servico['descricao'];
+                                      data['servico'];
+                                  final String descricao =
+                                      servico['descricao'] ?? '';
+                                  final String clientEmail =
+                                      data['emailCliente'] ?? '';
+                                  final String clientName =
+                                      clientNames[clientEmail] ?? '';
+                                  final DateTime dateTime =
+                                      (data['data'] as Timestamp).toDate();
+                                  final String formattedDate =
+                                      DateFormat('dd/MM/yyyy').format(dateTime);
 
-                                  return ListTile(
-                                    title: Column(
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 16.0, vertical: 8.0),
+                                    padding: const EdgeInsets.all(16.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 4.0,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text('Serviço: $descricao'),
                                         Text(
-                                          'Cliente: ${data['emailCliente']}\nData: ${data['data']}\nHorário: ${data['hora']}\nDescrição: ${data['descricao']}\nValor do serviço: ${data['valorcliente']}',
+                                          'Cliente: $clientName (${data['emailCliente']})\nData: $formattedDate\nHorário: ${data['hora']}\nDescrição: ${data['descricao']}\nValor do serviço: ${data['valorcliente']}',
                                         ),
+                                        if ((data['servico']
+                                                as Map)['categoria'] ==
+                                            'Limpeza') // Verifique a categoria
+                                          Text(
+                                              'Cômodos: ${(data['comodos'] as Map).entries.map((e) => "${e.key}: ${e.value}").join(", ")}'),
                                         SizedBox(height: 8),
                                         Column(
                                           crossAxisAlignment:
@@ -321,7 +363,8 @@ class _HomePageContentState extends State<HomePageContent> {
                                                     FirebaseFirestore.instance
                                                         .collection(
                                                             'SolicitacoesServico')
-                                                        .doc(documents[index]
+                                                        .doc(filteredDocuments[
+                                                                index]
                                                             .id);
 
                                                 try {
@@ -386,9 +429,9 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 ),
                                               ),
                                               child: const Text(
+                                                'Aceitar',
                                                 style: TextStyle(
                                                     color: Colors.white),
-                                                'Aceitar',
                                               ),
                                             ),
                                             SizedBox(height: 8),
@@ -398,7 +441,8 @@ class _HomePageContentState extends State<HomePageContent> {
                                                     FirebaseFirestore.instance
                                                         .collection(
                                                             'SolicitacoesServico')
-                                                        .doc(documents[index]
+                                                        .doc(filteredDocuments[
+                                                                index]
                                                             .id);
 
                                                 try {
@@ -463,9 +507,9 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 ),
                                               ),
                                               child: const Text(
+                                                'Recusar',
                                                 style: TextStyle(
                                                     color: Colors.white),
-                                                'Recusar',
                                               ),
                                             ),
                                           ],
@@ -476,17 +520,35 @@ class _HomePageContentState extends State<HomePageContent> {
                                 },
                               )
                             : Center(
-                                child: Text('Nenhuma Solicitação Pendente'),
+                                child: Text(
+                                  'Nenhuma solicitação encontrada.',
+                                  style: TextStyle(fontSize: 16),
+                                ),
                               );
                       }
                     }
                   },
                 )
               : Center(
-                  child: Text('Nenhuma Solicitação Pendente'),
+                  child: Text(
+                    'Usuário não autorizado para ver as solicitações.',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
         ),
       ],
     );
+  }
+
+  Future<void> _createNotification(
+      String userEmail, String notificationMessage) async {
+    final CollectionReference notificationsCollection =
+        FirebaseFirestore.instance.collection('Notifications');
+
+    await notificationsCollection.add({
+      'userEmail': userEmail,
+      'message': notificationMessage,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 }
