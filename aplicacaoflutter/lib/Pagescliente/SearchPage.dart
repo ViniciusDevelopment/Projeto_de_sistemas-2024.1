@@ -153,10 +153,11 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 3,
-                                offset: Offset(0, 2)),
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              offset: Offset(0, 2),
+                            ),
                           ],
                         ),
                         margin:
@@ -175,8 +176,8 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(
-                                255, 255, 255, 255), // Cor de fundo do botão
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 255, 255),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -215,7 +216,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
   }
 
   Future<void> _performSearch() async {
-    String searchTerm = _entradaBuscaController.text.trim();
+    String searchTerm = _entradaBuscaController.text.trim().toLowerCase();
 
     // Referência para a coleção 'Servicos' no Firestore
     final CollectionReference servicosRef =
@@ -232,17 +233,27 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
     List<Record> filteredResults = [];
 
     for (var doc in querySnapshot.docs) {
-      String email = doc['email'];
+      // Convertendo doc para QueryDocumentSnapshot para acessar 'data()'
+      QueryDocumentSnapshot docSnapshot = doc as QueryDocumentSnapshot;
+
+      String email = docSnapshot['email'];
+
       DocumentSnapshot userDoc =
           await FirebaseFirestore.instance.collection('Users').doc(email).get();
 
       if (userDoc.exists) {
         String name = userDoc['Name'];
-        String? photoURL = userDoc.data().toString().contains('photoURL')
-            ? userDoc['photoURL']
+        // Acessando dados do documento usando data()
+        Map<String, dynamic>? userData =
+            userDoc.data() as Map<String, dynamic>?;
+
+        // Verificando se o campo 'photoURL' existe nos dados do documento
+        String? photoURL = userData != null && userData.containsKey('photoURL')
+            ? userData['photoURL']
             : null;
-        if (searchTerm.isEmpty ||
-            name.toLowerCase().contains(searchTerm.toLowerCase())) {
+
+        // Verifica se o nome do usuário contém o termo de pesquisa (insensível a maiúsculas/minúsculas)
+        if (searchTerm.isEmpty || name.toLowerCase().contains(searchTerm)) {
           filteredResults.add(
             Record(
               Name: name,
