@@ -77,12 +77,8 @@ class UserController extends GetxController {
         );
       }).toList();
 
-      if (userQuery != null) {
-        return user;
-      } else {
-        return null;
-      }
-    } catch (error) {
+      return user;
+        } catch (error) {
       return null;
     }
   }

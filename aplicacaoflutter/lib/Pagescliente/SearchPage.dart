@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Pagescliente/outroUserPage.dart';
 
 class PesquisapageWidget extends StatefulWidget {
-  const PesquisapageWidget({Key? key}) : super(key: key);
+  const PesquisapageWidget({super.key});
 
   @override
   State<PesquisapageWidget> createState() => _PesquisapageWidgetState();
@@ -50,7 +50,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
               letterSpacing: 0,
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2,
         ),
@@ -61,14 +61,14 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ChoiceChip(
-                          label: Text('Limpeza'),
+                          label: const Text('Limpeza'),
                           selected: _selectedCategory == 'Limpeza',
                           onSelected: (bool selected) {
                             setState(() {
@@ -76,9 +76,9 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                             });
                           },
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         ChoiceChip(
-                          label: Text('Alimentação'),
+                          label: const Text('Alimentação'),
                           selected: _selectedCategory == 'Alimentação',
                           onSelected: (bool selected) {
                             setState(() {
@@ -88,7 +88,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
@@ -125,7 +125,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                                     const BorderSide(color: Colors.blue),
                               ),
                             ),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Outfit',
                               fontSize: 18,
                               letterSpacing: 0,
@@ -140,7 +140,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
@@ -156,12 +156,12 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 3,
-                              offset: Offset(0, 2),
+                              offset: const Offset(0, 2),
                             ),
                           ],
                         ),
                         margin:
-                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                            const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
@@ -189,7 +189,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
                                   ? NetworkImage(item.photoURL!)
                                   : null,
                               child: item.photoURL == null
-                                  ? Icon(Icons.person, size: 40)
+                                  ? const Icon(Icons.person, size: 40)
                                   : null,
                             ),
                             title: Text(item.Name),
@@ -234,7 +234,7 @@ class _PesquisapageWidgetState extends State<PesquisapageWidget> {
 
     for (var doc in querySnapshot.docs) {
       // Convertendo doc para QueryDocumentSnapshot para acessar 'data()'
-      QueryDocumentSnapshot docSnapshot = doc as QueryDocumentSnapshot;
+      QueryDocumentSnapshot docSnapshot = doc;
 
       String email = docSnapshot['email'];
 

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 class HelpAndSupportPage extends StatelessWidget {
+  const HelpAndSupportPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ajuda e Suporte'),
+        title: const Text('Ajuda e Suporte'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
             showHelpAndSupportDialog(context);
           },
-          child: Text('Mostrar Ajuda e Suporte'),
+          child: const Text('Mostrar Ajuda e Suporte'),
         ),
       ),
     );
@@ -23,8 +25,8 @@ class HelpAndSupportPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Ajuda e Suporte'),
-          content: Column(
+          title: const Text('Ajuda e Suporte'),
+          content: const Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -46,7 +48,7 @@ class HelpAndSupportPage extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Fechar'),
+              child: const Text('Fechar'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

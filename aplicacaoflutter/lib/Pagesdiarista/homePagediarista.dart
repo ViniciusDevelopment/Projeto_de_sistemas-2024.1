@@ -1,16 +1,11 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
-import 'package:servicocerto/PagesCommon/RelatorioPage.dart';
-import 'package:servicocerto/Pagescliente/SearchPage.dart';
 import 'package:servicocerto/PagesCommon/calendarPage.dart';
 import 'package:servicocerto/PagesCommon/ProfilePage.dart';
-import 'package:servicocerto/ReadData/get_user_name.dart';
 import 'package:servicocerto/PagesCommon/ChatPage.dart';
 import 'package:servicocerto/PagesCommon/ChatListPage.dart';
 import 'package:intl/intl.dart'; // Importar pacote intl
@@ -18,7 +13,7 @@ import 'package:intl/intl.dart'; // Importar pacote intl
 class HomePagediarista extends StatefulWidget {
   final Map<String, dynamic> userData;
 
-  const HomePagediarista({Key? key, required this.userData}) : super(key: key);
+  const HomePagediarista({super.key, required this.userData});
 
   @override
   State<HomePagediarista> createState() => _HomePagediaristaState();
@@ -74,7 +69,7 @@ class _HomePagediaristaState extends State<HomePagediarista> {
               children: [
                 CalendarPage(key: UniqueKey()),
                 HomePageContent(userData: widget.userData),
-                ChatListPage(),
+                const ChatListPage(),
                 ProfilePage(userData: widget.userData),
               ],
             ),
@@ -85,7 +80,7 @@ class _HomePagediaristaState extends State<HomePagediarista> {
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
             backgroundColor: Colors.white,
-            items: <BottomNavigationBarItem>[
+            items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Padding(
                   padding: EdgeInsets.only(bottom: 4),
@@ -123,9 +118,9 @@ class _HomePagediaristaState extends State<HomePagediarista> {
             showSelectedLabels: true,
             showUnselectedLabels: true,
             selectedLabelStyle:
-                TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
+                const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
             unselectedLabelStyle:
-                TextStyle(fontWeight: FontWeight.normal, fontFamily: 'Roboto'),
+                const TextStyle(fontWeight: FontWeight.normal, fontFamily: 'Roboto'),
           ),
         ],
       ),
@@ -136,7 +131,7 @@ class _HomePagediaristaState extends State<HomePagediarista> {
 class HomePageContent extends StatefulWidget {
   final Map<String, dynamic> userData;
 
-  const HomePageContent({Key? key, required this.userData}) : super(key: key);
+  const HomePageContent({super.key, required this.userData});
 
   @override
   State<HomePageContent> createState() => _HomePageContentState();
@@ -217,12 +212,12 @@ class _HomePageContentState extends State<HomePageContent> {
         ),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xff0095FF)),
+            border: Border.all(color: const Color(0xff0095FF)),
             borderRadius: BorderRadius.circular(8.0),
             color: Colors.white,
           ),
           child: TextField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Buscar cliente',
               prefixIcon: Icon(Icons.search),
               border: InputBorder.none,
@@ -254,7 +249,7 @@ class _HomePageContentState extends State<HomePageContent> {
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else {
                       if (snapshot.hasError) {
                         return Center(child: Text('Erro: ${snapshot.error}'));
@@ -298,7 +293,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(8.0),
-                                      boxShadow: [
+                                      boxShadow: const [
                                         BoxShadow(
                                           color: Colors.black12,
                                           blurRadius: 4.0,
@@ -319,7 +314,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                             'Limpeza') // Verifique a categoria
                                           Text(
                                               'Cômodos: ${(data['comodos'] as Map).entries.map((e) => "${e.key}: ${e.value}").join(", ")}'),
-                                        SizedBox(height: 8),
+                                        const SizedBox(height: 8),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
@@ -337,12 +332,12 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 );
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Color.fromARGB(
+                                                backgroundColor: const Color.fromARGB(
                                                     255, 174, 174, 174),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(5),
-                                                  side: BorderSide(
+                                                  side: const BorderSide(
                                                     color: Color.fromARGB(
                                                         255, 174, 174, 174),
                                                     width: 2,
@@ -356,7 +351,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 8),
+                                            const SizedBox(height: 8),
                                             ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
@@ -398,8 +393,8 @@ class _HomePageContentState extends State<HomePageContent> {
                                                     backgroundColor:
                                                         Colors.green,
                                                     duration:
-                                                        Duration(seconds: 3),
-                                                    margin: EdgeInsets.all(8),
+                                                        const Duration(seconds: 3),
+                                                    margin: const EdgeInsets.all(8),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
@@ -411,7 +406,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                         Curves.easeOut,
                                                     reverseAnimationCurve:
                                                         Curves.easeIn,
-                                                  )..show(context);
+                                                  ).show(context);
                                                 } catch (e) {
                                                   print(
                                                       'Erro ao aceitar o serviço: $e');
@@ -422,7 +417,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(5),
-                                                  side: BorderSide(
+                                                  side: const BorderSide(
                                                     color: Colors.green,
                                                     width: 2,
                                                   ),
@@ -434,7 +429,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                     color: Colors.white),
                                               ),
                                             ),
-                                            SizedBox(height: 8),
+                                            const SizedBox(height: 8),
                                             ElevatedButton(
                                               onPressed: () async {
                                                 final documentReference =
@@ -476,8 +471,8 @@ class _HomePageContentState extends State<HomePageContent> {
                                                         'Serviço recusado!',
                                                     backgroundColor: Colors.red,
                                                     duration:
-                                                        Duration(seconds: 3),
-                                                    margin: EdgeInsets.all(8),
+                                                        const Duration(seconds: 3),
+                                                    margin: const EdgeInsets.all(8),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
@@ -489,7 +484,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                         Curves.easeOut,
                                                     reverseAnimationCurve:
                                                         Curves.easeIn,
-                                                  )..show(context);
+                                                  ).show(context);
                                                 } catch (e) {
                                                   print(
                                                       'Erro ao recusar o serviço: $e');
@@ -500,7 +495,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(5),
-                                                  side: BorderSide(
+                                                  side: const BorderSide(
                                                     color: Colors.red,
                                                     width: 2,
                                                   ),
@@ -519,7 +514,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                   );
                                 },
                               )
-                            : Center(
+                            : const Center(
                                 child: Text(
                                   'Nenhuma solicitação encontrada.',
                                   style: TextStyle(fontSize: 16),
@@ -529,7 +524,7 @@ class _HomePageContentState extends State<HomePageContent> {
                     }
                   },
                 )
-              : Center(
+              : const Center(
                   child: Text(
                     'Usuário não autorizado para ver as solicitações.',
                     style: TextStyle(fontSize: 16),

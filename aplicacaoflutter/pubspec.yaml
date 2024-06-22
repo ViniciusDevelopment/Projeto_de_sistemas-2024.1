@@ -59,7 +59,8 @@ dependencies:
   fl_chart:
   email_validator: ^2.1.17
   brasil_fields:
-
+  rating_dialog: ^2.0.4
+  rate_in_stars: ^0.0.3
 
 dev_dependencies:
   flutter_test:

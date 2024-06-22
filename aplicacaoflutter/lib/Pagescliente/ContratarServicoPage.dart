@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Import necessário para FilteringTextInputFormatter
-import 'package:get/get.dart';
+// Import necessário para FilteringTextInputFormatter
 import 'package:intl/intl.dart';
-import 'package:servicocerto/Controller/ServiceController.dart'; // Import corrigido para minúsculas
-import 'package:servicocerto/Controller/UserController.dart';
+// Import corrigido para minúsculas
 import 'package:servicocerto/DTO/Request/ServiceDTO.dart';
 import 'package:servicocerto/DTO/Response/UserImageDTO.dart';
-import 'package:servicocerto/Models/Service.dart'; // Import corrigido para minúsculas
+// Import corrigido para minúsculas
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Models/SolicitarServico.dart';
 import 'package:servicocerto/Models/User.dart';
@@ -85,15 +83,6 @@ DateTime _parseTime(String timeStr) {
 
   void _contratarServico(SolicitarServico solicitarServico,
       NotificationService notificationService) async {
-    if (solicitarServico.data == null || solicitarServico.hora == null) {
-      Get.snackbar(
-        'Erro',
-        'Preencha todos os campos',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-      return;
-    }
     try {
       await FirebaseFirestore.instance
           .collection('SolicitacoesServico')
@@ -175,7 +164,7 @@ DateTime _parseTime(String timeStr) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Align(
           alignment: AlignmentDirectional(0, 0),
           child: Text(
@@ -264,7 +253,7 @@ DateTime _parseTime(String timeStr) {
                                   children: [
                                     Text(
                                       'Sem avaliações 1',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -305,7 +294,7 @@ DateTime _parseTime(String timeStr) {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
+                            return const Center(child: CircularProgressIndicator());
                           }
                           if (snapshot.hasError) {
                             return Center(
@@ -313,19 +302,19 @@ DateTime _parseTime(String timeStr) {
                                     "Erro ao carregar serviços: ${snapshot.error}"));
                           }
                           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                            return Center(
+                            return const Center(
                                 child: Text("Nenhum serviço encontrado"));
                           }
                           List<ServiceModelDTO> services = snapshot.data!;
 
-                          return Container(
+                          return SizedBox(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: ListView.builder(
                               itemCount: services.length,
                               itemBuilder: (context, index) {
                                 ServiceModelDTO service = services[index];
                                 return Card(
-                                  margin: EdgeInsets.symmetric(
+                                  margin: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 16),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16),
@@ -341,7 +330,7 @@ DateTime _parseTime(String timeStr) {
                                         Text(
                                             'Disponibilidade: ${service.disponibilidade}'),
                                         Text('Categoria: ${service.categoria}'),
-                                        SizedBox(height: 8),
+                                        const SizedBox(height: 8),
                                         ElevatedButton(
                                           onPressed: () {
                                             if (service.categoria ==
@@ -365,20 +354,20 @@ DateTime _parseTime(String timeStr) {
                                                       backgroundColor:
                                                           Colors.white,
                                                       insetPadding:
-                                                          EdgeInsets.all(0),
+                                                          const EdgeInsets.all(0),
                                                       child: Column(
                                                         children: [
                                                           AppBar(
-                                                            title: Text(
+                                                            title: const Text(
                                                                 'Contratar Serviço'),
                                                             backgroundColor:
-                                                                Color(
+                                                                const Color(
                                                                     0xff0095FF),
                                                             automaticallyImplyLeading:
                                                                 false,
                                                             actions: [
                                                               IconButton(
-                                                                icon: Icon(Icons
+                                                                icon: const Icon(Icons
                                                                     .close),
                                                                 onPressed: () {
                                                                   Navigator.of(
@@ -401,21 +390,21 @@ DateTime _parseTime(String timeStr) {
                                                                       CrossAxisAlignment
                                                                           .start,
                                                                   children: [
-                                                                    Text(
+                                                                    const Text(
                                                                         'Você deseja contratar este serviço?'),
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                         height:
                                                                             16),
                                                                     Padding(
                                                                       padding:
-                                                                          EdgeInsets.all(
+                                                                          const EdgeInsets.all(
                                                                               20.0),
                                                                       child:
                                                                           Column(
                                                                         crossAxisAlignment:
                                                                             CrossAxisAlignment.start,
                                                                         children: [
-                                                                          Text(
+                                                                          const Text(
                                                                             "Data",
                                                                             style:
                                                                                 TextStyle(
@@ -424,7 +413,7 @@ DateTime _parseTime(String timeStr) {
                                                                               color: Colors.black87,
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 5),
                                                                           TextField(
                                                                             controller:
@@ -440,13 +429,11 @@ DateTime _parseTime(String timeStr) {
                                                                                 firstDate: DateTime(2020),
                                                                                 lastDate: DateTime(2030),
                                                                               );
-                                                                              if (picked != null) {
-                                                                                _dataController.text = DateFormat('dd-MM-yyyy').format(picked);
-                                                                              }
-                                                                            },
+                                                                              _dataController.text = DateFormat('dd-MM-yyyy').format(picked!);
+                                                                                                                                                        },
                                                                             decoration:
                                                                                 InputDecoration(
-                                                                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                                                              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                                                                               enabledBorder: OutlineInputBorder(
                                                                                 borderSide: BorderSide(color: Colors.grey[400]!),
                                                                                 borderRadius: BorderRadius.circular(8.0),
@@ -457,9 +444,9 @@ DateTime _parseTime(String timeStr) {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 10),
-                                                                          Text(
+                                                                          const Text(
                                                                             "Horário",
                                                                             style:
                                                                                 TextStyle(
@@ -468,7 +455,7 @@ DateTime _parseTime(String timeStr) {
                                                                               color: Colors.black87,
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 5),
                                                                           TextField(
                                                                             controller:
@@ -488,7 +475,7 @@ DateTime _parseTime(String timeStr) {
                                                                             },
                                                                             decoration:
                                                                                 InputDecoration(
-                                                                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                                                              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                                                                               enabledBorder: OutlineInputBorder(
                                                                                 borderSide: BorderSide(color: Colors.grey[400]!),
                                                                                 borderRadius: BorderRadius.circular(8.0),
@@ -499,9 +486,9 @@ DateTime _parseTime(String timeStr) {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 10),
-                                                                          Text(
+                                                                          const Text(
                                                                             "Descrição",
                                                                             style:
                                                                                 TextStyle(
@@ -510,7 +497,7 @@ DateTime _parseTime(String timeStr) {
                                                                               color: Colors.black87,
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 5),
                                                                           TextField(
                                                                             controller:
@@ -521,7 +508,7 @@ DateTime _parseTime(String timeStr) {
                                                                                 () async {},
                                                                             decoration:
                                                                                 InputDecoration(
-                                                                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                                                              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                                                                               enabledBorder: OutlineInputBorder(
                                                                                 borderSide: BorderSide(color: Colors.grey[400]!),
                                                                                 borderRadius: BorderRadius.circular(8.0),
@@ -532,9 +519,9 @@ DateTime _parseTime(String timeStr) {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 10),
-                                                                          Text(
+                                                                          const Text(
                                                                             "Valor que deseja pagar",
                                                                             style:
                                                                                 TextStyle(
@@ -543,7 +530,7 @@ DateTime _parseTime(String timeStr) {
                                                                               color: Colors.black87,
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
+                                                                          const SizedBox(
                                                                               height: 5),
                                                                           TextField(
                                                                             controller:
@@ -554,7 +541,7 @@ DateTime _parseTime(String timeStr) {
                                                                                 () async {},
                                                                             decoration:
                                                                                 InputDecoration(
-                                                                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                                                              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                                                                               enabledBorder: OutlineInputBorder(
                                                                                 borderSide: BorderSide(color: Colors.grey[400]!),
                                                                                 borderRadius: BorderRadius.circular(8.0),
@@ -589,10 +576,10 @@ DateTime _parseTime(String timeStr) {
                                                                             context)
                                                                         .pop();
                                                                   },
-                                                                  child: Text(
+                                                                  child: const Text(
                                                                       'Cancelar'),
                                                                 ),
-                                                                SizedBox(
+                                                                const SizedBox(
                                                                     width: 8),
                                                                 TextButton(
                                                                   onPressed:
@@ -630,7 +617,7 @@ DateTime _parseTime(String timeStr) {
                                                                             context)
                                                                         .pop();
                                                                   },
-                                                                  child: Text(
+                                                                  child: const Text(
                                                                       'Contratar'),
                                                                 ),
                                                               ],
@@ -642,7 +629,7 @@ DateTime _parseTime(String timeStr) {
                                                   });
                                             }
                                           },
-                                          child: Text('Contratar'),
+                                          child: const Text('Contratar'),
                                         ),
                                       ],
                                     ),

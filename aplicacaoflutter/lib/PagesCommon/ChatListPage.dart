@@ -4,14 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:servicocerto/PagesCommon/ChatPage.dart';
 
 class ChatListPage extends StatelessWidget {
-  const ChatListPage({Key? key}) : super(key: key);
+  const ChatListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final currentUserEmail = FirebaseAuth.instance.currentUser?.email;
 
     if (currentUserEmail == null) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text('Erro: Não foi possível obter o email do usuário atual.'),
         ),
@@ -28,7 +28,7 @@ class ChatListPage extends StatelessWidget {
         future: FirebaseFirestore.instance.collection('chat_rooms').get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
             return Center(child: Text('Erro: ${snapshot.error}'));
@@ -37,22 +37,22 @@ class ChatListPage extends StatelessWidget {
           final chatRooms = snapshot.data!.docs.where((doc) => doc.id.contains(currentUserEmail)).toList();
 
           if (chatRooms.isEmpty) {
-            return Center(child: Text('Nenhuma conversa encontrada'));
+            return const Center(child: Text('Nenhuma conversa encontrada'));
           }
 
           return ListView(
             children: chatRooms.map((DocumentSnapshot document) {
               String roomId = document.id;
-              String otherEmail = roomId.replaceAll(currentUserEmail!, '').replaceAll('__', '');
+              String otherEmail = roomId.replaceAll(currentUserEmail, '').replaceAll('__', '');
               
               return FutureBuilder(
                 future: FirebaseFirestore.instance.collection('Users').doc(otherEmail).get(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> userSnapshot) {
                   if (userSnapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   if (userSnapshot.hasError || !userSnapshot.hasData) {
-                    return Text('Erro ao carregar dados do usuário');
+                    return const Text('Erro ao carregar dados do usuário');
                   }
                   var user = userSnapshot.data!;
                   return ListTile(

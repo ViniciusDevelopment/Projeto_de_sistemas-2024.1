@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart'; // Importar pacote intl
 
 class ServicosContrados extends StatefulWidget {
-  const ServicosContrados({Key? key}) : super(key: key);
+  const ServicosContrados({super.key});
 
   @override
   _ServicosContradosState createState() => _ServicosContradosState();
@@ -56,29 +56,19 @@ class _ServicosContradosState extends State<ServicosContrados> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 15),
-          Align(
+          const SizedBox(height: 15),
+          const Align(
             alignment: Alignment.center,
             child: Text(
               "Serviços Contratados",
               style: TextStyle(fontSize: 24, color: Colors.blue),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ToggleButtons(
             borderRadius: BorderRadius.circular(10),
             selectedColor: Colors.white,
             fillColor: Colors.blue,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text("Agendados"),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text("Anteriores"),
-              ),
-            ],
             isSelected: [_selectedIndex == 0, _selectedIndex == 1],
             onPressed: (index) {
               setState(() {
@@ -87,18 +77,28 @@ class _ServicosContradosState extends State<ServicosContrados> {
                     _fetchServices(); // Atualiza a lista de serviços quando o botão é pressionado
               });
             },
+            children: const [
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text("Agendados"),
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text("Anteriores"),
+              ),
+            ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (_selectedIndex == 0 || _selectedIndex == 1)
             FutureBuilder<List<DocumentSnapshot>>(
               future: _futureServices,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.data!.isEmpty) {
-                  return Center(child: Text('Nenhum serviço encontrado'));
+                  return const Center(child: Text('Nenhum serviço encontrado'));
                 } else {
                   return Expanded(
                     child: ListView.builder(
@@ -122,7 +122,7 @@ class _ServicosContradosState extends State<ServicosContrados> {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

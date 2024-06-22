@@ -7,7 +7,7 @@ import 'package:servicocerto/Models/Service.dart'; // Import corrigido para minÃ
 class ServiceEditPage extends StatefulWidget {
   final ServiceModel service;
 
-  const ServiceEditPage({Key? key, required this.service}) : super(key: key);
+  const ServiceEditPage({super.key, required this.service});
 
   @override
   _ServiceEditPageState createState() => _ServiceEditPageState();

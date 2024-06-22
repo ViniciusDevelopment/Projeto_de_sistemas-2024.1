@@ -7,6 +7,8 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  LoginPage({super.key});
+
   Future<void> signInWithEmailAndPassword(BuildContext context) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -16,7 +18,7 @@ class LoginPage extends StatelessWidget {
       // Login bem-sucedido, redireciona para a próxima tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => IndexPage()),
+        MaterialPageRoute(builder: (context) => const IndexPage()),
       );
     } catch (e) {
       // Tratamento de erro
@@ -41,10 +43,10 @@ class LoginPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
@@ -56,11 +58,11 @@ class LoginPage extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text(
+                      const Text(
                         "Login",
                         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
                         "Entre na sua conta",
                         style: TextStyle(fontSize: 15, color: Colors.grey[700]),
@@ -68,7 +70,7 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
                         inputFile(label: "Email", controller: _emailController),
@@ -77,9 +79,9 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
-                      padding: EdgeInsets.only(top: 3, left: 3),
+                      padding: const EdgeInsets.only(top: 3, left: 3),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         border: Border.all(color: Colors.black),
@@ -88,12 +90,12 @@ class LoginPage extends StatelessWidget {
                         minWidth: double.infinity,
                         height: 60,
                         onPressed: () => signInWithEmailAndPassword(context),
-                        color: Color(0xff0095FF),
+                        color: const Color(0xff0095FF),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Login",
                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
                         ),
@@ -103,7 +105,7 @@ class LoginPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Não tem uma conta?"),
+                      const Text("Não tem uma conta?"),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -111,7 +113,7 @@ class LoginPage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => SignupPage()),
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           "Cadastre-se",
                           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                         ),
@@ -119,9 +121,9 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 100),
+                    padding: const EdgeInsets.only(top: 100),
                     height: 200,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/background.png"),
                         fit: BoxFit.fitHeight,
@@ -145,16 +147,16 @@ Widget inputFile({required String label, bool obscureText = false, required Text
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
+        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[400]!),
           ),
@@ -163,7 +165,7 @@ Widget inputFile({required String label, bool obscureText = false, required Text
           ),
         ),
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
     ],
   );
 }

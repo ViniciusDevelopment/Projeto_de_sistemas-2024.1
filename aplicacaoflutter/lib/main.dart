@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:servicocerto/Controller/ServiceController.dart';
 import 'package:servicocerto/Controller/UserController.dart';
-import 'package:servicocerto/Repository/UserRepository.dart';
+import 'package:servicocerto/Controller/ratingController.dart';
 import 'package:servicocerto/providers.dart';
 import 'firebase_options.dart';
 import 'index.dart';
@@ -22,7 +22,7 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: providers,
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class GetUserService extends StatelessWidget {
   final String email;
 
-  const GetUserService({Key? key, required this.email}) : super(key: key);
+  const GetUserService({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {

@@ -29,3 +29,22 @@ class RatingServiceModel {
   }
 }
 
+class UserRating {
+  String? emailPrestador;
+  late double rating; // Use double em vez de Double
+  late int ratingCount;
+
+  UserRating({
+    this.emailPrestador,
+    required this.rating,
+    required this.ratingCount,
+  });
+
+  factory UserRating.fromDocumentSnapshot(DocumentSnapshot doc) {
+    return UserRating(
+      emailPrestador: doc['emailPrestador'],
+      rating: doc['rating'],
+      ratingCount: doc['ratingCount']
+    );
+  }
+}

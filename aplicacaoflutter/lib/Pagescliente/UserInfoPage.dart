@@ -138,13 +138,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:servicocerto/Pagescliente/DeleteAccountButton.dart';
-import 'package:servicocerto/Pagescliente/EditButton.dart';
-import 'package:servicocerto/Pagescliente/EditPage.dart';
 import 'package:servicocerto/Pagescliente/AddPhotoButton.dart';
 
 class UserInfoPage extends StatefulWidget {
-  const UserInfoPage({Key? key}) : super(key: key);
+  const UserInfoPage({super.key});
 
   @override
   State<UserInfoPage> createState() => _UserInfoPageState();
@@ -206,9 +203,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         child: Text('Dados do usuário não encontrados.'));
                   }
 
-                  final Map<String, dynamic> _userData =
+                  final Map<String, dynamic> userData =
                       snapshot.data!.data() as Map<String, dynamic>;
-                  final String? photoUrl = _userData['photoURL'] as String?;
+                  final String? photoUrl = userData['photoURL'] as String?;
 
                   return Column(
                     mainAxisSize: MainAxisSize.max,
@@ -218,12 +215,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         radius: 70,
                         backgroundImage: photoUrl != null && photoUrl.isNotEmpty
                             ? NetworkImage(photoUrl)
-                            : NetworkImage(
+                            : const NetworkImage(
                                 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Fbr%2Ficone-gratis%2Favatar-de-perfil_4794936&psig=AOvVaw07Kd0ygHYi6BzrXJlKRDkQ&ust=1716126016193000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKj1p96pl4YDFQAAAAAdAAAAABAE'),
                       ),
                       const SizedBox(height: 50),
                       Text(
-                        _userData['Name'] ?? 'Nome do Usuário',
+                        userData['Name'] ?? 'Nome do Usuário',
                         style: const TextStyle(
                           fontFamily: 'Readex Pro',
                           fontSize: 24,
@@ -231,11 +228,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      _buildUserInfoTile('Telefone', _userData['Telefone']),
-                      _buildUserInfoTile('Email', _userData['Email']),
-                      _buildUserInfoTile('Endereco', _userData['Endereco']),
+                      _buildUserInfoTile('Telefone', userData['Telefone']),
+                      _buildUserInfoTile('Email', userData['Email']),
+                      _buildUserInfoTile('Endereco', userData['Endereco']),
                       const SizedBox(height: 20),
-                      Row(
+                      const Row(
                         children: [
                           /*Padding(
                             padding: const EdgeInsets.all(40),
@@ -246,7 +243,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                             child: DeleteAccountButton(),
                           ),*/
                           Padding(
-                            padding: const EdgeInsets.all(20),
+                            padding: EdgeInsets.all(20),
                             child: AddPhotoButton(),
                           ),
                         ],
