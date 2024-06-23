@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:servicocerto/DTO/Response/UserImageDTO.dart';
 import 'package:servicocerto/PagesCommon/ChatPage.dart';
 import 'ContratarServicoPage.dart';
-
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:servicocerto/DTO/Response/UserImageDTO.dart';
-import 'ContratarServicoPage.dart';
+import 'package:servicocerto/Controller/ratingController.dart';
+import 'package:servicocerto/Components/ratingStarWidget.dart'; // Importar a RatingStarsWidget
+import 'package:servicocerto/Components/ratingList.dart';
 
 class OutroUserPage extends StatefulWidget {
   final String email;
 
-  const OutroUserPage({Key? key, required this.email}) : super(key: key);
+  const OutroUserPage({super.key, required this.email});
 
   @override
   _OutroUserPageState createState() => _OutroUserPageState();
@@ -21,6 +18,10 @@ class OutroUserPage extends StatefulWidget {
 
 class _OutroUserPageState extends State<OutroUserPage> {
   UserImageDTO? _simpleSearchResults;
+  final RatingServiceController _ratingController = RatingServiceController();
+  double _rating = 0;
+  int _ratingCount = 0;
+  final String _avaliacoes = "";
 
   @override
   void initState() {
@@ -29,43 +30,39 @@ class _OutroUserPageState extends State<OutroUserPage> {
     _performSearch(widget.email);
   }
 
-    Widget _chatButton(BuildContext context){
+  Widget _chatButton(BuildContext context) {
     return ElevatedButton(
-      onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder:(context)=>ChatPage(receiverUserEmail: widget.email,)));
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ChatPage(receiverUserEmail: widget.email)));
       },
       style: ElevatedButton.styleFrom(
-           minimumSize: const Size(double.infinity, 60),
-           padding: const EdgeInsets.symmetric(horizontal: 24),
-           backgroundColor: const Color.fromARGB(255, 45, 96, 234),
-
+        minimumSize: const Size(double.infinity, 60),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        backgroundColor: const Color.fromARGB(255, 45, 96, 234),
       ),
-
       child: const Text(
         "Conversar",
         style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-          ),
-        ), 
-      );
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
-
-
-
 
   Widget _contratarButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ContratarServicoPage(
-              email: widget.email,
-            ),
-          ),
-        );
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ContratarServicoPage(email: widget.email)));
       },
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 60),
@@ -79,14 +76,13 @@ class _OutroUserPageState extends State<OutroUserPage> {
         ),
       ),
       child: const Text(
-  "Contratar",
-  style: TextStyle(
-    color: Colors.white,
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
-  ),
-),
-
+        "Contratar",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 
@@ -94,22 +90,41 @@ class _OutroUserPageState extends State<OutroUserPage> {
     try {
       final CollectionReference usersRef =
           FirebaseFirestore.instance.collection('Users');
+      final CollectionReference ratingRef =
+          FirebaseFirestore.instance.collection('AvaliacaoPrestador');
 
       final QuerySnapshot querySnapshot = await usersRef
           .where('Email', isEqualTo: searchTerm)
           .where('TipoUser', isEqualTo: 'Prestador')
           .get();
+      final QuerySnapshot querySnapshotRating =
+          await ratingRef.where('email', isEqualTo: searchTerm).get();
 
       if (querySnapshot.docs.isNotEmpty) {
         final userData =
             querySnapshot.docs.first.data() as Map<String, dynamic>;
         final user = UserImageDTO.fromJson(userData);
 
+        double rating = 0.0;
+        int ratingCount = 0;
+
+        if (querySnapshotRating.docs.isNotEmpty) {
+          final ratingData =
+              querySnapshotRating.docs.first.data() as Map<String, dynamic>;
+          rating = ratingData['rating'];
+          ratingCount = ratingData['ratingCount'];
+        }
+
         setState(() {
           _simpleSearchResults = user;
+          _rating = rating;
+          _ratingCount = ratingCount;
         });
       } else {
         print('Nenhum usuário encontrado.');
+        setState(() {
+          _simpleSearchResults = null;
+        });
       }
     } catch (error) {
       print("Erro ao buscar dados do usuário: $error");
@@ -171,16 +186,12 @@ class _OutroUserPageState extends State<OutroUserPage> {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: _simpleSearchResults != null
-                              ? (_simpleSearchResults!.photoURL != null
-                                  ? Image.network(
-                                      _simpleSearchResults!.photoURL!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.network(
-                                      'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg',
-                                      fit: BoxFit.cover,
-                                    ))
+                          child: _simpleSearchResults != null &&
+                                  _simpleSearchResults!.photoURL != null
+                              ? Image.network(
+                                  _simpleSearchResults!.photoURL!,
+                                  fit: BoxFit.cover,
+                                )
                               : Image.network(
                                   'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg',
                                   fit: BoxFit.cover,
@@ -205,23 +216,34 @@ class _OutroUserPageState extends State<OutroUserPage> {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 5),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .start, // Alinha os elementos ao início
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .center, // Centraliza verticalmente
                                   children: [
                                     Text(
-                                      'Sem avaliações 1',
+                                      _rating.toStringAsFixed(1),
                                       style: const TextStyle(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                    const SizedBox(
+                                        width:
+                                            4), // Espaçamento entre a nota e as estrelas
+                                    RatingBar(
+                                      rating: _rating,
+                                      ratingCount: _ratingCount,
+                                      size:
+                                          16, // Ajusta o tamanho das estrelas conforme necessário
+                                    ),
                                   ],
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
@@ -240,7 +262,7 @@ class _OutroUserPageState extends State<OutroUserPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: _chatButton(context),
                   ),
@@ -251,6 +273,31 @@ class _OutroUserPageState extends State<OutroUserPage> {
                 ],
               ),
             ),
+            Container(
+              color: const Color.fromARGB(26, 192, 188, 188),
+              width: double
+                  .infinity, // Define que o container ocupe toda a largura disponível
+              padding: const EdgeInsets.all(8.0),
+              child: const Center(
+                child: Text(
+                  'Avaliações',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: const Color.fromARGB(26, 192, 188, 188),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: RatingList(emailPrestador: widget.email),
+                ),
+              ),
+            )
           ],
         ),
       ),

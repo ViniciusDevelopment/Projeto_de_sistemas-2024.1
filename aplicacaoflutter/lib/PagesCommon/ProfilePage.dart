@@ -6,7 +6,6 @@ import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/PagesCommon/AddPhotoPage.dart';
 import 'package:servicocerto/PagesCommon/HelpAndSupportPage.dart';
 import 'package:servicocerto/PagesCommon/RelatorioPage.dart';
-import 'package:servicocerto/Pagescliente/EditPage.dart';
 import 'package:servicocerto/Pagescliente/ServicosContratadosCliente.dart';
 import 'package:servicocerto/Pagesdiarista/MeusServicosPage.dart';
 import 'package:servicocerto/Pagesdiarista/ServicosContratados.dart';
@@ -23,30 +22,30 @@ Future<void> signOut() async {
 class ProfilePage extends StatelessWidget {
   final Map<String, dynamic> userData;
 
-  const ProfilePage({Key? key, required this.userData}) : super(key: key);
+  const ProfilePage({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
     final String? photoUrl = userData['photoURL'] as String?;
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Container(
                 height: 100,
                 width: 100,
-                margin: EdgeInsets.only(top: 30),
+                margin: const EdgeInsets.only(top: 30),
                 child: Stack(
                   children: <Widget>[
                     CircleAvatar(
                       radius: 50,
                       backgroundImage: photoUrl != null && photoUrl.isNotEmpty
                           ? NetworkImage(photoUrl)
-                          : AssetImage('assets/images/avatar.png')
+                          : const AssetImage('assets/images/avatar.png')
                               as ImageProvider,
                     ),
                     GestureDetector(
@@ -54,7 +53,7 @@ class ProfilePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AddPhotoPage()),
+                              builder: (context) => const AddPhotoPage()),
                         );
                       },
                       child: Align(
@@ -62,11 +61,11 @@ class ProfilePage extends StatelessWidget {
                         child: Container(
                           height: 30,
                           width: 30,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xff0095FF),
                             shape: BoxShape.circle,
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               LineAwesomeIcons.pen,
                               color: Colors.white,
@@ -78,27 +77,27 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 userData['Name'] ?? 'Nome do Usuário',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF212121),
                   decoration: TextDecoration.none,
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 userData['Email'] ?? 'Email do Usuário',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   color: Color(0xFF212121),
                   decoration: TextDecoration.none,
                   fontWeight: FontWeight.w100,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               EditButton(userData: userData), // Adicione o botão de edição aqui
               Expanded(
                 child: ListView(
@@ -112,7 +111,7 @@ class ProfilePage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MeusServicosPage()),
+                                builder: (context) => const MeusServicosPage()),
                           );
                         },
                       ),
@@ -125,14 +124,14 @@ class ProfilePage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ServicosContradosCliente(),
+                                  builder: (context) => const ServicosContradosCliente(),
                                 ),
                               );
                             } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ServicosContrados(),
+                                  builder: (context) => const ServicosContrados(),
                                 ),
                               );
                             }
@@ -154,7 +153,7 @@ class ProfilePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HelpAndSupportPage()),
+                              builder: (context) => const HelpAndSupportPage()),
                         );
                       },
                     ),
@@ -165,7 +164,7 @@ class ProfilePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RelatorioPage()),
+                              builder: (context) => const RelatorioPage()),
                         );
                       },
                     ),
@@ -192,29 +191,29 @@ class ProfilePage extends StatelessWidget {
 //função para mostrar a mensagem de confirmação de exclusão
 
 void showDeleteAccountDialog(BuildContext context) {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
 
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(
+        title: const Text(
             'Para confirmação de apagamento de conta, digite "Apagar Conta":'),
         content: TextField(
-          controller: _controller,
+          controller: controller,
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: Text('Enviar'),
+            child: const Text('Enviar'),
             onPressed: () async {
-              if (_controller.text == 'Apagar Conta') {
+              if (controller.text == 'Apagar Conta') {
                 try {
                   // Exclua o documento do usuário no Firestore
                   await FirebaseFirestore.instance
@@ -226,13 +225,13 @@ void showDeleteAccountDialog(BuildContext context) {
                   await user.delete();
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Conta apagada com sucesso!')),
+                    const SnackBar(content: Text('Conta apagada com sucesso!')),
                   );
 
-                  Future.delayed(Duration(seconds: 2), () {
+                  Future.delayed(const Duration(seconds: 2), () {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => MyApp()),
+                      MaterialPageRoute(builder: (context) => const MyApp()),
                       (Route<dynamic> route) => false,
                     );
                   });
@@ -243,7 +242,7 @@ void showDeleteAccountDialog(BuildContext context) {
                 }
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                       content:
                           Text('Texto digitado incorreto. Tente novamente.')),
                 );

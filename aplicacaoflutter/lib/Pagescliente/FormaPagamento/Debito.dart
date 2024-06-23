@@ -3,13 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:servicocerto/Controller/ServiceController.dart';
+import 'package:servicocerto/Controller/ratingController.dart';
 import 'package:servicocerto/Models/ratingService.dart';
 import 'package:servicocerto/Pagescliente/ServicosContratadosCliente.dart';
 
 class Debito extends StatefulWidget {
-   final DocumentSnapshot<Object?> service;
-  const Debito(this.service, {Key? key}) : super(key: key);
+  final DocumentSnapshot<Object?> service;
+  const Debito(this.service, {super.key});
 
   @override
   State<Debito> createState() => _DebitoState();
@@ -17,31 +17,29 @@ class Debito extends StatefulWidget {
 
 class _DebitoState extends State<Debito> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _numeroCartaoController = TextEditingController();
-  TextEditingController _nomeController = TextEditingController();
-  TextEditingController _cvvController = TextEditingController();
-  TextEditingController _expiracaoController = TextEditingController();
+  final TextEditingController _numeroCartaoController = TextEditingController();
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _cvvController = TextEditingController();
+  final TextEditingController _expiracaoController = TextEditingController();
 
-  TextEditingController _commentController = TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
   double _rating = 3.0;
 
-
-   void _confirmarConclusaoServico(String serviceId, String emailPrestador) {
+  void _confirmarConclusaoServico(String serviceId, String emailPrestador) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Confirmação"),
+          title: const Text("Confirmação"),
           actions: [
             TextButton(
-              child: Text("Cancelar"),
               style: TextButton.styleFrom(foregroundColor: Colors.red),
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: const Text("Cancelar"),
             ),
             TextButton(
-              child: Text("Confirmar"),
               style: TextButton.styleFrom(foregroundColor: Colors.green),
               onPressed: () async {
                 await FirebaseFirestore.instance
@@ -55,6 +53,7 @@ class _DebitoState extends State<Debito> {
                   // Aqui você pode fazer algo após a confirmação
                 });
               },
+              child: const Text("Confirmar"),
             ),
           ],
         );
@@ -67,15 +66,15 @@ class _DebitoState extends State<Debito> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Avalie o Serviço"),
+          title: const Text("Avalie o Serviço"),
           content: buildRatingPage(context, emailPrestador, serviceId),
           actions: [
             TextButton(
-              child: Text("Cancelar"),
               style: TextButton.styleFrom(foregroundColor: Colors.red),
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: const Text("Cancelar"),
             ),
           ],
         );
@@ -84,7 +83,7 @@ class _DebitoState extends State<Debito> {
   }
 
   Widget buildRatingPage(
-    BuildContext context, String emailPrestador, String serviceId) {
+      BuildContext context, String emailPrestador, String serviceId) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -150,18 +149,18 @@ class _DebitoState extends State<Debito> {
       await RatingServiceController.instance.rateService(service);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Avaliação enviada com sucesso!'),
+        const SnackBar(
+          content: Text('Avaliação enviada com sucesso!'),
         ),
       );
 
-     Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => ServicosContradosCliente(),
-      ),
-      (route) => false, // Remove todas as rotas na pilha
-    );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const ServicosContradosCliente(),
+        ),
+        (route) => false, // Remove todas as rotas na pilha
+      );
     } catch (error) {
       print('Erro ao enviar avaliação: $error');
     }
@@ -182,18 +181,18 @@ class _DebitoState extends State<Debito> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SvgPicture.asset(
                   "assets/icons/card.svg",
                   height: 50,
                   width: 50,
                   color: Colors.blue, // Cor do ícone do cartão
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: _numeroCartaoController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Número do Cartão',
                     border: OutlineInputBorder(),
                   ),
@@ -204,11 +203,11 @@ class _DebitoState extends State<Debito> {
                     return null;
                   },
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 TextFormField(
                   keyboardType: TextInputType.name,
                   controller: _nomeController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Nome no Cartão',
                     border: OutlineInputBorder(),
                   ),
@@ -219,14 +218,14 @@ class _DebitoState extends State<Debito> {
                     return null;
                   },
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
                         keyboardType: TextInputType.number,
                         controller: _cvvController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'CVV',
                           border: OutlineInputBorder(),
                         ),
@@ -238,12 +237,12 @@ class _DebitoState extends State<Debito> {
                         },
                       ),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: TextFormField(
                         keyboardType: TextInputType.number,
                         controller: _expiracaoController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'MM/AA',
                           border: OutlineInputBorder(),
                         ),
@@ -262,20 +261,21 @@ class _DebitoState extends State<Debito> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                         _confirmarConclusaoServico(widget.service.id, widget.service['emailPrestador']);
-
+                        _confirmarConclusaoServico(widget.service.id,
+                            widget.service['emailPrestador']);
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                       foregroundColor: Colors.white,
-                       backgroundColor: Colors.blue,
-                       shape: RoundedRectangleBorder(
-                       borderRadius: BorderRadius.circular(8.0),
-                                ),),
-                    child: Text('Prosseguir'),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: const Text('Prosseguir'),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -283,5 +283,4 @@ class _DebitoState extends State<Debito> {
       ),
     );
   }
-
 }

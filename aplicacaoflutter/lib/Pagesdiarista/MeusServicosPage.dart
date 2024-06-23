@@ -16,19 +16,21 @@ String? getUserEmail() {
 }
 
 class MeusServicosPage extends StatelessWidget {
+  const MeusServicosPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title:
             const Text('Meus Serviços', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color(0xff0095FF),
-        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: const Color(0xff0095FF),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           GestureDetector(
             onTap: () {
               Navigator.push(
@@ -47,11 +49,11 @@ class MeusServicosPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.white,
                   border: Border.all(
-                    color: Color(0xff0095FF),
+                    color: const Color(0xff0095FF),
                     width: 2,
                   ),
                 ),
-                child: Center(
+                child: const Center(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -75,13 +77,13 @@ class MeusServicosPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(
             child: StreamBuilder<List<ServiceModel>>(
               stream: ServiceController.instance.getUserServices(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (snapshot.hasError) {
                   return Center(
@@ -89,7 +91,7 @@ class MeusServicosPage extends StatelessWidget {
                           Text("Erro ao carregar serviços: ${snapshot.error}"));
                 }
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text("Nenhum serviço encontrado"));
+                  return const Center(child: Text("Nenhum serviço encontrado"));
                 }
 
                 List<ServiceModel> services = snapshot.data!;
@@ -99,7 +101,7 @@ class MeusServicosPage extends StatelessWidget {
                     ServiceModel service = services[index];
                     return Card(
                       elevation: 4,
-                      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -116,7 +118,7 @@ class MeusServicosPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.edit),
+                              icon: const Icon(Icons.edit),
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -128,25 +130,25 @@ class MeusServicosPage extends StatelessWidget {
                               },
                             ),
                             IconButton(
-                              icon: Icon(Icons.delete),
+                              icon: const Icon(Icons.delete),
                               onPressed: () async {
                                 bool? confirmDelete = await showDialog<bool>(
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title: Text('Confirmar Exclusão'),
-                                      content: Text(
+                                      title: const Text('Confirmar Exclusão'),
+                                      content: const Text(
                                           'Deseja realmente excluir este serviço?'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.of(context).pop(false),
-                                          child: Text('Cancelar'),
+                                          child: const Text('Cancelar'),
                                         ),
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.of(context).pop(true),
-                                          child: Text('Excluir'),
+                                          child: const Text('Excluir'),
                                         ),
                                       ],
                                     );

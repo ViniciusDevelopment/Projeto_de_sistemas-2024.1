@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:servicocerto/Components/ChatBubble.dart';
 import 'package:servicocerto/Components/MyTextField.dart';
 import 'package:servicocerto/Services/chat_service.dart';
@@ -74,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
           appBar: AppBar(
       title: _isLoading
-          ? CircularProgressIndicator() // Indicador de carregamento
+          ? const CircularProgressIndicator() // Indicador de carregamento
           : Row(
               children: [
                 receiverUserPhotoUrl != ""

@@ -12,27 +12,27 @@ class PagamentoPage extends StatelessWidget {
     double taxa = int.parse(service['valorcliente']) - 5;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Efetuar Pagamento'),
+        title: const Text('Efetuar Pagamento'),
         backgroundColor: Colors.white,
       ),
 
       body: Column(
         children: [
         Container(
-          padding: EdgeInsets.only(top: 24),
+          padding: const EdgeInsets.only(top: 24),
           alignment: Alignment.center,
-          child: Text("Valor a ser pago:"),
+          child: const Text("Valor a ser pago:"),
         ),
 
         Container(
           alignment: Alignment.center,
-          child: Text("R\$${service['valorcliente']},00", style: TextStyle(fontSize: 50),),
+          child: Text("R\$${service['valorcliente']},00", style: const TextStyle(fontSize: 50),),
         ),
 
          Container(
-          padding: EdgeInsets.only(top: 12),
+          padding: const EdgeInsets.only(top: 12),
           alignment: Alignment.center,
-          child: Text("R\$$taxa,00 do serviço + R\$5,00 de taxa da aplicação", style: TextStyle(fontSize: 10),),
+          child: Text("R\$$taxa,00 do serviço + R\$5,00 de taxa da aplicação", style: const TextStyle(fontSize: 10),),
         ),
 
 
@@ -50,14 +50,14 @@ class PagamentoPage extends StatelessWidget {
               ),
         
                ListTile(
-                leading: Icon(Icons.credit_card),
-                title: Text("Cartão de Débito"),
+                leading: const Icon(Icons.credit_card),
+                title: const Text("Cartão de Débito"),
                 onTap: () {
                   Navigator.push(context,  MaterialPageRoute(builder: (context) => Debito(service)),);
                 },
               ),
                ListTile(
-                leading: Icon(Icons.pix),
+                leading: const Icon(Icons.pix),
                 title: const Text("Pix"),
                 onTap: () {
                   Navigator.push(context,  MaterialPageRoute(builder: (context) => Pix(service)),);

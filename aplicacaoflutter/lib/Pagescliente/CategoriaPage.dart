@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CategoriaPage extends StatefulWidget {
   final String nome;
 
-  const CategoriaPage({Key? key, required this.nome}) : super(key: key);
+  const CategoriaPage({super.key, required this.nome});
 
   @override
   _CategoriaPageState createState() => _CategoriaPageState();
@@ -16,13 +16,13 @@ class _CategoriaPageState extends State<CategoriaPage> {
       appBar: AppBar(
         title: Text(widget.nome),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.blue),
-        titleTextStyle: TextStyle(color: Colors.blue, fontSize: 20),
+        iconTheme: const IconThemeData(color: Colors.blue),
+        titleTextStyle: const TextStyle(color: Colors.blue, fontSize: 20),
       ),
       body: Center(
         child: Text(
           'Conteúdo da Categoria: ${widget.nome}',
-          style: TextStyle(fontSize: 24),
+          style: const TextStyle(fontSize: 24),
         ),
       ),
     );
@@ -30,7 +30,7 @@ class _CategoriaPageState extends State<CategoriaPage> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: CategoriaPage(nome: 'Categoria Exemplo'),
   ));
 }

@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class NotificacoesPage extends StatefulWidget {
+  const NotificacoesPage({super.key});
+
   @override
   _NotificacoesPageState createState() => _NotificacoesPageState();
 }
@@ -45,17 +47,17 @@ class _NotificacoesPageState extends State<NotificacoesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notificações'),
+        title: const Text('Notificações'),
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _notificacoesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar notificações'));
+            return const Center(child: Text('Erro ao carregar notificações'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Nenhuma notificação disponível'));
+            return const Center(child: Text('Nenhuma notificação disponível'));
           }
 
           final notificacoes = snapshot.data!;
@@ -72,18 +74,18 @@ class _NotificacoesPageState extends State<NotificacoesPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                       vertical: 10,
                       horizontal: 15,
                     ),
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.notifications,
                       color: Colors.blueAccent,
                       size: 30,
                     ),
                     title: Text(
                       notificacao['titulo'] ?? 'Retorno de solicitação',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),

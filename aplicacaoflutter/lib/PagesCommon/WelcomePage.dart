@@ -1,10 +1,11 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:servicocerto/PagesCommon/loginPage.dart';
 import 'registerPage.dart';
 
 class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +17,7 @@ class WelcomePage extends StatelessWidget {
 
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             // even space distribution
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,7 +25,7 @@ class WelcomePage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Bem Vindo",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -33,7 +34,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                     
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text("A plataforma ServiçoCerto busca conectar diaristas a clientes! ",
@@ -47,7 +48,7 @@ class WelcomePage extends StatelessWidget {
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/welcome.png")
                   )
@@ -66,12 +67,12 @@ class WelcomePage extends StatelessWidget {
                     },
                     // defining the shape
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(
+                      side: const BorderSide(
                         color: Colors.black
                       ),
                       borderRadius: BorderRadius.circular(50)
                     ),
-                    child: Text(
+                    child: const Text(
                       "Entrar",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -80,21 +81,21 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ),
                   // creating the signup button
-                  SizedBox(height:20),
+                  const SizedBox(height:20),
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: (){
                      Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SignupPage()),
+                            MaterialPageRoute(builder: (context) => const SignupPage()),
                           );
                     },
-                    color: Color(0xff0095FF),
+                    color: const Color(0xff0095FF),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50)
                     ),
-                    child: Text(
+                    child: const Text(
                       "Cadastre-se",
                       style: TextStyle(
                         color: Colors.white,

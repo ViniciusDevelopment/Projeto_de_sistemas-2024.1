@@ -19,7 +19,7 @@ class _IndexPageState extends State<IndexPage> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.hasData) {
@@ -32,7 +32,7 @@ class _IndexPageState extends State<IndexPage> {
                   .get(),
               builder: (context, userSnapshot) {
                 if (userSnapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (userSnapshot.hasError) {
                   return Text('Error: ${userSnapshot.error}');
                 } else {
@@ -50,7 +50,7 @@ class _IndexPageState extends State<IndexPage> {
                     }
                   } else {
                     print("Dados do usuário são nulos");
-                    return WelcomePage();
+                    return const WelcomePage();
                     // return LoginPage();
                   }
                 }
@@ -58,7 +58,7 @@ class _IndexPageState extends State<IndexPage> {
             );
           }
         }
-        return WelcomePage(); // Adicionado um return para evitar o erro
+        return const WelcomePage(); // Adicionado um return para evitar o erro
       },
     );
   }

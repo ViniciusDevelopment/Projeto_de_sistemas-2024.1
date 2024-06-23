@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Pagescliente/Pagamento.dart';
-import 'package:servicocerto/Pagescliente/homePage.dart';
 import 'package:servicocerto/index.dart';
 
 class ServicosContradosCliente extends StatefulWidget {
-  const ServicosContradosCliente({Key? key}) : super(key: key);
+  const ServicosContradosCliente({super.key});
 
   @override
   _ServicosContradosClienteState createState() =>
@@ -74,44 +73,34 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
         backgroundColor: const Color(0xff0095FF),
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () async {
-                    final userData = await _futureUserData;
-                    Navigator.pushReplacement(
-                       context,
-                       MaterialPageRoute(
-                        builder: (context) => IndexPage()//HomePage(userData: userData),
-                       ),
-    );
-  },
-),
-        
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () async {
+            final userData = await _futureUserData;
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const IndexPage() //HomePage(userData: userData),
+                  ),
+            );
+          },
+        ),
       ),
       body: Column(
         children: [
-          SizedBox(height: 15),
-          Align(
+          const SizedBox(height: 15),
+          const Align(
             alignment: Alignment.center,
             child: Text(
               "Serviços Contratados",
               style: TextStyle(fontSize: 24, color: Colors.blue),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ToggleButtons(
             borderRadius: BorderRadius.circular(10),
             selectedColor: Colors.white,
             fillColor: Colors.blue,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text("Agendados"),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text("Anteriores"),
-              ),
-            ],
             isSelected: [_selectedIndex == 0, _selectedIndex == 1],
             onPressed: (index) {
               setState(() {
@@ -120,19 +109,29 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                     _fetchServices(); // Atualiza a lista de serviços quando o botão é pressionado
               });
             },
+            children: const [
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text("Agendados"),
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text("Anteriores"),
+              ),
+            ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (_selectedIndex == 0 || _selectedIndex == 1)
             Expanded(
               child: FutureBuilder<List<DocumentSnapshot>>(
                 future: _futureServices,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (snapshot.data!.isEmpty) {
-                    return Center(child: Text('Nenhum serviço encontrado'));
+                    return const Center(child: Text('Nenhum serviço encontrado'));
                   } else {
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
@@ -144,7 +143,7 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -158,13 +157,18 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                                   Align(
                                     alignment: Alignment.centerRight,
                                     child: ElevatedButton(
-                                      onPressed: (){ //=>
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => PagamentoPage(service),),
-                                          );},
-                                          //_confirmarConclusaoServico(service.id,
-                                              //service['emailPrestador']),
+                                      onPressed: () {
+                                        //=>
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PagamentoPage(service),
+                                          ),
+                                        );
+                                      },
+                                      //_confirmarConclusaoServico(service.id,
+                                      //service['emailPrestador']),
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: Colors.white,
                                         backgroundColor:
@@ -174,7 +178,7 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                                               BorderRadius.circular(8.0),
                                         ),
                                       ),
-                                      child: Text("Serviço foi concluído"),
+                                      child: const Text("Serviço foi concluído"),
                                     ),
                                   ),
                               ],

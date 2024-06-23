@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,10 +13,10 @@ class CleaningPage extends StatefulWidget {
   final String emailCliente;
 
   const CleaningPage({
-    Key? key,
+    super.key,
     required this.service,
     required this.emailCliente,
-  }) : super(key: key);
+  });
 
   @override
   _CleaningPageState createState() => _CleaningPageState();
@@ -29,7 +28,7 @@ class _CleaningPageState extends State<CleaningPage> {
   final _descricaoController = TextEditingController();
   final _valorController = TextEditingController();
 
-  List<dynamic> _rooms = [
+  final List<dynamic> _rooms = [
     [
       'Sala',
       'https://img.icons8.com/officel/2x/living-room.png',
@@ -52,7 +51,7 @@ class _CleaningPageState extends State<CleaningPage> {
     ]
   ];
 
-  Map<String, int> _selectedQuantities = {
+  final Map<String, int> _selectedQuantities = {
     'Sala': 0,
     'Quartos': 0,
     'Banheiro': 0,
@@ -60,7 +59,7 @@ class _CleaningPageState extends State<CleaningPage> {
     'Escritório': 0,
   };
 
-  List<int> _selectedRooms = [];
+  final List<int> _selectedRooms = [];
 
     DateTime _parseDate(String dateStr) {
   try {
@@ -76,11 +75,11 @@ class _CleaningPageState extends State<CleaningPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 243, 243, 243),
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       backgroundColor: Colors.white,
-      floatingActionButton: _selectedRooms.length > 0
+      floatingActionButton: _selectedRooms.isNotEmpty
           ? FloatingActionButton(
               onPressed: () {
                 final comodos = Comodos(
@@ -117,20 +116,20 @@ class _CleaningPageState extends State<CleaningPage> {
                 );
                 Navigator.of(context).pop();
               },
+              backgroundColor: Colors.blue,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('${_selectedRooms.length}',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  SizedBox(width: 2),
-                  Icon(
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const SizedBox(width: 2),
+                  const Icon(
                     Icons.arrow_forward_ios,
                     size: 18,
                   ),
                 ],
               ),
-              backgroundColor: Colors.blue,
             )
           : null,
       body: NestedScrollView(
@@ -141,7 +140,7 @@ class _CleaningPageState extends State<CleaningPage> {
                   1,
                   Padding(
                     padding:
-                        EdgeInsets.only(top: 12.0, right: 20.0, left: 20.0),
+                        const EdgeInsets.only(top: 12.0, right: 20.0, left: 20.0),
                     child: Text(
                       'Onde precisa ser \nlimpo?',
                       style: TextStyle(
@@ -154,7 +153,7 @@ class _CleaningPageState extends State<CleaningPage> {
             )
           ];
         },
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context)
               .size
               .height, // Defina a altura como a altura da tela
@@ -163,9 +162,9 @@ class _CleaningPageState extends State<CleaningPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap:
                         true, // Use shrinkWrap para evitar a altura ilimitada
                     itemCount: _rooms.length,
@@ -178,11 +177,11 @@ class _CleaningPageState extends State<CleaningPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Data",
                         style: TextStyle(
                           fontSize: 15,
@@ -190,7 +189,7 @@ class _CleaningPageState extends State<CleaningPage> {
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       TextField(
                         controller: _dataController,
                         obscureText: false,
@@ -202,14 +201,12 @@ class _CleaningPageState extends State<CleaningPage> {
                             firstDate: DateTime(2020),
                             lastDate: DateTime(2030),
                           );
-                          if (picked != null) {
-                            _dataController.text =
-                                DateFormat('dd-MM-yyyy').format(picked);
-                          }
-                        },
+                          _dataController.text =
+                              DateFormat('dd-MM-yyyy').format(picked!);
+                                                },
                         decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[400]!),
                             borderRadius: BorderRadius.circular(8.0),
@@ -220,8 +217,8 @@ class _CleaningPageState extends State<CleaningPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      const SizedBox(height: 10),
+                      const Text(
                         "Horário",
                         style: TextStyle(
                           fontSize: 15,
@@ -229,7 +226,7 @@ class _CleaningPageState extends State<CleaningPage> {
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       TextField(
                         controller: _horarioController,
                         obscureText: false,
@@ -245,7 +242,7 @@ class _CleaningPageState extends State<CleaningPage> {
                         },
                         decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[400]!),
                             borderRadius: BorderRadius.circular(8.0),
@@ -256,8 +253,8 @@ class _CleaningPageState extends State<CleaningPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      const SizedBox(height: 10),
+                      const Text(
                         "Descrição",
                         style: TextStyle(
                           fontSize: 15,
@@ -265,14 +262,14 @@ class _CleaningPageState extends State<CleaningPage> {
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       TextField(
                         controller: _descricaoController,
                         obscureText: false,
                         onTap: () async {},
                         decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[400]!),
                             borderRadius: BorderRadius.circular(8.0),
@@ -283,8 +280,8 @@ class _CleaningPageState extends State<CleaningPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      const SizedBox(height: 10),
+                      const Text(
                         "Valor que deseja pagar",
                         style: TextStyle(
                           fontSize: 15,
@@ -292,14 +289,14 @@ class _CleaningPageState extends State<CleaningPage> {
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       TextField(
                         controller: _valorController,
                         obscureText: false,
                         onTap: () async {},
                         decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[400]!),
                             borderRadius: BorderRadius.circular(8.0),
@@ -335,8 +332,8 @@ class _CleaningPageState extends State<CleaningPage> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-        margin: EdgeInsets.only(bottom: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+        margin: const EdgeInsets.only(bottom: 20.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           color: _selectedRooms.contains(index)
@@ -356,30 +353,30 @@ class _CleaningPageState extends State<CleaningPage> {
                       width: 35,
                       height: 35,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                     Text(
                       room[0],
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                          const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 _selectedRooms.contains(index)
                     ? Container(
-                        padding: EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
                           color: Colors.greenAccent.shade100.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.check,
                           color: Colors.green,
                           size: 20,
                         ))
-                    : SizedBox()
+                    : const SizedBox()
               ],
             ),
             //Se o quarto campo da lista for maior que um gera a lista
@@ -388,17 +385,17 @@ class _CleaningPageState extends State<CleaningPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Text(
                           "Quantos ${room[0]}?",
-                          style: TextStyle(fontSize: 15),
+                          style: const TextStyle(fontSize: 15),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
-                        Container(
+                        SizedBox(
                           height: 45,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -412,8 +409,8 @@ class _CleaningPageState extends State<CleaningPage> {
                                   });
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(right: 10.0),
-                                  padding: EdgeInsets.all(10.0),
+                                  margin: const EdgeInsets.only(right: 10.0),
+                                  padding: const EdgeInsets.all(10.0),
                                   width: 50,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -424,7 +421,7 @@ class _CleaningPageState extends State<CleaningPage> {
                                   child: Center(
                                       child: Text(
                                     (qIndex + 1).toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 22, color: Colors.white),
                                   )),
                                 ),
@@ -435,7 +432,7 @@ class _CleaningPageState extends State<CleaningPage> {
                       ],
                     ),
                   )
-                : SizedBox()
+                : const SizedBox()
           ],
         ),
       ),
