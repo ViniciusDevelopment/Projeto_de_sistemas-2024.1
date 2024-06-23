@@ -16,15 +16,16 @@ class UserRepository extends ChangeNotifier {
           .where('TipoUser', isEqualTo: 'Prestador')
           .get();
 
-      Map<String, List<Map<String, dynamic>>> prestadoresServicos = {};
-      Map<String, double> prestadoresRating = {};
+      listaDeUsuarios.clear();
 
-      // Obter avaliações de cada prestador
       for (QueryDocumentSnapshot prestadorDocument
           in prestadoresSnapshot.docs) {
         String email = prestadorDocument['Email'];
+        Map<String, dynamic> data =
+            prestadorDocument.data() as Map<String, dynamic>;
 
-        QuerySnapshot servicosSnapshot = await FirebaseFirestore.instance
+        // Obter serviços do prestador
+        QuerySnapshot servicosSnapshot = await firestore
             .collection('Servicos')
             .where('email', isEqualTo: email)
             .get();
@@ -35,43 +36,23 @@ class UserRepository extends ChangeNotifier {
           servicos.add(servicoDocument.data() as Map<String, dynamic>);
         }
 
-        prestadoresServicos[email] = servicos;
-
-        // Calcular a média das avaliações
-        QuerySnapshot avaliacoesSnapshot = await firestore
-            .collection('AvaliacaoPrestador')
-            .where('email', isEqualTo: email)
-            .get();
-
-        double totalRating = 0;
-        int ratingCount = 0;
-
-        for (QueryDocumentSnapshot avaliacaoDocument
-            in avaliacoesSnapshot.docs) {
-          totalRating += avaliacaoDocument['rating'];
-          ratingCount++;
-        }
-
-        double averageRating = ratingCount > 0 ? totalRating / ratingCount : 0;
-        prestadoresRating[email] = averageRating;
-      }
-
-      listaDeUsuarios.clear();
-
-      for (QueryDocumentSnapshot prestadorDocument
-          in prestadoresSnapshot.docs) {
-        String email = prestadorDocument['Email'];
-        Map<String, dynamic> data =
-            prestadorDocument.data() as Map<String, dynamic>;
-
-        List<Map<String, dynamic>>? servicos = prestadoresServicos[email];
-
         num totalValor = 0;
 
-        if (servicos != null && servicos.isNotEmpty) {
+        if (servicos.isNotEmpty) {
           for (var servico in servicos) {
             totalValor += servico['valor'] as num;
           }
+        }
+
+        // Obter avaliações do prestador
+        DocumentSnapshot avaliacoesSnapshot =
+            await firestore.collection('AvaliacaoPrestador').doc(email).get();
+
+        double averageRating = 0;
+        int ratingCount = 0;
+        if (avaliacoesSnapshot.exists) {
+          averageRating = avaliacoesSnapshot['rating'];
+          ratingCount = avaliacoesSnapshot['ratingCount'];
         }
 
         UserListImageDTO prestador = UserListImageDTO(
@@ -79,15 +60,15 @@ class UserRepository extends ChangeNotifier {
           email: data['Email'],
           tipoUser: data['TipoUser'],
           photoURL: data.containsKey('photoURL') ? data['photoURL'] : null,
-          descricao: servicos != null && servicos.isNotEmpty
+          descricao: servicos.isNotEmpty
               ? servicos.map((servico) => servico['descricao']).join(', ')
               : "Sem descrição disponível",
-          disponibilidade: servicos != null && servicos.isNotEmpty
+          disponibilidade: servicos.isNotEmpty
               ? servicos.map((servico) => servico['disponibilidade']).join(', ')
               : "Sem disponibilidade",
           valor: totalValor,
-          rating: prestadoresRating[email] ??
-              0, // Usando a média de rating calculada
+          rating: averageRating, // Usando a média de rating do BD
+          ratingCount: ratingCount, // Usando o count de rating do BD
         );
 
         // Adicionar o prestador à lista
@@ -124,15 +105,16 @@ class UserRepository extends ChangeNotifier {
           .where('TipoUser', isEqualTo: 'Prestador')
           .get();
 
-      Map<String, List<Map<String, dynamic>>> prestadoresServicos = {};
-      Map<String, double> prestadoresRating = {};
+      listaDeUsuarios2.clear();
 
-      // Obter avaliações de cada prestador
       for (QueryDocumentSnapshot prestadorDocument
           in prestadoresSnapshot.docs) {
         String email = prestadorDocument['Email'];
+        Map<String, dynamic> data =
+            prestadorDocument.data() as Map<String, dynamic>;
 
-        QuerySnapshot servicosSnapshot = await FirebaseFirestore.instance
+        // Obter serviços do prestador
+        QuerySnapshot servicosSnapshot = await firestore
             .collection('Servicos')
             .where('email', isEqualTo: email)
             .where('categoria', isEqualTo: categoria) // Filtro por categoria
@@ -144,41 +126,7 @@ class UserRepository extends ChangeNotifier {
           servicos.add(servicoDocument.data() as Map<String, dynamic>);
         }
 
-        if (servicos.isNotEmpty) {
-          prestadoresServicos[email] = servicos;
-
-          // Calcular a média das avaliações
-          QuerySnapshot avaliacoesSnapshot = await firestore
-              .collection('AvaliacaoPrestador')
-              .where('email', isEqualTo: email)
-              .get();
-
-          double totalRating = 0;
-          int ratingCount = 0;
-
-          for (QueryDocumentSnapshot avaliacaoDocument
-              in avaliacoesSnapshot.docs) {
-            totalRating += avaliacaoDocument['rating'];
-            ratingCount++;
-          }
-
-          double averageRating =
-              ratingCount > 0 ? totalRating / ratingCount : 0;
-          prestadoresRating[email] = averageRating;
-        }
-      }
-
-      listaDeUsuarios2.clear();
-
-      for (QueryDocumentSnapshot prestadorDocument
-          in prestadoresSnapshot.docs) {
-        String email = prestadorDocument['Email'];
-        Map<String, dynamic> data =
-            prestadorDocument.data() as Map<String, dynamic>;
-
-        List<Map<String, dynamic>>? servicos = prestadoresServicos[email];
-
-        if (servicos == null || servicos.isEmpty) {
+        if (servicos.isEmpty) {
           continue; // Pular prestadores que não têm serviços na categoria
         }
 
@@ -186,6 +134,17 @@ class UserRepository extends ChangeNotifier {
 
         for (var servico in servicos) {
           totalValor += servico['valor'] as num;
+        }
+
+        // Obter avaliações do prestador
+        DocumentSnapshot avaliacoesSnapshot =
+            await firestore.collection('AvaliacaoPrestador').doc(email).get();
+
+        double averageRating = 0;
+        int ratingCount = 0;
+        if (avaliacoesSnapshot.exists) {
+          averageRating = avaliacoesSnapshot['rating'];
+          ratingCount = avaliacoesSnapshot['ratingCount'];
         }
 
         UserListImageDTO prestador = UserListImageDTO(
@@ -197,8 +156,8 @@ class UserRepository extends ChangeNotifier {
           disponibilidade:
               servicos.map((servico) => servico['disponibilidade']).join(', '),
           valor: totalValor,
-          rating: prestadoresRating[email] ??
-              0, // Usando a média de rating calculada
+          rating: averageRating, // Usando a média de rating do BD
+          ratingCount: ratingCount, // Usando o count de rating do BD
         );
 
         // Adicionar o prestador à lista

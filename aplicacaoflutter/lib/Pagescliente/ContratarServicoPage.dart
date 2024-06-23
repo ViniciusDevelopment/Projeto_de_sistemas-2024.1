@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // Import necessário para FilteringTextInputFormatter
 import 'package:intl/intl.dart';
 // Import corrigido para minúsculas
@@ -82,6 +83,15 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
 
   void _contratarServico(SolicitarServico solicitarServico,
       NotificationService notificationService) async {
+    if (solicitarServico.data == null || solicitarServico.hora == null) {
+      Get.snackbar(
+        'Erro',
+        'Preencha todos os campos',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
     try {
       await FirebaseFirestore.instance
           .collection('SolicitacoesServico')
@@ -163,7 +173,7 @@ class _ContratarServicoPageState extends State<ContratarServicoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.white),
         title: const Align(
           alignment: AlignmentDirectional(0, 0),
           child: Text(
