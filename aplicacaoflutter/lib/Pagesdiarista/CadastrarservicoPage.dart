@@ -22,7 +22,12 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
   final TextEditingController _disponibilidadeController =
       TextEditingController();
   String? _categoriaSelecionada;
-  final List<String> _categorias = ['Limpeza', 'Alimentação', 'Cuidados Pessoais', 'Jardinagem'];
+  final List<String> _categorias = [
+    'Limpeza',
+    'Alimentação',
+    'Cuidados Pessoais',
+    'Jardinagem'
+  ];
 
   Future<void> _cadastrarServico() async {
     String descricao = _descricaoController.text.trim();

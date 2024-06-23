@@ -13,7 +13,6 @@ class CategoriaPage extends StatefulWidget {
 }
 
 class _CategoriaPageState extends State<CategoriaPage> {
-
     @override
   void initState() {
     super.initState();
