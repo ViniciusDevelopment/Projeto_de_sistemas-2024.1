@@ -206,10 +206,10 @@ class _HomePageContentState extends State<HomePageContent> {
   @override
   Widget build(BuildContext context) {
     final List<MenuItem> menuItems = [
-      MenuItem(Iconsax.location, 'Limpeza'),
-      MenuItem(Iconsax.home, 'Alimentação'),
-      MenuItem(Iconsax.wallet, 'Cuidados Pessoais'),
-      MenuItem(Iconsax.user, 'Jardinagem'),
+      MenuItem(Iconsax.broom, 'Limpeza'),
+      MenuItem(Iconsax.cup, 'Alimentação'),
+      MenuItem(Iconsax.health, 'Cuidados Pessoais'),
+      MenuItem(Iconsax.tree, 'Jardinagem'),
       // Adicione mais itens conforme necessário
     ];
 
