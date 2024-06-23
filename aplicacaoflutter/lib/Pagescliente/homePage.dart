@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
+import 'package:servicocerto/Components/ratingStarWidget.dart';
 import 'package:servicocerto/Controller/authCheck.dart';
 import 'package:servicocerto/DTO/Request/MenuItem.dart';
 import 'package:servicocerto/PagesCommon/ChatListPage.dart';
@@ -446,17 +447,18 @@ class _HomePageContentState extends State<HomePageContent> {
                               const SizedBox(width: 5),
                               Row(children: [
                                 Text(
-                                  '${user.rating}',
+                                  '${user.rating?.toStringAsFixed(1)}',
                                   style: const TextStyle(
                                     color: Colors
                                         .amber, // Cor amarela para o rating
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                  size: 20,
+                                RatingBar(
+                                  rating: user.rating!,
+                                  ratingCount: user.ratingCount,
+                                  size:
+                                      16, // Ajusta o tamanho das estrelas conforme necessário
                                 ),
                               ])
                             ],
