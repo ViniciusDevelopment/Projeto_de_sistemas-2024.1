@@ -16,7 +16,7 @@ import 'package:servicocerto/Pagescliente/Notificacoes.dart'; // Importação da
 
 class HomePage extends StatefulWidget {
   final Map<String, dynamic> userData;
-  const HomePage({Key? key, required this.userData}) : super(key: key);
+  const HomePage({super.key, required this.userData});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -37,9 +37,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _screens = [
-      CalendarPage(),
+      const CalendarPage(),
       HomePageContent(userData: widget.userData),
-      RelatorioPage(),
+      const RelatorioPage(),
       ProfilePage(userData: widget.userData),
     ];
   }
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 CalendarPage(key: UniqueKey()),
                 HomePageContent(userData: widget.userData),
-                ChatListPage(),
+                const ChatListPage(),
                 ProfilePage(userData: widget.userData),
               ],
             ),
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
             backgroundColor: Colors.white,
-            items: <BottomNavigationBarItem>[
+            items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Padding(
                   padding: EdgeInsets.only(
@@ -140,11 +140,11 @@ class _HomePageState extends State<HomePage> {
             showSelectedLabels: true, // Mostrar rótulos dos itens selecionados
             showUnselectedLabels:
                 true, // Mostrar rótulos dos itens não selecionados
-            selectedLabelStyle: TextStyle(
+            selectedLabelStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily:
                     'Roboto'), // Estilo do rótulo dos itens selecionados
-            unselectedLabelStyle: TextStyle(
+            unselectedLabelStyle: const TextStyle(
                 fontWeight: FontWeight.normal,
                 fontFamily:
                     'Roboto'), // Estilo do rótulo dos itens não selecionados
@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
 class HomePageContent extends StatefulWidget {
   final Map<String, dynamic> userData;
 
-  const HomePageContent({Key? key, required this.userData}) : super(key: key);
+  const HomePageContent({super.key, required this.userData});
 
   @override
   State<HomePageContent> createState() => _HomePageContentState();
@@ -213,7 +213,7 @@ class _HomePageContentState extends State<HomePageContent> {
       // Adicione mais itens conforme necessário
     ];
 
-    void _onItemTapped(BuildContext context, String name) {
+    void onItemTapped(BuildContext context, String name) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => CategoriaPage(nome: name)),
@@ -252,20 +252,20 @@ class _HomePageContentState extends State<HomePageContent> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Olá, João Diarista",
+                                const Text("Olá, João Diarista",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold)),
                                 IconButton(
-                                  icon: Icon(Icons.notifications,
+                                  icon: const Icon(Icons.notifications,
                                       color: Colors.white),
                                   onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              NotificacoesPage()),
+                                              const NotificacoesPage()),
                                     );
                                   },
                                 ),
@@ -301,7 +301,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          PesquisapageWidget()),
+                                          const PesquisapageWidget()),
                                 );
                               },
                             ),
@@ -311,17 +311,17 @@ class _HomePageContentState extends State<HomePageContent> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 20),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 16.0),
+                                const SizedBox(height: 20),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 16.0),
                                   child: Text("Categorias",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold)),
                                 ),
-                                SizedBox(height: 10),
-                                Container(
+                                const SizedBox(height: 10),
+                                SizedBox(
                                   height: MediaQuery.of(context).size.width *
                                       0.20, // Defina uma altura suficiente para o ListView.builder
                                   child: ListView.builder(
@@ -334,7 +334,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                       final item = menuItems[index];
                                       return GestureDetector(
                                         onTap: () =>
-                                            _onItemTapped(context, item.name),
+                                            onItemTapped(context, item.name),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10.0),
@@ -365,7 +365,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                               const SizedBox(height: 10),
                                               Text(
                                                 item.name,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors
                                                       .white, //Deve ser branco sempre
                                                   fontSize: 12,
@@ -443,17 +443,17 @@ class _HomePageContentState extends State<HomePageContent> {
                                   ),
                                 ],
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Row(children: [
                                 Text(
                                   '${user.rating}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors
                                         .amber, // Cor amarela para o rating
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                   size: 20,

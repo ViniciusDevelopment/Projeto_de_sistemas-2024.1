@@ -3,22 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:servicocerto/Controller/ServiceController.dart';
+import 'package:servicocerto/Controller/ratingController.dart';
 import 'package:servicocerto/Models/ratingService.dart';
-import 'package:servicocerto/PagesCommon/ProfilePage.dart';
 import 'package:servicocerto/Pagescliente/ServicosContratadosCliente.dart';
 
 class Pix extends StatefulWidget {
   final DocumentSnapshot<Object?> service;
 
-  const Pix(this.service, {Key? key}) : super(key: key);
+  const Pix(this.service, {super.key});
 
   @override
   _PixState createState() => _PixState();
 }
 
 class _PixState extends State<Pix> {
-  TextEditingController _commentController = TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
   double _rating = 3.0;
 
   void _confirmarConclusaoServico(String serviceId, String emailPrestador) {
@@ -26,17 +25,16 @@ class _PixState extends State<Pix> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Confirmação"),
+          title: const Text("Confirmação"),
           actions: [
             TextButton(
-              child: Text("Cancelar"),
               style: TextButton.styleFrom(foregroundColor: Colors.red),
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: const Text("Cancelar"),
             ),
             TextButton(
-              child: Text("Confirmar"),
               style: TextButton.styleFrom(foregroundColor: Colors.green),
               onPressed: () async {
                 await FirebaseFirestore.instance
@@ -50,6 +48,7 @@ class _PixState extends State<Pix> {
                   // Aqui você pode fazer algo após a confirmação
                 });
               },
+              child: const Text("Confirmar"),
             ),
           ],
         );
@@ -62,15 +61,15 @@ class _PixState extends State<Pix> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Avalie o Serviço"),
+          title: const Text("Avalie o Serviço"),
           content: buildRatingPage(context, emailPrestador, serviceId),
           actions: [
             TextButton(
-              child: Text("Cancelar"),
               style: TextButton.styleFrom(foregroundColor: Colors.red),
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: const Text("Cancelar"),
             ),
           ],
         );
@@ -79,7 +78,7 @@ class _PixState extends State<Pix> {
   }
 
   Widget buildRatingPage(
-    BuildContext context, String emailPrestador, String serviceId) {
+      BuildContext context, String emailPrestador, String serviceId) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -145,18 +144,18 @@ class _PixState extends State<Pix> {
       await RatingServiceController.instance.rateService(service);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Avaliação enviada com sucesso!'),
+        const SnackBar(
+          content: Text('Avaliação enviada com sucesso!'),
         ),
       );
 
-     Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => ServicosContradosCliente(),
-      ),
-      (route) => false, // Remove todas as rotas na pilha
-    );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const ServicosContradosCliente(),
+        ),
+        (route) => false, // Remove todas as rotas na pilha
+      );
     } catch (error) {
       print('Erro ao enviar avaliação: $error');
     }
@@ -207,7 +206,7 @@ class _PixState extends State<Pix> {
                 fillColor: Colors.blue,
                 labelText: 'Endereço Pix',
                 hintText: '000012232-servicocerto-2334',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.copy),
                   onPressed: () {
@@ -225,7 +224,8 @@ class _PixState extends State<Pix> {
           const SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
-              _confirmarConclusaoServico(widget.service.id, widget.service['emailPrestador']);
+              _confirmarConclusaoServico(
+                  widget.service.id, widget.service['emailPrestador']);
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,

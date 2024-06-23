@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddPhotoPage extends StatefulWidget {
+  const AddPhotoPage({super.key});
+
   @override
   State<AddPhotoPage> createState() => _AddPhotoPageState();
 }
@@ -53,7 +55,7 @@ class _AddPhotoPageState extends State<AddPhotoPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Foto de perfil atualizada com sucesso!')),
+        const SnackBar(content: Text('Foto de perfil atualizada com sucesso!')),
       );
     } catch (e) {
       setState(() {
@@ -70,7 +72,7 @@ class _AddPhotoPageState extends State<AddPhotoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adicionar Foto de Perfil'),
+        title: const Text('Adicionar Foto de Perfil'),
       ),
       body: Center(
         child: Column(
@@ -78,24 +80,24 @@ class _AddPhotoPageState extends State<AddPhotoPage> {
           children: [
             _image != null
                 ? Image.file(_image!, height: 200, width: 200)
-                : Text(
+                : const Text(
                     'Adicione sua foto de perfil',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: _pickImage,
-              child: Text('Escolher Imagem'),
+              child: const Text('Escolher Imagem'),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             _isUploading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : ElevatedButton(
                     onPressed: _uploadImage,
-                    child: Text('Fazer Upload'),
+                    child: const Text('Fazer Upload'),
                   ),
           ],
         ),

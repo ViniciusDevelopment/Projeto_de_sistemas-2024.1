@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 // import 'package:pie_chart/pie_chart.dart';
 // import 'package:graphic/graphic.dart';
 
@@ -119,7 +118,7 @@ class _RelatorioPageState extends State<RelatorioPage> {
     } else if (periodoSelecionado == 'Semana') {
       DateTime inicioSemana =
           dataHoje.subtract(Duration(days: dataHoje.weekday - 1));
-      DateTime fimSemana = inicioSemana.add(Duration(days: 6));
+      DateTime fimSemana = inicioSemana.add(const Duration(days: 6));
       Timestamp inicioTimestamp = Timestamp.fromDate(inicioSemana);
       Timestamp fimTimestamp = Timestamp.fromDate(fimSemana);
 
@@ -324,7 +323,7 @@ class _RelatorioPageState extends State<RelatorioPage> {
     } else if (periodoSelecionado == 'Semana') {
       DateTime inicioSemana =
           dataHoje.subtract(Duration(days: dataHoje.weekday - 1));
-      DateTime fimSemana = inicioSemana.add(Duration(days: 6));
+      DateTime fimSemana = inicioSemana.add(const Duration(days: 6));
       Timestamp inicioTimestamp = Timestamp.fromDate(inicioSemana);
       Timestamp fimTimestamp = Timestamp.fromDate(fimSemana);
 
@@ -492,19 +491,19 @@ class _RelatorioPageState extends State<RelatorioPage> {
                 buildBadge('Ano'),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Número de Solicitações'),
+                const Text('Número de Solicitações'),
                 buildBarChart(servicosgrafico),
-                SizedBox(height: 20),
-                Text('Serviços Concluídos'),
+                const SizedBox(height: 20),
+                const Text('Serviços Concluídos'),
                 buildBarChart(servicosgrafico2),
-                SizedBox(height: 20),
-                Text('Total Gasto'),
+                const SizedBox(height: 20),
+                const Text('Total Gasto'),
                 buildBarChart(servicosgrafico3),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ],
@@ -547,7 +546,7 @@ class _RelatorioPageState extends State<RelatorioPage> {
                   return Text(
                     value.toStringAsFixed(
                         1), // Formato para valores com uma casa decimal
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   );
@@ -563,15 +562,15 @@ class _RelatorioPageState extends State<RelatorioPage> {
                       return Text(relatorio.periodo);
                     }
                   }
-                  return Text('');
+                  return const Text('');
                 },
               ),
             ),
           ),
-          gridData: FlGridData(show: true),
+          gridData: const FlGridData(show: true),
           borderData: FlBorderData(
             show: true,
-            border: Border(
+            border: const Border(
               left: BorderSide(width: 1),
               bottom: BorderSide(width: 1),
             ),
@@ -674,7 +673,7 @@ class _RelatorioPageState extends State<RelatorioPage> {
           ),
           child: Text(
             periodo,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),

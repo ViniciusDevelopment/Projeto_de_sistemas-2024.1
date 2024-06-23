@@ -24,7 +24,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
+            return const AlertDialog(
               content: Text(
                   'Link de redefinição de senha enviado! Cheque o seu email'),
             );
@@ -44,14 +44,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
       body: Padding(
         // Adicionando Padding aqui
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             horizontal: 20.0), // Define a margem horizontal
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Column(
@@ -61,9 +61,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   label: "Digite o seu email para redefinir a sua senha",
                   controller: _emailController),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Container(
-                  padding: EdgeInsets.only(top: 3, left: 3),
+                  padding: const EdgeInsets.only(top: 3, left: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(color: Colors.black),
@@ -72,12 +72,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       minWidth: double.infinity,
                       height: 60,
                       onPressed: passwordReset,
-                      color: Color(0xff0095FF),
+                      color: const Color(0xff0095FF),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Text(
+                      child: const Text(
                         "Enviar email",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -103,17 +103,17 @@ Widget inputFile(
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[400]!),
           ),
@@ -122,7 +122,7 @@ Widget inputFile(
           ),
         ),
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
     ],
   );
 }

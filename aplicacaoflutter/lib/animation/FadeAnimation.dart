@@ -5,14 +5,14 @@ class FadeAnimation extends StatelessWidget {
   final double delay;
   final Widget child;
 
-  FadeAnimation(this.delay, this.child);
+  const FadeAnimation(this.delay, this.child, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final tween = MovieTween()
       ..scene(
               begin: Duration.zero,
-              duration: Duration(milliseconds: 500))
+              duration: const Duration(milliseconds: 500))
           .tween('opacity', Tween(begin: 0.0, end: 1.0))
           .tween('translateY', Tween(begin: -30.0, end: 0.0),
               curve: Curves.easeOut);

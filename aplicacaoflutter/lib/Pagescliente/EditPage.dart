@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class EditPage extends StatefulWidget {
   final Map<String, dynamic> userData;
 
-  const EditPage({Key? key, required this.userData}) : super(key: key);
+  const EditPage({super.key, required this.userData});
 
   @override
   State<EditPage> createState() => _EditPageState();
@@ -51,7 +51,7 @@ class _EditPageState extends State<EditPage> {
           'Endereço': _addressController.text,
         });
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Informações atualizadas com sucesso!')),
+          const SnackBar(content: Text('Informações atualizadas com sucesso!')),
         );
         Navigator.pop(context);
       } catch (e) {
@@ -66,22 +66,22 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edição de Informação'),
+        title: const Text('Edição de Informação'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(32.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 1.0,
                     ),
@@ -95,13 +95,13 @@ class _EditPageState extends State<EditPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 1.0,
                     ),
@@ -115,13 +115,13 @@ class _EditPageState extends State<EditPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               TextFormField(
                 controller: _phoneController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 1.0,
                     ),
@@ -135,13 +135,13 @@ class _EditPageState extends State<EditPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               TextFormField(
                 controller: _addressController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.black,
                       width: 1.0,
                     ),
@@ -155,7 +155,7 @@ class _EditPageState extends State<EditPage> {
                   return null;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                   height: 24), // Ajuste o valor de acordo com o espaço desejado
               SizedBox(
                 width: double.infinity,
@@ -180,7 +180,7 @@ class _EditPageState extends State<EditPage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                   height: 12), // Ajuste o valor de acordo com o espaço desejado
               SizedBox(
                 width: double.infinity,

@@ -5,11 +5,12 @@ import 'package:servicocerto/Controller/UserController.dart';
 import 'package:servicocerto/Models/User.dart';
 import 'package:servicocerto/PagesCommon/loginPage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:brasil_fields/brasil_fields.dart'; // Biblioteca para validação de CPF
 
 class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
   @override
   _SignupPageState createState() => _SignupPageState();
 }
@@ -100,12 +101,12 @@ class _SignupPageState extends State<SignupPage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           width: double.infinity,
           child: Form(
             key: _formKey,
@@ -114,14 +115,14 @@ class _SignupPageState extends State<SignupPage> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Cadastrar",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       "Crie sua conta gratuitamente",
                       style: TextStyle(fontSize: 15, color: Colors.grey[700]),
@@ -213,7 +214,7 @@ class _SignupPageState extends State<SignupPage> {
                           _selectedTipoUser = value;
                         });
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Tipo de Usuário',
                         border: OutlineInputBorder(),
                       ),
@@ -224,7 +225,7 @@ class _SignupPageState extends State<SignupPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     GestureDetector(
                       onTap: _pickImage,
                       child: CircleAvatar(
@@ -242,7 +243,7 @@ class _SignupPageState extends State<SignupPage> {
                             : null,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       _profileImage == null
                           ? "Adicionar Foto de Perfil"
@@ -252,7 +253,7 @@ class _SignupPageState extends State<SignupPage> {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 3, left: 3),
+                  padding: const EdgeInsets.only(top: 3, left: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(color: Colors.black),
@@ -261,12 +262,12 @@ class _SignupPageState extends State<SignupPage> {
                     minWidth: double.infinity,
                     height: 50, // Reduzido de 60 para 50
                     onPressed: () => registerUser(context),
-                    color: Color(0xff0095FF),
+                    color: const Color(0xff0095FF),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Cadastrar",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -279,7 +280,7 @@ class _SignupPageState extends State<SignupPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Possui uma conta?"),
+                    const Text("Possui uma conta?"),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -287,7 +288,7 @@ class _SignupPageState extends State<SignupPage> {
                           MaterialPageRoute(builder: (context) => LoginPage()),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         "Login",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -317,17 +318,17 @@ Widget inputFile(
     children: <Widget>[
       Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       TextFormField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[400]!),
             borderRadius: BorderRadius.circular(8.0),
@@ -339,7 +340,7 @@ Widget inputFile(
         ),
         validator: validator,
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
     ],
   );
 }
