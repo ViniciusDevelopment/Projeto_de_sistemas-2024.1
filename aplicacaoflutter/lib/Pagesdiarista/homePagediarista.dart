@@ -117,10 +117,10 @@ class _HomePagediaristaState extends State<HomePagediarista> {
             unselectedFontSize: 14,
             showSelectedLabels: true,
             showUnselectedLabels: true,
-            selectedLabelStyle:
-                const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
-            unselectedLabelStyle:
-                const TextStyle(fontWeight: FontWeight.normal, fontFamily: 'Roboto'),
+            selectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.bold, fontFamily: 'Roboto'),
+            unselectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.normal, fontFamily: 'Roboto'),
           ),
         ],
       ),
@@ -332,8 +332,9 @@ class _HomePageContentState extends State<HomePageContent> {
                                                 );
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: const Color.fromARGB(
-                                                    255, 174, 174, 174),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 174, 174, 174),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(5),
@@ -392,9 +393,10 @@ class _HomePageContentState extends State<HomePageContent> {
                                                         'Serviço aceito com sucesso!',
                                                     backgroundColor:
                                                         Colors.green,
-                                                    duration:
-                                                        const Duration(seconds: 3),
-                                                    margin: const EdgeInsets.all(8),
+                                                    duration: const Duration(
+                                                        seconds: 3),
+                                                    margin:
+                                                        const EdgeInsets.all(8),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
@@ -470,9 +472,10 @@ class _HomePageContentState extends State<HomePageContent> {
                                                     message:
                                                         'Serviço recusado!',
                                                     backgroundColor: Colors.red,
-                                                    duration:
-                                                        const Duration(seconds: 3),
-                                                    margin: const EdgeInsets.all(8),
+                                                    duration: const Duration(
+                                                        seconds: 3),
+                                                    margin:
+                                                        const EdgeInsets.all(8),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:servicocerto/Pagescliente/Pagamento.dart';
 import 'package:servicocerto/index.dart';
+import 'package:intl/intl.dart';
 
 class ServicosContradosCliente extends StatefulWidget {
   const ServicosContradosCliente({super.key});
@@ -131,7 +132,8 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (snapshot.data!.isEmpty) {
-                    return const Center(child: Text('Nenhum serviço encontrado'));
+                    return const Center(
+                        child: Text('Nenhum serviço encontrado'));
                   } else {
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
@@ -150,7 +152,8 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                                 Text('Descrição: ${service['descricao']}'),
                                 Text('Prestador: ${service['emailPrestador']}'),
                                 Text(
-                                    "Data: ${service['data']}     Horário: ${service['hora']}"),
+                                  'Data: ${DateFormat('dd/MM/yyyy').format((service['data'] as Timestamp).toDate())}     Horário: ${service['hora']}',
+                                ),
                                 Text(
                                     'Valor Proposto: R\$${service['valorcliente']}'),
                                 if (_selectedIndex == 0)
@@ -178,7 +181,8 @@ class _ServicosContradosClienteState extends State<ServicosContradosCliente> {
                                               BorderRadius.circular(8.0),
                                         ),
                                       ),
-                                      child: const Text("Serviço foi concluído"),
+                                      child:
+                                          const Text("Serviço foi concluído"),
                                     ),
                                   ),
                               ],

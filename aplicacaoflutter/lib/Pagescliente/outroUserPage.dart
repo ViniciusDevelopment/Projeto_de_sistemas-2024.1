@@ -193,7 +193,7 @@ class _OutroUserPageState extends State<OutroUserPage> {
                                   fit: BoxFit.cover,
                                 )
                               : Image.network(
-                                  'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg',
+                                  'https://firebasestorage.googleapis.com/v0/b/servicocerto-2dbd7.appspot.com/o/user_profiles%2FLd665bCE4mUm9iByxcfiWoj59Vp2.jpg?alt=media&token=66283b00-cd30-4052-8c98-66de951a136f',
                                   fit: BoxFit.cover,
                                 ),
                         ),
