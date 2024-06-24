@@ -84,53 +84,55 @@ class _DebitoState extends State<Debito> {
 
   Widget buildRatingPage(
       BuildContext context, String emailPrestador, String serviceId) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'AVALIE O SERVIÇO! (OPCIONAL)',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: RatingBar.builder(
-            initialRating: _rating,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'AVALIE O SERVIÇO! (OPCIONAL)',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          Center(
+            child: RatingBar.builder(
+              initialRating: _rating,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                setState(() {
+                  _rating = rating;
+                });
+              },
             ),
-            onRatingUpdate: (rating) {
-              setState(() {
-                _rating = rating;
-              });
-            },
           ),
-        ),
-        const SizedBox(height: 20),
-        TextField(
-          controller: _commentController,
-          decoration: const InputDecoration(
-            labelText: 'Deixe um comentário',
-            border: OutlineInputBorder(),
+          const SizedBox(height: 20),
+          TextField(
+            controller: _commentController,
+            decoration: const InputDecoration(
+              labelText: 'Deixe um comentário',
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 3,
           ),
-          maxLines: 3,
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              _sendReview();
-              Navigator.of(context).pop();
-            },
-            child: const Text('Enviar Avaliação'),
+          const SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                _sendReview();
+                Navigator.of(context).pop();
+              },
+              child: const Text('Enviar Avaliação'),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

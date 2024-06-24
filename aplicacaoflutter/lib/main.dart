@@ -12,13 +12,20 @@ import 'index.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    print('Erro ao inicializar o Firebase: $e');
+  }
+
   Get.put(ServiceController());
   Get.put(RatingServiceController());
-  Get.put(UserController()); // Inicializar o UserController
+  Get.put(UserController());
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   runApp(
     MultiProvider(
       providers: providers,
@@ -36,32 +43,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color secondary = Colors.green; // Cor secundária
-    Color onSecondary = Colors.white; // Cor do texto sobre a cor secundária
-    Color error = Colors.red; // Cor para indicar erros
-    Color onError = Colors.white; // Cor do texto sobre a cor de erro
-    Color surface = Colors.white; // Cor da superfície
-    Color onSurface = Colors.black; // Cor do texto sobre a superfície
-
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: Colors.blue,
-          onPrimary: Colors.white,
-          secondary: secondary,
-          onSecondary: onSecondary,
-          error: error,
-          onError: onError,
-          surface: surface,
-          onSurface: onSurface,
-        ),
-        primarySwatch: Colors.blue,
-        brightness: Brightness.light, // Definindo tema claro
-        scaffoldBackgroundColor: Colors.white, // Fundo branco
-      ),
-      home: const IndexPage(),
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme(
+                brightness: Brightness.light,
+                primary: Colors.blue,
+                onPrimary: Colors.white,
+                secondary: Colors.green,
+                onSecondary: Colors.white,
+                error: Colors.red,
+                onError: Colors.white,
+                surface: Colors.white,
+                onSurface: Colors.black,
+              ),
+              primarySwatch: Colors.blue,
+              brightness: Brightness.light,
+              scaffoldBackgroundColor: Colors.white,
+            ),
+            home: const IndexPage(),
+          );
+        }
+        return const CircularProgressIndicator(); // Indicador de carregamento enquanto Firebase é inicializado
+      },
     );
   }
 }

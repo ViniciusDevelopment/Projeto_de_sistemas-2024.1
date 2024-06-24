@@ -41,6 +41,9 @@ class _SignupPageState extends State<SignupPage> {
         String? photoURL;
         if (_profileImage != null) {
           photoURL = await UserController.instance.uploadImage(_profileImage!);
+        } else {
+          photoURL =
+              'https://firebasestorage.googleapis.com/v0/b/servicocerto-2dbd7.appspot.com/o/user_profiles%2FLd665bCE4mUm9iByxcfiWoj59Vp2.jpg?alt=media&token=66283b00-cd30-4052-8c98-66de951a136f';
         }
 
         // Criar usuário no seu sistema
@@ -328,7 +331,8 @@ Widget inputFile(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[400]!),
             borderRadius: BorderRadius.circular(8.0),
