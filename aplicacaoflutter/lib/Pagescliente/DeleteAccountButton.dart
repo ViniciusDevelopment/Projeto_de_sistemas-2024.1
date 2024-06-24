@@ -15,9 +15,9 @@ class _DeleteAccountButtonState extends State<DeleteAccountButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all<Color>(
+        backgroundColor: MaterialStateProperty.all<Color>(
             Colors.red), // Cor de fundo vermelha
-        foregroundColor: WidgetStateProperty.all<Color>(
+        foregroundColor: MaterialStateProperty.all<Color>(
             Colors.white), // Cor do texto branco
       ),
       onPressed: () {

@@ -205,6 +205,7 @@ class _HomePageContentState extends State<HomePageContent> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 30),
         Container(
           padding:
               const EdgeInsets.only(top: 15, bottom: 15, left: 80, right: 80),
@@ -221,7 +222,7 @@ class _HomePageContentState extends State<HomePageContent> {
               hintText: 'Buscar cliente',
               prefixIcon: Icon(Icons.search),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
             ),
             onChanged: (query) {
               setState(() {

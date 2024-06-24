@@ -204,6 +204,18 @@ class _HomePageContentState extends State<HomePageContent> {
     context.read<UserRepository>().fetchUsers();
   }
 
+  String _getFirstTwoNames(String fullName) {
+    List<String> names = fullName.split(' ');
+    if (names.length >= 2) {
+      return '${names[0]} ${names[1]}';
+    } else {
+      return fullName;
+    }
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     final List<MenuItem> menuItems = [
@@ -253,8 +265,8 @@ class _HomePageContentState extends State<HomePageContent> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text("Olá, João Diarista",
-                                    style: TextStyle(
+                                 Text("Olá, ${_getFirstTwoNames(widget.userData['Name'])}.",
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold)),

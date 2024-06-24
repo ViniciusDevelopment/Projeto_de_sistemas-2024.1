@@ -15,8 +15,8 @@ class _EditButtonState extends State<EditButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
-        foregroundColor: WidgetStateProperty.all<Color>(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+        foregroundColor: MaterialStateProperty.all<Color>(
             Colors.white), // Cor do texto branco
       ),
       onPressed: () {
