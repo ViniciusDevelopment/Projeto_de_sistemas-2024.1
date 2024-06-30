@@ -1,4 +1,4 @@
-import 'package:servicocerto/PagesCommon/WelcomePage.dart';
+import 'package:servicocerto/PagesCommon/welcomePage.dart';
 import 'package:servicocerto/Pagesdiarista/homePagediarista.dart';
 import 'package:servicocerto/Pagescliente/homePage.dart';
 import 'package:flutter/material.dart';
