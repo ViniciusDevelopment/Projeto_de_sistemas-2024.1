@@ -213,9 +213,6 @@ class _HomePageContentState extends State<HomePageContent> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     final List<MenuItem> menuItems = [
@@ -265,7 +262,8 @@ class _HomePageContentState extends State<HomePageContent> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                 Text("Olá, ${_getFirstTwoNames(widget.userData['Name'])}.",
+                                Text(
+                                    "Olá, ${_getFirstTwoNames(widget.userData['Name'])}",
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 30,

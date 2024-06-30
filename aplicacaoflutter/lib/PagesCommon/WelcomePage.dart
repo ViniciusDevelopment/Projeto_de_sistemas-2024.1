@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:servicocerto/PagesCommon/loginPage.dart';
 import 'registerPage.dart';
@@ -28,33 +27,30 @@ class WelcomePage extends StatelessWidget {
                   const Text(
                     "Bem Vindo",
                     style: TextStyle(
+                      fontFamily: 'Helvetica',
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
-
                     ),
-                    
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Text("A plataforma ServiçoCerto busca conectar diaristas a clientes! ",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 15,
-
-                  ),)
+                  Text(
+                    "A plataforma Serviço Certo busca conectar prestadores de serviço a clientes! ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Helvetica',
+                      color: Colors.grey[700],
+                      fontSize: 15,
+                    ),
+                  )
                 ],
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 3,
                 decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/welcome.png")
-                  )
-                ),
+                    image: DecorationImage(image: AssetImage("logo.png"))),
               ),
-
               Column(
                 children: <Widget>[
                   // the login button
@@ -62,54 +58,44 @@ class WelcomePage extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
-
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                     // defining the shape
                     shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                        color: Colors.black
-                      ),
-                      borderRadius: BorderRadius.circular(50)
-                    ),
+                        side: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(50)),
                     child: const Text(
                       "Entrar",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
-                      ),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
                   // creating the signup button
-                  const SizedBox(height:20),
+                  const SizedBox(height: 20),
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: (){
-                     Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const SignupPage()),
-                          );
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignupPage()),
+                      );
                     },
                     color: const Color(0xff0095FF),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)
-                    ),
+                        borderRadius: BorderRadius.circular(50)),
                     child: const Text(
                       "Cadastre-se",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
-                      ),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18),
                     ),
                   )
-
                 ],
               )
-
-
-
             ],
           ),
         ),
