@@ -219,8 +219,8 @@ class _HomePageContentState extends State<HomePageContent> {
       MenuItem(Iconsax.broom, 'Limpeza'),
       MenuItem(Iconsax.cup, 'Alimentação'),
       MenuItem(Iconsax.health, 'Cuidados Pessoais'),
-      MenuItem(Iconsax.tree, 'Jardinagem'),
-      // Adicione mais itens conforme necessário
+      // Adi
+      //]cione mais itens conforme necessário
     ];
 
     void onItemTapped(BuildContext context, String name) {
@@ -418,15 +418,15 @@ class _HomePageContentState extends State<HomePageContent> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Consumer<UserRepository>(
               builder: (context, userRepository, child) {
-                if (userRepository.listaDeUsuarios.isEmpty) {
+                if (userRepository.listaDeUsuarios2.isEmpty) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
                   return ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: userRepository.listaDeUsuarios.length,
+                    itemCount: userRepository.listaDeUsuarios2.length,
                     itemBuilder: (context, index) {
-                      final user = userRepository.listaDeUsuarios[index];
+                      final user = userRepository.listaDeUsuarios2[index];
                       return Card(
                         elevation: 0,
                         color: Colors.white,

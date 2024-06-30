@@ -5,6 +5,7 @@ import 'package:servicocerto/DTO/Response/UserListImageDTO.dart';
 class UserRepository extends ChangeNotifier {
   List<UserListImageDTO> listaDeUsuarios = [];
   List<UserListImageDTO> listaDeUsuarios2 = [];
+
   UserRepository();
 
   Future<List<UserListImageDTO>> fetchUsers() async {
@@ -27,7 +28,7 @@ class UserRepository extends ChangeNotifier {
         }
       }
 
-      listaDeUsuarios.sort(_compareByRating);
+      listaDeUsuarios.sort(_compareByRating); // Ordena a lista por avaliação
       notifyListeners();
       return listaDeUsuarios;
     } catch (e) {
@@ -57,11 +58,11 @@ class UserRepository extends ChangeNotifier {
         }
       }
 
-      listaDeUsuarios2.sort(_compareByRating);
+      listaDeUsuarios2.sort(_compareByRating); // Ordena a lista por avaliação
       notifyListeners();
       return listaDeUsuarios2;
     } catch (e) {
-      print('Erro ao buscar usuários: $e');
+      print('Erro ao buscar usuários por categoria: $e');
       return [];
     }
   }

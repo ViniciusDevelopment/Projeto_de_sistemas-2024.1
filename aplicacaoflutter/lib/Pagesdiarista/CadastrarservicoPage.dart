@@ -26,7 +26,6 @@ class _ServiceRegistrationPageState extends State<ServiceRegistrationPage> {
     'Limpeza',
     'Alimentação',
     'Cuidados Pessoais',
-    'Jardinagem'
   ];
 
   Future<void> _cadastrarServico() async {

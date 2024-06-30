@@ -12,7 +12,8 @@ class LoginPage extends StatelessWidget {
 
   Future<void> signInWithEmailAndPassword(BuildContext context) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -61,7 +62,8 @@ class LoginPage extends StatelessWidget {
                     children: <Widget>[
                       const Text(
                         "Login",
-                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),
                       Text(
@@ -75,28 +77,29 @@ class LoginPage extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         inputFile(label: "Email", controller: _emailController),
-                        inputFile(label: "Senha", obscureText: true, controller: _passwordController),
+                        inputFile(
+                            label: "Senha",
+                            obscureText: true,
+                            controller: _passwordController),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: (){
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context){
-                                  return const ForgotPassword();
-                                }));
-                              },
-                              child: Text(
-                                "Esqueceu a senha?",
-                                style: TextStyle(
-                                  color:Colors.grey[700],
-                                  fontWeight: FontWeight.w600, fontSize: 18
-                                  ),
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return const ForgotPassword();
+                                  }));
+                                },
+                                child: Text(
+                                  "Esqueceu a senha?",
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18),
                                 ),
-                            )
-                          ]
-                        ),
-
+                              )
+                            ]),
                       ],
                     ),
                   ),
@@ -119,11 +122,14 @@ class LoginPage extends StatelessWidget {
                         ),
                         child: const Text(
                           "Login",
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.white),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.white),
                         ),
                       ),
                     ),
-                  ),                  
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -132,12 +138,14 @@ class LoginPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SignupPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const SignupPage()),
                           );
                         },
                         child: const Text(
                           "Cadastre-se",
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 18),
                         ),
                       ),
                     ],
@@ -147,7 +155,7 @@ class LoginPage extends StatelessWidget {
                     height: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/background.png"),
+                        image: AssetImage("assets/images/background.png"),
                         fit: BoxFit.fitHeight,
                       ),
                     ),
@@ -163,13 +171,17 @@ class LoginPage extends StatelessWidget {
 }
 
 // Widget personalizado para entrada de texto
-Widget inputFile({required String label, bool obscureText = false, required TextEditingController controller}) {
+Widget inputFile(
+    {required String label,
+    bool obscureText = false,
+    required TextEditingController controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Text(
         label,
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
+        style: const TextStyle(
+            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
       const SizedBox(
         height: 5,
@@ -178,7 +190,8 @@ Widget inputFile({required String label, bool obscureText = false, required Text
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[400]!),
           ),
